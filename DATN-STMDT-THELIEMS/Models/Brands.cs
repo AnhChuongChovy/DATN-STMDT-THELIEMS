@@ -9,5 +9,7 @@
         public bool Status { get; set; } // Tinyint -> bool
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+        public ICollection<Products> Products { get; set; }
+
     }
 }

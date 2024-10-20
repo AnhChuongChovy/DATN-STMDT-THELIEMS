@@ -4,6 +4,7 @@
     {
         public int Id { get; set; }
         public int User_Id { get; set; }
+        public Users Users { get; set; }
         public int Province_Id { get; set; }
         public int District_Id { get; set; }
         public int Ward_Id { get; set; }
