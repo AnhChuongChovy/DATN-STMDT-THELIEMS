@@ -4,6 +4,7 @@
     {
         public int Id { get; set; }
         public int Product_variant_id { get; set; }
+        public Product_variants product_Variants { get; set; }
         public string Image { get; set; }
     }
 }

@@ -4,9 +4,13 @@
     {
         public int Id { get; set; }
         public int CategoryId { get; set; }
+        public Categories Categories { get; set; }
         public int SupplierId { get; set; }
+        public Supplier Supplier { get; set; }
         public int ShopId { get; set; }
+        public Shops Shops { get; set; }
         public int BrandId { get; set; }
+        public Brands Brands { get; set; }
         public string ProductLink { get; set; }
         public string Sku { get; set; }
         public string Name { get; set; }
@@ -18,5 +22,9 @@
         public string MetaKeyword { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+        public ICollection<Product_variants> Product_Variants { get; set; }
+        public ICollection<Product_parts> Product_Parts { get; set; }
+
+
     }
 }
