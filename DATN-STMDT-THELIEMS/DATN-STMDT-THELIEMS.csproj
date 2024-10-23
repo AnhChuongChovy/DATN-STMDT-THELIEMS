@@ -7,4 +7,8 @@
     <RootNamespace>DATN_STMDT_THELIEMS</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\css\Index.css" />
+  </ItemGroup>
+
 </Project>
