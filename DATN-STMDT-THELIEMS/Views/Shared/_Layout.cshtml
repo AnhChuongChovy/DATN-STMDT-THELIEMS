@@ -23,147 +23,28 @@
 
 </head>
 <body>
-    <!-- Top Bar -->
-    <div class="top-bar bg-primary text-white py-2">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-9 col-12 mb-2 mb-md-0">
-                    Khuyến mãi mùa hè cho tất cả đồ bơi và giao hàng nhanh miễn phí – GIẢM 50%!
-                    <a href="#" class="text-white text-decoration-underline">Tới luôn!</a>
-                </div>
-                <div class="col-md-2 col-12 text-md-end text-center">
-                    <div class="dropdown" >
-                        <span class="dropdown-toggle" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="cursor:pointer">
-                            Tiếng Việt
-                        </span>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
-                            <li><a class="dropdown-item" href="#">English</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Main Navbar -->
-    <!-- Bootstrap 5 Main Header -->
-    <header class="main-header bg-white">
-        <div class="container-fluid">
-            <div class="row align-items-center">
-
-                <!-- Logo Section -->
-                <div class="col-md-2 col-12 mb-2 mb-md-0 text-center text-md-start">
-                    <div class="ms-3 mt-3 logo-section d-flex align-items-center justify-content-center justify-content-md-start">
-                        <img src="~/images/logo/logo_stmdt.png" alt="Logo" class="logo" width="150">
-                    </div>
-                </div>
-
-                <!-- Search Bar -->
-                <div class="col-md-7 col-12 mb-2 mb-md-0">
-                    <div class="search-bar d-flex">
-                        <input type="text" class="form-control" placeholder="Giá siêu rẻ">
-                        <button class="btn btn-primary" style="width:120px">Tìm kiếm</button>
-                    </div>
-
-                    <!-- Categories (Responsive) -->
-                    <div class="row">
-                        <div class="col">
-                            <nav class="d-flex flex-wrap justify-content-md-start justify-content-center mt-2">
-                                <a href="#" class="me-3 text-muted text-decoration-none">điện gia dụng</a>
-                                <a href="#" class="me-3 text-muted text-decoration-none">xe cộ</a>
-                                <a href="#" class="me-3 text-muted text-decoration-none">mẹ & bé</a>
-                                <a href="#" class="me-3 text-muted text-decoration-none">khỏe đẹp</a>
-                                <a href="#" class="me-3 text-muted text-decoration-none">nhà cửa</a>
-                                <a href="#" class="me-3 text-muted text-decoration-none">sách</a>
-                                <a href="#" class="me-3 text-muted text-decoration-none">thể thao</a>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-
-                
-
-                <!-- Navigation Icons -->
-                <div class="col text-center text-md-end" id="Menu_Navigation">
-                    <div class="nav-icons d-flex justify-content-md-end justify-content-center">
-                        <a href="#" class="text-decoration-none text-center">
-                            <i class="bi bi-question-circle-fill d-block fs-4 text-primary"></i>
-                            <span>Hỗ trợ</span>
-                        </a>
-                        <a href="#" class="text-decoration-none text-center d-block">
-                            <i class="bi bi-bell-fill d-block fs-4 text-primary"></i>
-                            <span>Thông báo</span>
-                        </a>
-                        <a href="#" class="text-decoration-none text-center">
-                            <i class="bi bi-person-fill d-block fs-4 text-primary"></i>
-                            <span>Tài khoản</span>
-                        </a>
-                        <a href="#" class="text-decoration-none text-center">
-                            <i class="bi bi-cart-fill d-block fs-4 text-primary"></i>
-                            <span>Giỏ hàng</span>
-                        </a>
-                    </div>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">DATN_STMDT_THELIEMS</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-        </div>
-
-        <!-- Delivery Address -->
-        <div class="row">
-            <div class="col text-md-end">
-                <span class="text-muted">
-                    <i class="bi bi-geo-alt-fill"></i> Giao đến:
-                </span>
-                <a href="#" class="text-dark">D 22, P Thạnh, Cái Răng, Cần Thơ</a>
-            </div>
-        </div>
-
-</header>
-    <hr />
-
-    <!-- Commitment Section -->
-    <div class="container-fluid">
-        <div class="row text-center">
-            <div class="col-md-2 col-6">
-                <div class="d-flex align-items-center justify-content-center" style="cursor:pointer">
-                    <i class="bi bi-check-circle-fill text-primary fs-5 me-2"></i>
-                    <span>100% Hàng thật</span>
-                </div>
-            </div>
-            <div class="col-md-2 col-6">
-                <div class="d-flex align-items-center justify-content-center" style="cursor:pointer">
-                    <i class="bi bi-truck text-primary fs-5 me-2"></i>
-                    <span>Freeship mọi đơn</span>
-                </div>
-            </div>
-            <div class="col-md-2 col-6">
-                <div class="d-flex align-items-center justify-content-center" style="cursor:pointer">
-                    <i class="bi bi-currency-exchange text-primary fs-5 me-2"></i>
-                    <span>Hoàn 200% nếu hàng giả</span>
-                </div>
-            </div>
-            <div class="col-md-2 col-6">
-                <div class="d-flex align-items-center justify-content-center" style="cursor:pointer">
-                    <i class="bi bi-arrow-repeat text-primary fs-5 me-2"></i>
-                    <span>30 ngày đổi trả</span>
-                </div>
-            </div>
-            <div class="col-md-2 col-6">
-                <div class="d-flex align-items-center justify-content-center" style="cursor:pointer">
-                    <i class="bi bi-lightning-fill text-primary fs-5 me-2"></i>
-                    <span>Giao hàng siêu nhanh</span>
-                </div>
-            </div>
-            <div class="col-md-2 col-6">
-                <div class="d-flex align-items-center justify-content-center" style="cursor:pointer">
-                    <i class="bi bi-tags-fill text-primary fs-5 me-2"></i>
-                    <span>Giá siêu rẻ</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <hr />
-
-    <div class="">
+        </nav>
+    </header>
+    <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
