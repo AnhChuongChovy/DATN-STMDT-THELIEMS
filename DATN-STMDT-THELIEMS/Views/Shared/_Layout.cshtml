@@ -13,6 +13,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    <!-- css -->
+    <link href="~/css/Layout.css" rel="stylesheet">
 
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -45,13 +47,13 @@
 
     <!-- Main Navbar -->
     <!-- Bootstrap 5 Main Header -->
-    <header class="main-header py-3 bg-white">
+    <header class="main-header bg-white">
         <div class="container-fluid">
             <div class="row align-items-center">
 
                 <!-- Logo Section -->
                 <div class="col-md-2 col-12 mb-2 mb-md-0 text-center text-md-start">
-                    <div class="ms-3 logo-section d-flex align-items-center justify-content-center justify-content-md-start">
+                    <div class="ms-3 mt-3 logo-section d-flex align-items-center justify-content-center justify-content-md-start">
                         <img src="~/images/logo/logo_stmdt.png" alt="Logo" class="logo" width="150">
                     </div>
                 </div>
@@ -79,6 +81,21 @@
                             </nav>
                         </div>
                     </div>
+
+                    <!-- Categories (Responsive) -->
+                    <div class="row">
+                        <div class="col">
+                            <nav class="d-flex flex-wrap justify-content-md-start justify-content-center mt-2">
+                                <a href="#" class="me-3 text-muted text-decoration-none">điện gia dụng</a>
+                                <a href="#" class="me-3 text-muted text-decoration-none">xe cộ</a>
+                                <a href="#" class="me-3 text-muted text-decoration-none">mẹ & bé</a>
+                                <a href="#" class="me-3 text-muted text-decoration-none">khỏe đẹp</a>
+                                <a href="#" class="me-3 text-muted text-decoration-none">nhà cửa</a>
+                                <a href="#" class="me-3 text-muted text-decoration-none">sách</a>
+                                <a href="#" class="me-3 text-muted text-decoration-none">thể thao</a>
+                            </nav>
+                        </div>
+                    </div>
                 </div>
 
 
@@ -86,20 +103,20 @@
                 <!-- Navigation Icons -->
                 <div class="col text-center text-md-end mb-sm-1" id="Menu_Navigation">
                     <div class="nav-icons d-flex justify-content-md-end justify-content-center">
-                        <a href="#" class="me-3 text-decoration-none text-dark text-center">
-                            <i class="bi bi-question-circle-fill d-block fs-3 text-primary"></i>
+                        <a href="#" class="text-decoration-none text-center">
+                            <i class="bi bi-question-circle-fill d-block fs-4 text-primary"></i>
                             <span>Hỗ trợ</span>
                         </a>
-                        <a href="#" class="me-3 text-decoration-none text-dark text-center">
-                            <i class="bi bi-bell-fill d-block fs-3 text-primary"></i>
+                        <a href="#" class="text-decoration-none text-center d-block">
+                            <i class="bi bi-bell-fill d-block fs-4 text-primary"></i>
                             <span>Thông báo</span>
                         </a>
-                        <a href="#" class="me-3 text-decoration-none text-dark text-center">
-                            <i class="bi bi-person-fill d-block fs-3 text-primary"></i>
+                        <a href="#" class="text-decoration-none text-center">
+                            <i class="bi bi-person-fill d-block fs-4 text-primary"></i>
                             <span>Tài khoản</span>
                         </a>
-                        <a href="#" class="me-3 text-decoration-none text-dark text-center">
-                            <i class="bi bi-cart-fill d-block fs-3 text-primary"></i>
+                        <a href="#" class="text-decoration-none text-center">
+                            <i class="bi bi-cart-fill d-block fs-4 text-primary"></i>
                             <span>Giỏ hàng</span>
                         </a>
                     </div>
@@ -198,7 +215,7 @@
                         <li>Chính sách bảo mật thông tin cá nhân</li>
                         <li>Chính sách giải quyết khiếu nại</li>
                         <li>Điều khoản sử dụng</li>
-                        <li>Tiếp thị liên kết cùng Tiki</li>
+                        <li>Tiếp thị liên kết cùng OnMarks</li>
                         <li>Bán hàng doanh nghiệp</li>
                         <li>Điều kiện vận chuyển</li>
                     </ul>
@@ -216,21 +233,30 @@
                 <!-- Phương thức thanh toán -->
                 <div class="col-lg-2 col-md-6 mb-4">
                     <h6 class="fw-bold">Phương thức thanh toán</h6>
-                    <ul class="list-unstyled d-flex">
-                        <li><img src="https://logos-world.net/wp-content/uploads/2020/04/Visa-Emblem.jpg" alt="Visa" class="me-2" width="40"></li>
-                        <li><img src="https://seeklogo.com/images/M/momo-logo-ED8A3A0DF2-seeklogo.com.png" alt="Momo" class="me-2" width="40"></li>
-                        <li><img src="https://cardtot.com/wp-content/uploads/2020/01/zalopay.png" alt="ZaloPay" class="me-2" width="40"></li>
-                        <!-- Add other payment logos similarly -->
+                    <ul class="list-unstyled d-flex flex-wrap">
+
+                        <li><a href="#"><img src="/images/logo/visa.png" alt="Visa" class="me-3 mb-2" width="40"></a></li>
+                        <li><a href="#"><img src="/images/logo/momo.png" alt="Momo" class="me-3 mb-2" width="40"></a></li>
+                        <li><a href="#"><img src="/images/logo/zalo_pay.png" alt="ZaloPay" class="me-3 mb-2" width="40"></a></li>
+
+                        <!-- Force Vnpay to next line -->
+                        <li class="w-100"></li>
+
+                        <li><a href="#"><img src="/images/logo/vnpay.png" alt="Vnpay" class="me-3 mb-2" width="40"></a></li>
+                        <li><a href="#"><img src="/images/logo/vitettel_monney.png" alt="Vitettel Monney" class="me-3 mb-2" width="40"></a></li>
+                        <li><a href="#"><img src="/images/logo/visa2.png" alt="visa2" class="me-3 mb-2" width="40"></a></li>
+
                     </ul>
                 </div>
+
 
                 <!-- Kết nối với chúng tôi -->
                 <div class="col-lg-2 col-md-6 mb-4">
                     <h6 class="fw-bold">Kết nối với chúng tôi</h6>
                     <ul class="list-unstyled d-flex">
-                        <li><a href="#"><img src="https://lp-philibert-de-l-orme.fr/wp-content/uploads/2022/04/facebook-logo-3-1-1024x1024.png" alt="Facebook" width="40" class="me-2"></a></li>
-                        <li><a href="#"><img src="https://www.abenoharukas-300.jp/images2/icon_youtube.png" alt="YouTube" width="40" class="me-2"></a></li>
-                        <li><a href="#"><img src="https://1000logos.net/wp-content/uploads/2022/02/Zalo-Logo-2048x1152.png" alt="Zalo" width="40" class="me-2"></a></li>
+                        <li><a href="#"><img src="/images/logo/fb.png" alt="Facebook" width="40" class="me-3"></a></li>
+                        <li><a href="#"><img src="/images/logo/youbute.png" alt="YouTube" width="40" class="me-3"></a></li>
+                        <li><a href="#"><img src="/images/logo/zalo.png" alt="Zalo" width="40" class="me-3"></a></li>
                     </ul>
                 </div>
             </div>
@@ -239,8 +265,8 @@
             <div class="row pt-3 border-top">
                 <div class="col-12 text-center">
                     <p class="small text-muted mb-0">
-                        Trụ sở chính: Tòa nhà Viettel, Số 285, đường Cách Mạng Tháng 8, phường 12, quận 10, Thành phố Hồ Chí Minh <br>
-                        © 2022 - Bản quyền của Công ty TNHH Ti Ki
+                        Trụ sở chính: Toà nhà FPT Polytechnic, Đ. Số 22, Thường Thạnh, Cái Răng, Cần Thơ, Việt Nam <br>
+                        © 2024 - Bản quyền của Công ty TNHH OnMarks
                     </p>
                 </div>
             </div>
@@ -250,6 +276,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
     <!-- Bootstrap JS (for carousel functionality) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
