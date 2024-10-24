@@ -1,0 +1,16 @@
+﻿#Menu_Navigation a {
+    max-width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: transparent;
+    transition: background-color 0.5s ease 0s;
+    color: black;
+    transition: color 0.5s ease 0s;
+
+}
+
+#Menu_Navigation a:hover {
+    background-color: #EAEAEA ;
+    color: #007bff;
+    border-radius: 10%;
+}  
