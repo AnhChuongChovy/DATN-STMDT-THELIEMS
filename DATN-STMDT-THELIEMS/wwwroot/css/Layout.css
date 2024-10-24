@@ -6,17 +6,17 @@
     transition: background-color 0.5s ease 0s;
     color: black;
     transition: color 0.5s ease 0s;
-    
+
 }
     #Menu_Navigation span{
         font-size: 13px;
     }
 
-    #Menu_Navigation a:hover {
+#Menu_Navigation a:hover {
         background-color: #EAEAEA;
-        color: #007bff;
-        border-radius: 10%;
-    }
+    color: #007bff;
+    border-radius: 10%;
+}  
 
 /*    Commitment selection*/
 
