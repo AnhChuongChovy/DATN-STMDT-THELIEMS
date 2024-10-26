@@ -17,10 +17,6 @@ namespace DATN_STMDT_THELIEMS.Controllers
         {
             return View();
         }
-        public IActionResult ShopView()
-        {
-            return View();
-        }
 
         public IActionResult Privacy()
         {
