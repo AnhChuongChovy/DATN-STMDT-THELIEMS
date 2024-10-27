@@ -22,6 +22,26 @@ namespace DATN_STMDT_THELIEMS.Controllers
             return View();
         }
 
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        public IActionResult ShopCart()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();

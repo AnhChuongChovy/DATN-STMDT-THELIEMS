@@ -1,0 +1,136 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+<head>
+    <title>Giỏ hàng</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/site.css">
+
+</head>
+<body>
+    <div class="container my-3">
+        <h2 class="text-left mb-3"><i class="bi bi-basket2"></i> GIỎ HÀNG</h2>
+        <div class="row">
+            <div class="col-lg-8 mb-4">
+                <div class="card p-3">
+                    <div class="row mb-3 fw-bold text-center">
+                        <div class="col-md-5 text-start">Sản phẩm</div>
+                        <div class="col-md-2">Đơn giá</div>
+                        <div class="col-md-2">Số lượng</div>
+                        <div class="col-md-2">Thành tiền</div>
+                        <div class="col-md-1">Xóa</div>
+                    </div>
+
+                    <div class="row align-items-center mb-3 text-center">
+                        <div class="col-md-5 text-start d-flex">
+                            <input class="form-check-input me-2" type="checkbox" checked>
+                            <div>
+                                <h5 class="mb-0">Coffee Tree Official Store</h5>
+                                <p class="text-muted small mb-0">Cà phê hạt Arabica Cầu Đất nguyên chất 100% Coffee Tree 1kg</p>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <span class="fw-bold text-danger">129.000₫</span> <br>
+                            <small class="text-muted text-decoration-line-through">199.000₫</small>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="number" value="1" class="form-control" min="1">
+                        </div>
+                        <div class="col-md-2">
+                            <span class="fw-bold text-danger">129.000₫</span>
+                        </div>
+                        <div class="col-md-1">
+                            <button class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center mb-3 text-center">
+                        <div class="col-md-5 text-start d-flex">
+                            <input class="form-check-input me-2" type="checkbox" checked>
+                            <div>
+                                <h5 class="mb-0">Sách Nhà Huỳnh Books</h5>
+                                <p class="text-muted small mb-0">Nhà Giả Kim (Tái Bản 2020)</p>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <span class="fw-bold text-danger">113.000₫</span> <br>
+                            <small class="text-muted text-decoration-line-through">179.000₫</small>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="number" value="1" class="form-control" min="1">
+                        </div>
+                        <div class="col-md-2">
+                            <span class="fw-bold text-danger">113.000₫</span>
+                        </div>
+                        <div class="col-md-1">
+                            <button class="btn btn-outline-danger btn-sm"><i class="bi bi-trash"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card p-3">
+                    <div class="row mb-2">
+                        <div class="col-md-7 text-start">Địa chỉ giao hàng</div>
+                        <div class="col-md-5 text-end"><a href="">Thay đổi địa chỉ</a></div>
+                    </div>
+                    <p><strong>Người nhận:</strong> Bá Hiếu</p>
+                    <p><strong>Số điện thoại:</strong> 0835763407</p>
+                    <p><strong>Địa chỉ:</strong> KV5, P. Châu Văn Liêm, Q. Ômôn, TP. Cần Thơ</p>
+
+                    <hr>
+
+                    <h5 class="mb-3">Mã khuyến mãi</h5>
+                    <div class="mb-3">
+                        <div class="card p-3 d-flex align-items-center justify-content-between mb-2">
+                            <div class="d-flex align-items-center">
+                                <img src="https://via.placeholder.com/40" alt="Tiki Icon" class="me-3">
+                                <span>Giảm 4% tối đa 50.000₫ cho đơn hàng trên 300.000₫</span>
+                                <button class="btn btn-primary">Xóa</button>
+                            </div>
+                        </div>
+                        <div class="card p-3 d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center">
+                                <img src="https://via.placeholder.com/40" alt="Freeship Icon" class="me-4">
+                                <span>Giảm 99k phí vận chuyển cho đơn từ 100k</span>
+                                <button class="btn btn-primary">Xóa</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <h5>Tóm Tắt</h5>
+                    <ul class="list-group mb-3">
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Tạm tính</span>
+                            <strong>355.000₫</strong>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Giảm giá từ Deal</span>
+                            <strong>-1.000₫</strong>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Giảm giá từ mã khuyến mãi</span>
+                            <strong>-12.000₫</strong>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span>Phí vận chuyển</span>
+                            <strong>0₫</strong>
+                        </li>
+                    </ul>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="h4">Tổng tiền:</span>
+                        <span class="h4 text-danger">113.000₫</span>
+                    </div>
+
+                    <button class="btn btn-danger w-100 mt-3">Thanh Toán</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
