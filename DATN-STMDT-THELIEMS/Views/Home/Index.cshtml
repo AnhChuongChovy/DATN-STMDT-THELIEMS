@@ -953,9 +953,46 @@
         // Thêm lớp active cho danh mục được chọn
         element.classList.add('active-category');
     }
+    /* style product card của trường  */
+    .original-price {
+        font-size: 1rem;
+        text-decoration: line-through;
+        color: #6c757d;
+    }
 
-    // Hiển thị danh mục mặc định
-    document.addEventListener("DOMContentLoaded", function () {
-        showCategory('danh-cho-ban', document.querySelector(".category-item"));
-    });
-</script>
+    .card-img-top {
+        width: 200px; /* Đặt chiều ngang cố định */
+        height: 250px; /* Đặt chiều cao cố định */
+        object-fit: cover; /* Cắt ảnh để vừa khung */
+        margin: 0 auto; /* Căn giữa ảnh nếu chiều ngang cố định nhỏ hơn chiều ngang thẻ chứa */
+    }
+
+    .similar-product-name {
+        font-size: 16px;
+        color: #333;
+        margin-bottom: 5px;
+    }
+
+    .similar-product-price {
+        font-size: 18px;
+        color: #ff4500;
+    }
+
+    /* css của trường */
+    .category-menu {
+        padding: 20px;
+        background-color: #fff; /* Nền màu trắng */
+        border-radius: 10px;
+        margin-bottom: 20px;
+        text-align: center;
+        border: 2px solid #dee2e6; /* Thêm khung */
+    }
+
+    .category-item {
+        width: 23%;
+        display: inline-block;
+        margin: 0 10px;
+        transition: all 0.3s ease; /* Hiệu ứng khi hover */
+    }
+
+</style>
