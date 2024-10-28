@@ -32,17 +32,18 @@ namespace DATN_STMDT_THELIEMS.DATA
         public DbSet<Variant_values> VARIANT_VALUES { get; set; }
         public DbSet<Voucher> VOUCHERS { get; set; }
 
+
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-   //         modelBuilder.Entity<Role_Permission>()
-   //             .HasOne(x => x.Permission)
-   //             .WithMany(c => c.Role_Permissions)
-   //             .HasForeignKey(x => x.Permission_id);
+            modelBuilder.Entity<Role_Permission>()
+                .HasOne(x => x.Permission)
+                .WithMany(c => c.Role_Permissions)
+                .HasForeignKey(x => x.Permission_id);
 
-			//modelBuilder.Entity<Role_Permission>()
-			//	.HasOne(x => x.Role)
-			//	.WithMany(c => c.Role_Permissions)
-			//	.HasForeignKey(x => x.Role_id);
+			modelBuilder.Entity<Role_Permission>()
+				.HasOne(x => x.Role)
+				.WithMany(c => c.Role_Permissions)
+				.HasForeignKey(x => x.Role_id);
 
 			modelBuilder.Entity<Users>()
 				.HasOne(x => x.Role)
@@ -50,44 +51,49 @@ namespace DATN_STMDT_THELIEMS.DATA
 				.HasForeignKey(x => x.Role_id);
 
 			modelBuilder.Entity<Users>()
+                .HasOne(x => x.Role)
+                .WithMany(c => c.Users)
+                .HasForeignKey(x => x.Role_id);
+
+			modelBuilder.Entity<Users>()
 				.HasOne(x => x.Shops)
 				.WithOne(c => c.Users)
 				.HasForeignKey<Shops>(x => x.User_id);
 
-			modelBuilder.Entity<Delivery_address>()
-                .HasOne(x => x.Users)
-                .WithMany(c => c.Delivery_Addresses)
-                .HasForeignKey(x => x.User_id);
+			modelBuilder.Entity<Product_review>()
+				.HasOne(x => x.User)
+				.WithMany(c => c.Product_Reviews)
+				.HasForeignKey(x => x.User_id);
+
+			modelBuilder.Entity<Product_review>()
+				.HasOne(p => p.Order_details)
+				.WithMany(b => b.Product_Reviews)
+				.HasForeignKey(p => p.Order_detail_id);
+
+			modelBuilder.Entity<Review_media>()
+				.HasOne(x => x.product_Review)
+				.WithMany(c => c.Review_Medias)
+				.HasForeignKey(x => x.Review_id);
 
 			modelBuilder.Entity<User_shop_follow>()
 				.HasOne(x => x.Shops)
 				.WithMany(c => c.User_Shop_Follows)
-				.HasForeignKey(x => x.Shop_id)
-				.OnDelete(DeleteBehavior.NoAction);
+				.HasForeignKey(x => x.Shop_id);
 
 			modelBuilder.Entity<User_shop_rating>()
 				.HasOne(x => x.Shops)
 				.WithMany(c => c.User_Shop_Ratings)
-				.HasForeignKey(x => x.Shop_id)
-				.OnDelete(DeleteBehavior.NoAction);
+				.HasForeignKey(x => x.Shop_id);
 
 			modelBuilder.Entity<User_shop_follow>()
 				.HasOne(x => x.Users)
 				.WithMany(c => c.User_Shop_Follows)
-				.HasForeignKey(x => x.User_id)
-				.OnDelete(DeleteBehavior.NoAction);
+				.HasForeignKey(x => x.User_id);
 
 			modelBuilder.Entity<User_shop_rating>()
 				.HasOne(x => x.Users)
 				.WithMany(c => c.User_Shop_Ratings)
-				.HasForeignKey(x => x.User_id)
-				.OnDelete(DeleteBehavior.NoAction);
-
-			modelBuilder.Entity<Categories>()
-			.HasOne(c => c.Parent)
-			.WithMany()
-			.HasForeignKey(c => c.Parent_id)
-			.OnDelete(DeleteBehavior.NoAction);
+				.HasForeignKey(x => x.User_id);
 
 			modelBuilder.Entity<Products>()
 				.HasOne(p => p.Categories)
@@ -119,6 +125,11 @@ namespace DATN_STMDT_THELIEMS.DATA
 				.WithMany(b => b.Product_Part_Images)
 				.HasForeignKey(p => p.Product_part_id);
 
+			modelBuilder.Entity<Variant_values>()
+				.HasOne(p => p.Variant_Options)
+				.WithMany(b => b.Variant_values)
+				.HasForeignKey(p => p.Variant_option_id);
+
 			modelBuilder.Entity<Product_variant_option>()
 				.HasOne(p => p.variant_values)
 				.WithMany(b => b.Product_Variant_Options)
@@ -134,15 +145,15 @@ namespace DATN_STMDT_THELIEMS.DATA
 				.WithMany(b => b.Product_Variants)
 				.HasForeignKey(p => p.Product_id);
 
-			//modelBuilder.Entity<Product_Image>()
-			//	.HasOne(p => p.product_Variants)
-			//	.WithMany(b => b.Product_Images)
-			//	.HasForeignKey(p => p.Product_variant_id);
+			modelBuilder.Entity<Product_Image>()
+				.HasOne(p => p.product_Variants)
+				.WithMany(b => b.Product_Images)
+				.HasForeignKey(p => p.Product_variant_id);
 
 			modelBuilder.Entity<Orders>()
 				.HasOne(p => p.Users)
 				.WithMany(b => b.Orders)
-				.HasForeignKey(p => p.User_id);
+				.HasForeignKey(p => p.Use_id);
 
 			modelBuilder.Entity<Orders>()
 				.HasOne(p => p.Voucher)
@@ -164,25 +175,6 @@ namespace DATN_STMDT_THELIEMS.DATA
 				.WithMany(b => b.Order_Details)
 				.HasForeignKey(p => p.Product_variant_id);
 
-			modelBuilder.Entity<Product_review>()
-				.HasOne(x => x.User)
-				.WithMany(c => c.Product_Reviews)
-				.HasForeignKey(x => x.User_id);
-
-			modelBuilder.Entity<Product_review>()
-				.HasOne(p => p.Order_details)
-				.WithMany(b => b.Product_Reviews)
-				.HasForeignKey(p => p.Order_detail_id);
-
-			modelBuilder.Entity<Review_media>()
-				.HasOne(x => x.product_Review)
-				.WithMany(c => c.Review_Medias)
-				.HasForeignKey(x => x.Review_id);
-
-			modelBuilder.Entity<Variant_values>()
-				.HasOne(p => p.Variant_Options)
-				.WithMany(b => b.Variant_values)
-				.HasForeignKey(p => p.Variant_option_id);
 		}
 
 	}
