@@ -9,6 +9,50 @@
 
   <ItemGroup>
     <None Include="wwwroot\css\Index.css" />
+    <None Include="wwwroot\images\aoden.webp" />
+    <None Include="wwwroot\images\aosm1.webp" />
+    <None Include="wwwroot\images\aosm2.webp" />
+    <None Include="wwwroot\images\aosm3.webp" />
+    <None Include="wwwroot\images\aosoc.webp" />
+    <None Include="wwwroot\images\aotrangkem.webp" />
+    <None Include="wwwroot\images\hottrend1.webp" />
+    <None Include="wwwroot\images\hottrend2.webp" />
+    <None Include="wwwroot\images\hottrend3.webp" />
+    <None Include="wwwroot\images\hottrend4.webp" />
+    <None Include="wwwroot\images\hottrend5.webp" />
+    <None Include="wwwroot\images\hottrend6.webp" />
+    <None Include="wwwroot\images\hottrend7.webp" />
+    <None Include="wwwroot\images\hottrend8.webp" />
+    <None Include="wwwroot\images\iconbanchay.webp" />
+    <None Include="wwwroot\images\icondanhchoban.webp" />
+    <None Include="wwwroot\images\imgqc.webp" />
+    <None Include="wwwroot\images\logoowen.webp" />
+    <None Include="wwwroot\images\sale1.webp" />
+    <None Include="wwwroot\images\sale2.webp" />
+    <None Include="wwwroot\images\sale3.webp" />
+    <None Include="wwwroot\images\sale4.webp" />
+    <None Include="wwwroot\images\sale5.webp" />
+    <None Include="wwwroot\images\sale6.webp" />
+    <None Include="wwwroot\images\sale7.webp" />
+    <None Include="wwwroot\images\sale8.webp" />
+    <None Include="wwwroot\images\sptt1.webp" />
+    <None Include="wwwroot\images\sptt10.webp" />
+    <None Include="wwwroot\images\sptt2.webp" />
+    <None Include="wwwroot\images\sptt3.webp" />
+    <None Include="wwwroot\images\sptt4.webp" />
+    <None Include="wwwroot\images\sptt5.webp" />
+    <None Include="wwwroot\images\sptt6.webp" />
+    <None Include="wwwroot\images\sptt7.webp" />
+    <None Include="wwwroot\images\sptt8.webp" />
+    <None Include="wwwroot\images\sptt9.webp" />
+    <None Include="wwwroot\images\topdeal1.webp" />
+    <None Include="wwwroot\images\topdeal2.webp" />
+    <None Include="wwwroot\images\topdeal3.webp" />
+    <None Include="wwwroot\images\topdeal4.webp" />
+    <None Include="wwwroot\images\topdeal5.webp" />
+    <None Include="wwwroot\images\topdeal6.webp" />
+    <None Include="wwwroot\images\topdeal7.webp" />
+    <None Include="wwwroot\images\topdeal8.webp" />
   </ItemGroup>
 
 </Project>
