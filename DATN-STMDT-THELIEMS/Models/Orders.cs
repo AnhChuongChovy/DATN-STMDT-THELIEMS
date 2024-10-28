@@ -20,8 +20,8 @@
         public DateTime? PaymentTime { get; set; } 
         public decimal DiscountAmount { get; set; }
         public decimal ShippingCost { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
+        public DateTime Created_at { get; set; }
+        public DateTime Updated_at { get; set; }
         public ICollection<Order_details> Order_Details { get; set; }
 
     }

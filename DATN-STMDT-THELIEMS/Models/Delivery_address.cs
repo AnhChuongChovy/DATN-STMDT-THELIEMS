@@ -10,8 +10,8 @@
         public int Ward_Id { get; set; }
         public string FullAddress { get; set; }
         public byte Status { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
+        public DateTime Created_at { get; set; }
+        public DateTime Updated_at { get; set; }
         
     }
 }
