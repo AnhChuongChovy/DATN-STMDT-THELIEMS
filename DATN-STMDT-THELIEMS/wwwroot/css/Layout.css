@@ -6,25 +6,14 @@
     transition: background-color 0.5s ease 0s;
     color: black;
     transition: color 0.5s ease 0s;
-
+    
 }
     #Menu_Navigation span{
         font-size: 13px;
     }
 
 #Menu_Navigation a:hover {
-        background-color: #EAEAEA;
+    background-color: #EAEAEA ;
     color: #007bff;
     border-radius: 10%;
 }  
-
-/*    Commitment selection*/
-
-#Commitment .align-items-center {
-    color: black;
-    transition: color 0.3s ease 0s;
-    cursor: pointer;
-}
-    #Commitment .align-items-center:hover {
-        color: #007bff;
-    }
