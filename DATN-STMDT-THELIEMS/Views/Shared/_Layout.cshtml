@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-   @*  <meta name="viewport" content="width=device-width, initial-scale=1.0" /> *@
+    @*  <meta name="viewport" content="width=device-width, initial-scale=1.0" /> *@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@ViewData["Title"] - DATN_STMDT_THELIEMS</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
@@ -14,7 +14,11 @@
     <!-- Bootstrap Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
 
-   
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
 </head>
 <body>
     <!-- Top Bar -->
@@ -25,8 +29,15 @@
                     Khuyến mãi mùa hè cho tất cả đồ bơi và giao hàng nhanh miễn phí – GIẢM 50%!
                     <a href="#" class="text-white text-decoration-underline">Tới luôn!</a>
                 </div>
-                <div class="col-md-2 col-12 text-md-end text-center" >
-                    Tiếng Việt
+                <div class="col-md-2 col-12 text-md-end text-center">
+                    <div class="dropdown">
+                        <span class="dropdown-toggle" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="cursor:pointer">
+                            Tiếng Việt
+                        </span>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+                            <li><a class="dropdown-item" href="#">English</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -46,15 +57,34 @@
                 </div>
 
                 <!-- Search Bar -->
-                <div class="col-md-7 col-12 mb-2 mb-md-0">
-                    <div class="search-bar d-flex">
-                        <input type="text" class="form-control" placeholder="Giá siêu rẻ">
-                        <button class="btn btn-primary" style="width:120px">Tìm kiếm</button>
+                <div class="col-md-6 col-12 mb-2 mb-md-0">
+                    <form class="d-flex w-100">
+                        <div class="search-bar input-group">
+                            <input type="text" class="form-control" placeholder="Giá siêu rẻ" aria-label="Search" aria-describedby="button-addon2">
+                            <button class="btn btn-primary" type="button" id="button-addon2" style="width:100px">Tìm kiếm</button>
+                        </div>
+                    </form>
+
+                    <!-- Categories (Responsive) -->
+                    <div class="row">
+                        <div class="col">
+                            <nav class="d-flex flex-wrap justify-content-md-start justify-content-center mt-2">
+                                <a href="#" class="me-3 text-muted text-decoration-none">điện gia dụng</a>
+                                <a href="#" class="me-3 text-muted text-decoration-none">xe cộ</a>
+                                <a href="#" class="me-3 text-muted text-decoration-none">mẹ & bé</a>
+                                <a href="#" class="me-3 text-muted text-decoration-none">khỏe đẹp</a>
+                                <a href="#" class="me-3 text-muted text-decoration-none">nhà cửa</a>
+                                <a href="#" class="me-3 text-muted text-decoration-none">sách</a>
+                                <a href="#" class="me-3 text-muted text-decoration-none">thể thao</a>
+                            </nav>
+                        </div>
                     </div>
                 </div>
 
+
+
                 <!-- Navigation Icons -->
-                <div class="col-md-3 col-12 text-center text-md-end">
+                <div class="col text-center text-md-end mb-sm-1" id="Menu_Navigation">
                     <div class="nav-icons d-flex justify-content-md-end justify-content-center">
                         <a href="#" class="me-3 text-decoration-none text-dark text-center">
                             <i class="bi bi-question-circle-fill d-block fs-3 text-primary"></i>
@@ -75,55 +105,63 @@
                     </div>
                 </div>
             </div>
+            <!-- Delivery Address -->
+            <div class="row py-0 my-0">
+                <div class="col text-end">
+                    <span class="text-muted">
+                        <i class="bi bi-geo-alt-fill"></i> Giao đến:
+                    </span>
+                    <a href="#" class="text-dark">D 22, P Thạnh, Cái Răng, Cần Thơ</a>
+                </div>
+            </div>
         </div>
     </header>
-    <hr />
-
+    <hr class="py-0 mb-3 mt-1" />
     <!-- Commitment Section -->
-    <div class="container-fluid">
+    <div class="container-fluid" id="Commitment">
         <div class="row text-center">
             <div class="col-md-2 col-6">
                 <div class="d-flex align-items-center justify-content-center">
-                    <i class="bi bi-check-circle-fill text-primary fs-4 me-2"></i>
+                    <i class="bi bi-check-circle-fill text-primary fs-5 me-2"></i>
                     <span>100% Hàng thật</span>
                 </div>
             </div>
             <div class="col-md-2 col-6">
                 <div class="d-flex align-items-center justify-content-center">
-                    <i class="bi bi-truck text-primary fs-4 me-2"></i>
+                    <i class="bi bi-truck text-primary fs-5 me-2"></i>
                     <span>Freeship mọi đơn</span>
                 </div>
             </div>
             <div class="col-md-2 col-6">
                 <div class="d-flex align-items-center justify-content-center">
-                    <i class="bi bi-currency-exchange text-primary fs-4 me-2"></i>
+                    <i class="bi bi-currency-exchange text-primary fs-5 me-2"></i>
                     <span>Hoàn 200% nếu hàng giả</span>
                 </div>
             </div>
             <div class="col-md-2 col-6">
                 <div class="d-flex align-items-center justify-content-center">
-                    <i class="bi bi-arrow-repeat text-primary fs-4 me-2"></i>
+                    <i class="bi bi-arrow-repeat text-primary fs-5 me-2"></i>
                     <span>30 ngày đổi trả</span>
                 </div>
             </div>
             <div class="col-md-2 col-6">
                 <div class="d-flex align-items-center justify-content-center">
-                    <i class="bi bi-lightning-fill text-primary fs-4 me-2"></i>
+                    <i class="bi bi-lightning-fill text-primary fs-5 me-2"></i>
                     <span>Giao hàng siêu nhanh</span>
                 </div>
             </div>
             <div class="col-md-2 col-6">
                 <div class="d-flex align-items-center justify-content-center">
-                    <i class="bi bi-tags-fill text-primary fs-4 me-2"></i>
+                    <i class="bi bi-tags-fill text-primary fs-5 me-2"></i>
                     <span>Giá siêu rẻ</span>
                 </div>
             </div>
         </div>
     </div>
-    <hr />
+    <hr class="py-0 mb-0 mt-3" />
 
     <div class="">
-        <main role="main" class="pb-3">
+        <main role="main">
             @RenderBody()
         </main>
     </div>
@@ -133,6 +171,7 @@
             &copy; 2024 - DATN_STMDT_THELIEMS - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
