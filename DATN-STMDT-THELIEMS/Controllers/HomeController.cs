@@ -42,6 +42,11 @@ namespace DATN_STMDT_THELIEMS.Controllers
             return View();
         }
 
+        public IActionResult UserInfo()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();
