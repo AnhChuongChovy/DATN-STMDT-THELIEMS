@@ -7,9 +7,9 @@
         public Products Products { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public DateTime Created_at { get; set; }
-        public DateTime Updated_at { get; set; }
-        public ICollection<Product_part_image> Product_Part_Images { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
+        public ICollection<Review_media> Review_Medias { get; set; }
 
     }
 }
