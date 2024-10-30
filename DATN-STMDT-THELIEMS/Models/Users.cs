@@ -5,16 +5,16 @@
         public int Id { get; set; }
         public int Role_id { get; set; }
         public Role Role { get; set; }
-        public bool IsSeller { get; set; }
+        public byte? Is_seller { get; set; }
         public string Password { get; set; }
-        public string FullName { get; set; }
-        public string Gender { get; set; }
-        public string Birthday { get; set; }
+        public string Full_name { get; set; }
+        public string? Gender { get; set; }
+        public string? Birthday { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
-        public string Image { get; set; }
-        public DateTime Created_at { get; set; }
-        public DateTime Updated_at { get; set; }
+        public string? Image { get; set; }
+        public DateTime? Created_at { get; set; }
+        public DateTime? Updated_at { get; set; }
         public Shops Shops { get; set; }
         public ICollection<Orders> Orders { get; set; }
         public ICollection<Voucher> Vouchers { get; set; }
