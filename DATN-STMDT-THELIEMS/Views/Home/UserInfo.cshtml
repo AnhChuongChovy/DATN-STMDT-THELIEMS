@@ -2,42 +2,32 @@
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thông tin tài khoản</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="userinfo.css">
 </head>
 
 <body>
     <div class="container mt-4">
         <div class="row">
-            <!-- Sidebar -->
             <div class="col-md-3">
                 <div class="d-flex flex-column align-items-center text-center">
-                    <img src="../PC05852_NgoBaHieu_ASM2/picture/z5756286100324_d2d49e2a2a3a47bba4e7d044cf6ddb8c-Photoroom.png" alt="Avatar" class="rounded-circle" width="120">
+                    <img src="https://cdn.xtmobile.vn/vnt_upload/news/06_2024/hinh-nen-anime-cho-may-tinh-1-xtmobile.jpg" alt="Avatar" class="rounded-circle" width="150" height="100">
                     <h4 class="mt-2">Ngô Bá Hiếu</h4>
                 </div>
                 <div class="list-group mt-4">
                     <a href="#" class="list-group-item list-group-item-action active">Thông tin tài khoản</a>
                     <a href="#" class="list-group-item list-group-item-action">Thông báo của tôi</a>
                     <a href="#" class="list-group-item list-group-item-action">Quản lý đơn hàng</a>
-                    <a href="#" class="list-group-item list-group-item-action">Quản lý đổi trả</a>
-                    <a href="#" class="list-group-item list-group-item-action">Số địa chỉ</a>
-                    <a href="#" class="list-group-item list-group-item-action">Thông tin thanh toán</a>
-                    <!-- Add other menu items here -->
                 </div>
             </div>
 
-            <!-- Main content -->
             <div class="col-md-9">
                 <div class="card mb-3">
                     <div class="card-body">
-                        <h5 class="card-title">Thông tin tài khoản</h5>
+                        <h4 class="card-title">Thông tin cá nhân</h4>
                         <form id="profileForm">
                             <div class="row mb-3">
                                 <div class="col-md-6">
@@ -104,39 +94,50 @@
 
                 <div class="card mb-3">
                     <div class="card-body">
-                        <h5 class="card-title">Số điện thoại và Email</h5>
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label for="phone" class="form-label">Số điện thoại</label>
-                                <input type="text" class="form-control" id="phone" value="0835763407">
+                        <h4 class="card-title">Số điện thoại và Email</h4>
+
+                        <div class="row mb-3 align-items-center">
+                            <div class="col-md-6 d-flex">
+                                <div class="flex-grow-1 me-2">
+                                    <label for="phone" class="form-label">Số điện thoại</label>
+                                    <input type="text" class="form-control" id="phone" value="0835763407">
+                                    <button class="btn btn-primary mt-2">Cập nhật</button>
+                                </div>
                             </div>
                             <div class="col-md-6">
-                                <label for="email" class="form-label">Địa chỉ email</label>
-                                <input type="email" class="form-control" id="email" placeholder="Thêm địa chỉ email">
+                                <div class="flex-grow-1 me-2">
+                                    <label for="email" class="form-label">Địa chỉ email</label>
+                                    <input type="email" class="form-control" id="email" placeholder="Thêm địa chỉ email">
+                                    <button class="btn btn-primary mt-2">Cập nhật</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h4 class="card-title">Liên kết tài khoản</h4>
+
+                        <div class="card p-3 d-flex mb-2">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="text-start"><i class="bi bi-facebook"></i> Facebook</span>
+                                <button class="btn btn-primary ml-auto">Liên kết</button>
+                            </div>
+                        </div>
+
+                        <div class="card p-3 d-flex mb-2">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span><i class="bi bi-google"></i> Google</span>
+                                <button class="btn btn-primary ml-auto">Liên kết</button>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="card mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title">Liên kết tài khoản</h5>
-                        <div class="card p-3 d-flex mb-2">
-                            <div class="d-flex align-items-center">
-                                <span class="text-start">Facebook</span>
-                                <button class="btn btn-primary text-end">Liên kết</button>
-                            </div>
-                        </div>
-                        <div class="card p-3 d-flex mb-2">
-                            <div class="d-flex align-items-center">
-                                <span>Google</span>
-                                <button class="btn btn-primary">Liên kế</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Bảo mật</h5>
                         <div class="row">
@@ -159,4 +160,3 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
-</html>
