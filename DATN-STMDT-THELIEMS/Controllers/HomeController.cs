@@ -17,12 +17,17 @@ namespace DATN_STMDT_THELIEMS.Controllers
         {
             return View();
         }
-        public IActionResult ShopView()
+
+        public IActionResult Privacy()
+        {
+            return View();
+        }
+        public IActionResult ProductDetails()
         {
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Pay()
         {
             return View();
         }
