@@ -8,7 +8,7 @@ namespace DATN_STMDT_THELIEMS.Areas.Shop.Controllers
     [Route("Shop/[controller]/[action]")]
     public class ProductsController : Controller
     {
-		private readonly AppDBContext _context;
+        private readonly AppDBContext _context;
 
 		public ProductsController(AppDBContext context)
 		{
