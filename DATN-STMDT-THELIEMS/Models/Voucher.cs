@@ -16,8 +16,8 @@
         public int Quantity { get; set; }
         public bool Status { get; set; }  // Assuming TinyInt corresponds to byte
         public string Image { get; set; }
-        public DateTime Created_at { get; set; }
-        public DateTime Updated_at { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
         public ICollection<Orders> Orders { get; set; }
     }
 }
