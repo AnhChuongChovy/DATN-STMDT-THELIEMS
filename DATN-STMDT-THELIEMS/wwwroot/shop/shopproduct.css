@@ -1,0 +1,55 @@
+﻿.input-timkiem::placeholder {
+    font-size: 12px; /* Điều chỉnh kích thước font tại đây */
+}
+
+.select-categories {
+    font-size: 12px; /* Điều chỉnh kích thước chữ */
+    /* Giữ nguyên kích thước của thẻ select */
+    width: 100%; /* Đảm bảo không thay đổi kích thước */
+    height: 100%;
+}
+
+
+.product-list a {
+    margin-right: 20px;
+    text-decoration: none;
+}
+
+.product-list .select-status {
+    font-weight: bold;
+    position: relative;
+    color: #000;
+}
+
+    .product-list .select-status::after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 2px;
+        background-color: royalblue;
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+    }
+
+.btn-apdung {
+    border: 1px solid #0066FF !important;
+    border-radius: 0px;
+    color: #0066FF;
+}
+
+    .btn-apdung:hover {
+        background-color: #0066FF;
+        color: white;
+    }
+
+.btn-chonlai {
+    border: 1px solid #D1D1D1 !important;
+    border-radius: 0px;
+    color: black;
+    margin-left: 5px;
+}
+
+    .btn-chonlai:hover {
+        background-color: #D1D1D1;
+    }
