@@ -95,7 +95,6 @@ namespace DATN_STMDT_THELIEMS.DATA
 				.HasForeignKey(p => p.Category_id);
 
 			modelBuilder.Entity<Products>()
-				.HasOne(p => p.Supplier)
 				.WithMany(s => s.Products)
 				.HasForeignKey(p => p.Supplier_id);
 

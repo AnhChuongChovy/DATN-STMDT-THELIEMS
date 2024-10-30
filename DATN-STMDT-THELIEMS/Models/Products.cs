@@ -1,8 +1,9 @@
-﻿namespace DATN_STMDT_THELIEMS.Models
+﻿
+namespace DATN_STMDT_THELIEMS.Models
 {
-    public class Products
-    {
-        public int Id { get; set; }
+	public class Products
+	{
+		public int Id { get; set; }
         public int Category_id { get; set; }
         public Categories Categories { get; set; }
         public int Supplier_id { get; set; }
@@ -24,7 +25,7 @@
         public DateTime Updated_at { get; set; }
         public ICollection<Product_variants> Product_Variants { get; set; }
         public ICollection<Product_parts> Product_Parts { get; set; }
+		
 
-
-    }
+	}
 }
