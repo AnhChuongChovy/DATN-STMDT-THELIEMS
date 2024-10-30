@@ -22,15 +22,6 @@ namespace DATN_STMDT_THELIEMS.Controllers
         {
             return View();
         }
-        public IActionResult ProductDetails()
-        {
-            return View();
-        }
-
-        public IActionResult Pay()
-        {
-            return View();
-        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
