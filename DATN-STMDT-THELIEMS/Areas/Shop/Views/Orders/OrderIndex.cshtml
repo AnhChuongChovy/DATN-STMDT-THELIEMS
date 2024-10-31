@@ -1433,40 +1433,54 @@
 
 
 						<div class="mt-5">
-							<table class="table table-bordered bg-white">
-								<thead>
-									<tr>
-										<th scope="col" colspan="3">Mã đơn hàng</th>
-										<th></th>
-										<th></th>
-										<th scope="col" colspan="2">@Model.FirstOrDefault()?.Users.Full_name</th>
-									</tr>
-									<tr>
-										<th scope="col">STT</th>
-										<th scope="col">Sản phẩm</th>
-										<th scope="col">Số lượng</th>
-										<th scope="col">Giá</th>
-										<th scope="col">Vận chuyển</th>
-										<th scope="col">Trạng thái</th>
-										<th scope="col">Thao tác</th>
-									</tr>
-								</thead>
-								<tbody>
-									@foreach (var order in Model)
-									{
-										int index = 1;
-										foreach (var detail in order.Order_Details)
+							@foreach (var order in Model)
+							{
+							<table class="table table-bordered bg-white mt-2">
+								
+									<thead>
+										<tr>
+											<th scope="col" colspan="3">Mã đơn hàng: @order.Id</th>
+											<th></th>
+											<th></th>
+											<th scope="col" colspan="2">Tên người dùng: @order.Users.Full_name</th>
+										</tr>
+										<tr>
+											<th scope="col">STT</th>
+											<th scope="col">Sản phẩm</th>
+											<th scope="col">Số lượng</th>
+											<th scope="col">Giá</th>
+											<th scope="col">Vận chuyển</th>
+											<th scope="col">Trạng thái</th>
+											<th scope="col">Thao tác</th>
+										</tr>
+									</thead>
+									<tbody>
+										@foreach (var detail in order.Order_Details)
 										{
 											<tr>
-												<th scope="row">@index++</th>
+												<th scope="row">@detail.Id</th>
 												<td style="width: 300px;">
-													<img src="@detail.Product_variants.Image" width="40px" height="40px" alt="Product image">
-													<a>@detail.Product_variants.Products.Name</a>
+													<img src="~/@detail.Product_variants?.Products?.Image" width="40px" height="40px" alt="">
+													<a>@detail.Product_variants?.Products?.Name</a>
+
+													<!-- Danh sách biến thể -->
+													@if (detail.Product_variants?.Product_Variant_Options != null)
+													{
+														<ul>
+															@foreach (var childDetail in detail.Product_variants.Product_Variant_Options)
+															{
+																<li>
+																	@childDetail.variant_values?.Variant_Options?.Name ?? "Attribute":
+																	@childDetail.variant_values?.Name ?? "Value"
+																</li>
+															}
+														</ul>
+													}
 												</td>
 												<td>@detail.Product_quantity</td>
-												<td>@string.Format("{0:C}", detail.Product_price)</td>
+												<td>@string.Format(new System.Globalization.CultureInfo("vi-VN"), "{0:C0}", detail.Product_price)</td>
 												<td>@(order.Shipping_method == 1 ? "Hoả tốc" : "Thông thường")</td>
-												<td class="@((order.Status == 1 ? "text-success" : "text-danger"))">
+												<td class="@(order.Status == 1 ? "text-success" : "text-danger")">
 													@(order.Status == 0 ? "Đã xác nhận" : "Chờ xác nhận")
 												</td>
 												<td>
@@ -1476,9 +1490,10 @@
 												</td>
 											</tr>
 										}
-									}
-								</tbody>
+									</tbody>
+								
 							</table>
+							}
 						</div>
 						<nav aria-label="Page navigation">
 							<ul class="pagination">

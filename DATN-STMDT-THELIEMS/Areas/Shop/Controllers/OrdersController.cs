@@ -14,13 +14,15 @@ namespace DATN_STMDT_THELIEMS.Areas.Shop.Controllers
 		{
 			_context = context;
 		}
-		public async Task<IActionResult> OrderIndexAsync()
+		public async Task<IActionResult> OrderIndex()
 		{
 			var orders = await _context.ORDERS
-				.Include(o => o.Users)
-				.Include(o => o.Shops)
-				.Include(o => o.Voucher)
-				.Include(o => o.Order_Details) // Include chi tiết đơn hàng
+				.Include(o => o.Users) 
+				.Include(o => o.Shops) 
+				.Include(o => o.Voucher) 
+				.Include(o => o.Order_Details) 
+					.ThenInclude(od => od.Product_variants)
+						.ThenInclude(pv => pv.Products) 
 				.ToListAsync();
 
 			return View(orders);
