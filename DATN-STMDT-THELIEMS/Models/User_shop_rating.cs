@@ -2,7 +2,7 @@
 {
     public class User_shop_rating
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         public int User_id { get; set; }
         public Users Users { get; set; }
         public int Shop_id { get; set; }
