@@ -8,7 +8,7 @@
         <div class="col-12 col-md-3 col-lg-2 bg-light p-3 d-none d-md-block">
             <h5>Danh mục</h5>
             <ul class="nav flex-column">
-                <li class="nav-item">
+                <li class="nav-item"> 
                     <a class="nav-link d-flex align-items-center" href="#">
                         <img src="https://salt.tikicdn.com/cache/100x100/ts/category/ed/20/60/afa9b3b474bf7ad70f10dd6443211d5f.png.webp" alt="Icon" class="me-2" width="24">
                         Nhà Sách Online
@@ -63,11 +63,11 @@
         <!-- Main Content -->
         <div class="col-12 col-md-9 col-lg-10 p-3">
 
-            <!-- 2 slide-->
-                <div class="carousel-wrapper row mb-3">
+            <div class="">
+                @* <div class="carousel-wrapper">
                 <!-- First Carousel -->
-                <div id="carouselExample1" class="carousel slide col" data-bs-ride="carousel">
-                <div class="carousel-inner rounded">
+                <div id="carouselExample1" class="carousel slide w-50" data-bs-ride="carousel">
+                <div class="carousel-inner">
                 <div class="carousel-item active">
                 <img src="https://via.placeholder.com/600x300?text=Carousel+1+Item+1"
                 class="d-block w-100" alt="...">
@@ -88,8 +88,8 @@
                 </div>
 
                 <!-- Second Carousel -->
-                <div id="carouselExample2" class="carousel slide  col" data-bs-ride="carousel">
-                <div class="carousel-inner rounded">
+                <div id="carouselExample2" class="carousel slide w-50" data-bs-ride="carousel">
+                <div class="carousel-inner">
                 <div class="carousel-item active">
                 <img src="https://via.placeholder.com/600x300?text=Carousel+2+Item+1"
                 class="d-block w-100" alt="...">
@@ -108,12 +108,12 @@
                 <span class="visually-hidden">Next</span>
                 </button>
                 </div>
-                </div>
-             
+                </div> *@
+            </div>
 
-            <!--Category, thanh danh mục ngang -->
-            <div class="rounded" style="background: linear-gradient(#E9ECFE, #FFFFFF)">
-                <div class="row justify-content-center fw-bold">
+            <!--Category-->
+            <div style="background: linear-gradient(#E9ECFE, #FFFFFF)">
+                <div class="row justify-content-center">
                     <!-- First Category -->
                     <div class="col-6 col-sm-4 col-md-2 pt-3">
                         <div class="category-item">
@@ -350,6 +350,10 @@
     </div>
     <div class="container my-5">
         <h2>Khám Phá Thêm</h2>
+
+    </div>
+    <div class="container my-5">
+        <h2>Khám Phá Thêm</h2>
         <!-- Menu Categories -->
         <div class="category-menu d-flex justify-content-around mb-4">
             <div class="category-item" onclick="showCategory('danh-cho-ban', this)">
@@ -473,6 +477,100 @@
             <div class="col">
                 <div class="card h-100">
                     <img src="/images/sptt10.webp" class="card-img-top" alt="Product 10">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phần top deal bán chạy-->
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-3 product-category d-none" id="ban-chay">
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/topdeal1.webp" class="card-img-top" alt="Product 1">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/topdeal2.webp" class="card-img-top" alt="Product 2">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/topdeal3.webp" class="card-img-top" alt="Product 3">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/topdeal4.webp" class="card-img-top" alt="Product 4">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/topdeal5.webp" class="card-img-top" alt="Product 5">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/topdeal6.webp" class="card-img-top" alt="Product 6">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/topdeal7.webp" class="card-img-top" alt="Product 7">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/topdeal8.webp" class="card-img-top" alt="Product 8">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/topdeal1.webp" class="card-img-top" alt="Product 9">
                     <div class="card-body text-center">
                         <p class="similar-product-name">Áo Sơ Mi Nam</p>
                         <p class="similar-product-price">129.000₫</p>
@@ -815,8 +913,8 @@
     }
 
 
-    /* Custom Styles for row Category đầu trang  */
-    #category-item {
+    /* Custom Styles for Category Items */
+    .category-item {
         text-align: center;
         transition: transform 0.3s ease;
     }
@@ -994,5 +1092,94 @@
         margin: 0 10px;
         transition: all 0.3s ease; /* Hiệu ứng khi hover */
     }
+    /* style product card của trường  */
+    .original-price {
+        font-size: 1rem;
+        text-decoration: line-through;
+        color: #6c757d;
+    }
 
+    .card-img-top {
+        width: 200px; /* Đặt chiều ngang cố định */
+        height: 250px; /* Đặt chiều cao cố định */
+        object-fit: cover; /* Cắt ảnh để vừa khung */
+        margin: 0 auto; /* Căn giữa ảnh nếu chiều ngang cố định nhỏ hơn chiều ngang thẻ chứa */
+    }
+
+    .similar-product-name {
+        font-size: 16px;
+        color: #333;
+        margin-bottom: 5px;
+    }
+
+    .similar-product-price {
+        font-size: 18px;
+        color: #ff4500;
+    }
+
+    /* css của trường */
+    .category-menu {
+        padding: 20px;
+        background-color: #fff; /* Nền màu trắng */
+        border-radius: 10px;
+        margin-bottom: 20px;
+        text-align: center;
+        border: 2px solid #dee2e6; /* Thêm khung */
+    }
+
+    .category-item {
+        width: 23%;
+        display: inline-block;
+        margin: 0 10px;
+        transition: all 0.3s ease; /* Hiệu ứng khi hover */
+    }
+
+        .category-item img {
+            max-width: 60px;
+            margin-bottom: 10px;
+        }
+
+        .category-item p {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .category-item a {
+            text-decoration: none;
+            color: inherit;
+        }
+        /* Hover effect */
+        .category-item:hover p {
+            color: #007bff; /* Đổi màu chữ */
+            text-decoration: underline; /* Gạch chân */
+        }
 </style>
+<script>
+    // Phần khám phá thêm by Trường
+    function showCategory(categoryId, element) {
+        // Ẩn tất cả các khối sản phẩm
+        const categories = document.querySelectorAll('.product-category');
+        categories.forEach(category => {
+            category.classList.add('d-none');
+        });
+
+        // Hiển thị danh mục được chọn
+        const selectedCategory = document.getElementById(categoryId);
+        selectedCategory.classList.remove('d-none');
+
+        // Loại bỏ lớp active từ tất cả danh mục
+        const categoryItems = document.querySelectorAll('.category-item');
+        categoryItems.forEach(item => {
+            item.classList.remove('active-category');
+        });
+
+        // Thêm lớp active cho danh mục được chọn
+        element.classList.add('active-category');
+    }
+
+    // Hiển thị danh mục mặc định
+    document.addEventListener("DOMContentLoaded", function () {
+        showCategory('danh-cho-ban', document.querySelector(".category-item"));
+    });
+</script>
