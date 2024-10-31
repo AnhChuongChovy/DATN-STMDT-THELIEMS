@@ -5,10 +5,10 @@ namespace DATN_STMDT_THELIEMS.DATA
     public class AppDBContext:DbContext
     {
         public AppDBContext(DbContextOptions<AppDBContext> options): base(options) { }
-		public DbSet<Role> ROLES { get; set; }
-		public DbSet<Permission> PERMISSIONS { get; set; }
+		public DbSet<Roles> ROLES { get; set; }
+		public DbSet<Permissions> PERMISSIONS { get; set; }
 
-		public DbSet<Role_Permission> ROLE_PERMISSIONS { get; set; }
+		public DbSet<Role_Permissions> ROLE_PERMISSIONS { get; set; }
 		public DbSet<Users> USERS { get; set; }
 		public DbSet<Shops> SHOPS { get; set; }
 		public DbSet<Delivery_address> DELIVERY_ADDRESSES { get; set; }
@@ -21,7 +21,7 @@ namespace DATN_STMDT_THELIEMS.DATA
         public DbSet<Orders> ORDERS { get; set; }
 		public DbSet<Products> PRODUCTS { get; set; }
 
-		public DbSet<Product_Image> PRODUCT_IMAGES { get; set; }
+		//public DbSet<Product_Image> PRODUCT_IMAGES { get; set; }
         public DbSet<Product_part_image> PRODUCT_PART_IMAGES { get; set; }
         public DbSet<Product_parts> PRODUCT_PARTS { get; set; }
         public DbSet<Product_review> PRODUCT_REVIEWS { get; set; }
@@ -34,15 +34,15 @@ namespace DATN_STMDT_THELIEMS.DATA
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-            modelBuilder.Entity<Role_Permission>()
-                .HasOne(x => x.Permission)
-                .WithMany(c => c.Role_Permissions)
-                .HasForeignKey(x => x.Permission_id);
+   //         modelBuilder.Entity<Role_Permission>()
+   //             .HasOne(x => x.Permission)
+   //             .WithMany(c => c.Role_Permissions)
+   //             .HasForeignKey(x => x.Permission_id);
 
-			modelBuilder.Entity<Role_Permission>()
-				.HasOne(x => x.Role)
-				.WithMany(c => c.Role_Permissions)
-				.HasForeignKey(x => x.Role_id);
+			//modelBuilder.Entity<Role_Permission>()
+			//	.HasOne(x => x.Role)
+			//	.WithMany(c => c.Role_Permissions)
+			//	.HasForeignKey(x => x.Role_id);
 
 			modelBuilder.Entity<Users>()
 				.HasOne(x => x.Role)
@@ -134,10 +134,10 @@ namespace DATN_STMDT_THELIEMS.DATA
 				.WithMany(b => b.Product_Variants)
 				.HasForeignKey(p => p.Product_id);
 
-			modelBuilder.Entity<Product_Image>()
-				.HasOne(p => p.product_Variants)
-				.WithMany(b => b.Product_Images)
-				.HasForeignKey(p => p.Product_variant_id);
+			//modelBuilder.Entity<Product_Image>()
+			//	.HasOne(p => p.product_Variants)
+			//	.WithMany(b => b.Product_Images)
+			//	.HasForeignKey(p => p.Product_variant_id);
 
 			modelBuilder.Entity<Orders>()
 				.HasOne(p => p.Users)
