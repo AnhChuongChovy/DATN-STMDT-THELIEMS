@@ -1,6 +1,7 @@
 ﻿using DATN_STMDT_THELIEMS.DATA;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace DATN_STMDT_THELIEMS.Areas.Shop.Controllers
 {
@@ -65,6 +66,27 @@ namespace DATN_STMDT_THELIEMS.Areas.Shop.Controllers
 			await _context.SaveChangesAsync();
 
 			return RedirectToAction("OrderIndex", "Orders", new { area = "Shop" });
+		}
+
+		[HttpGet("{orderId}")]
+        [Route("{orderId}")]
+        public async Task<IActionResult> OrderDetail(int orderId)
+		{
+			var order = await _context.ORDERS
+		.Include(u => u.Users)
+		.Include(p => p.Order_Details)
+			.ThenInclude(p => p.Product_variants)
+			.ThenInclude(o => o.Product_Variant_Options)
+			.ThenInclude(o => o.variant_values)
+			.ThenInclude(o => o.Variant_Options)
+		.FirstOrDefaultAsync(p => p.Id == orderId);
+
+			if (order == null || order.Order_Details == null || !order.Order_Details.Any())
+			{
+				return NotFound(); // or display an appropriate message in the view
+			}
+			
+			return View(order);
 		}
 	}
 }

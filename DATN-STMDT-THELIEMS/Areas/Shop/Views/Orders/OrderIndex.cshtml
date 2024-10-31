@@ -1497,7 +1497,7 @@
 											<input type="hidden" name="orderId" value="@order.Id" />
 											<button type="submit" class="text-success fw-bold btn btn-link p-0">Cập nhật</button>
 										</form>
-										<a class="text-primary fw-bold mx-2" href="@Url.Action("Details", "Orders", new { id = order.Id })" target="_blank">Xem chi tiết</a>
+										<a class="text-primary fw-bold mx-2" href="@Url.Action("OrderDetail", "Orders", new { area = "Shop", orderId = order.Id })" target="_blank">Xem chi tiết</a>
 										<form action="@Url.Action("CancelOrder", "Orders", new { area = "Shop" })" method="post" style="display: inline;">
 											<input type="hidden" name="orderId" value="@order.Id" />
 											<button type="submit" class="text-danger fw-bold btn btn-link">Huỷ</button>

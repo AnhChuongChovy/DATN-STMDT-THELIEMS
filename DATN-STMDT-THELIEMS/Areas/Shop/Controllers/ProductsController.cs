@@ -16,27 +16,49 @@ namespace DATN_STMDT_THELIEMS.Areas.Shop.Controllers
 			_context = context;
 		}
 		[HttpGet]
-		public IActionResult IndexShop()
+		public IActionResult IndexShop(int page = 1, int pageSize = 2)
 		{
 			//gọi danh sách sp có thêm danh mục
 			var products = _context.PRODUCTS
 							  .Include(c => c.Categories)
 							  .Include(a => a.Product_Variants)
-							  .ToList();
-			var categories = _context.CATEGORIES.ToList();
-			ViewBag.Categories = categories;
-			ViewBag.Products = products;
+							  .AsQueryable();
 
-			int totalProducts = products.Count; //Tổng sp 
-			int sellingProductCount = products.Count(p => p.Status == 1); //Sp đang bán
-			int noQuantityProductCount = products.Count(p => p.TotalQuantity == 0); //Sp hết hàng
+			var categories = _context.CATEGORIES.ToList();
 			
+			var productList = products.ToList();
+
+			int totalProducts = productList.Count(); //Tổng sp 
+			int sellingProductCount = productList.Count(p => p.Status == 1); //Sp đang bán
+			int noQuantityProductCount = productList.Count(p => p.TotalQuantity == 0); //Sp hết hàng
+
+            // Đếm tổng số sản phẩm sau khi lọc và phân trang
+            int total_Products = products.Count();
+
+            // Tính toán số lượng trang dựa trên kích thước trang (Tổng / số lượng hiển thị trong bảng: ví dụ: tổng 60/10 = 6 trang)
+            int totalPages = (int)Math.Ceiling(total_Products / (double)pageSize);
+
+            // Phân trang dữ liệu
+            var paginatedProducts = products
+                .Skip((page - 1) * pageSize) //bỏ qua những sản phẩm trang đầu ví dụ: 1 trang có 10 thì trang 2 sẽ bỏ qua 10 sản phẩm đầu và lấy sản phẩm thứ 11
+                .Take(pageSize) //Số lượng sản phẩm cho mỗi trang 
+                .ToList();
+
+            int stt = (page - 1) * pageSize + 1;
+
 			// Truyền dữ liệu qua ViewBag
+			ViewBag.Categories = categories;
+			ViewBag.Products = paginatedProducts;
 			ViewBag.SellingProductCount = sellingProductCount;
 			ViewBag.NoQuantityProductCount = noQuantityProductCount;
 			ViewBag.TotalProducts = totalProducts;
 
-			return View(products);
+            ViewData["CurrentPage"] = page;
+            ViewData["TotalPages"] = totalPages;
+            ViewData["ItemsPerPage"] = pageSize;
+			ViewData["StartIndex"] = stt;
+
+			return View(paginatedProducts);
 		}
 
 		[HttpGet]

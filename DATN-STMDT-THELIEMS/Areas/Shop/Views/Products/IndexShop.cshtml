@@ -1454,13 +1454,16 @@
 											</tr>
 										</thead>
 										<tbody>
+										@{
+												int stt = (int)ViewData["StartIndex"];
+                                        }
 											@if (products != null && products.Count > 0) /* Kiểm tra số lượng sp */
 											{
 												for (int i = 0; i < products.Count; i++)
 												{
 													var product = products[i];
 													<tr class="product-row" data-category="@product.Categories.Id">
-														<th scope="row">@(i + 1)</th>
+														<th scope="row">@stt</th>
 														<td>
 															<img src="~/@Url.Content(@product.Image)" width="40px" height="40px" />
 															<a>@product.Name</a>
@@ -1489,35 +1492,36 @@
 															}
 														</td>
 													</tr>
+													stt++;
 												}
 											}
 											else
 											{
 												<tr>
-													<td colspan="7" class="text-center">Không có sản phẩm nào được tìm thấy.</td>
+													<td colspan="8" class="text-center">Không có sản phẩm nào được tìm thấy.</td>
 												</tr>
 											}
 										</tbody>
 									</table>
-									<nav aria-label="Page navigation">
-										<ul class="pagination">
-											<li class="page-item">
-												<a class="page-link" href="#" aria-label="Previous">
-													<span aria-hidden="true">&lt;</span>
-												</a>
-											</li>
-											<li class="page-item active"><a class="page-link" href="#">1</a></li>
-											<li class="page-item"><a class="page-link" href="#">2</a></li>
-											<li class="page-item"><a class="page-link" href="#">3</a></li>
-											<li class="page-item"><a class="page-link" href="#">4</a></li>
-											<li class="page-item"><a class="page-link" href="#">5</a></li>
-											<li class="page-item">
-												<a class="page-link" href="#" aria-label="Next">
-													<span aria-hidden="true">&gt;</span>
-												</a>
-											</li>
-										</ul>
-									</nav>
+									<nav aria-label="Category pagination">
+                                    <ul class="pagination">
+                                        <li class="page-item @(ViewData["CurrentPage"].ToString() == "1" ? "disabled" : "")">
+                                            <a class="page-link" href="@Url.Action("IndexShop", new { query = ViewData["SearchQuery"], page = ((int?)ViewData["CurrentPage"] ?? 1) - 1 })">&lt;</a>
+
+                                        </li>
+
+                                        @for (int a = 1; a <= (int)ViewData["TotalPages"]; a++)
+                                        {
+                                            <li class="page-item @(ViewData["CurrentPage"].ToString() == a.ToString() ? "active" : "")">
+                                                <a class="page-link" href="@Url.Action("IndexShop", new { query = ViewData["SearchQuery"], page = a })">@a</a>
+                                            </li>
+                                        }
+
+                                        <li class="page-item @((int)ViewData["CurrentPage"] == (int)ViewData["TotalPages"] ? "disabled" : "")">
+                                            <a class="page-link" href="@Url.Action("IndexShop", new { query = ViewData["SearchQuery"], page = (int)ViewData["CurrentPage"] + 1 })">&gt;</a>
+                                        </li>
+                                    </ul>
+                                </nav>
 									</div>
 							</div>
 
@@ -1670,7 +1674,24 @@
 									</table>
 
 								</div>
+								<nav aria-label="Category pagination">
+									<ul class="pagination">
+										<li class="page-item @(ViewData["CurrentPage"].ToString() == "1" ? "disabled" : "")">
+											<a class="page-link" href="@Url.Action("IndexShop", new { query = ViewData["SearchQuery"], page = ((int?)ViewData["CurrentPage"] ?? 1) - 1 })">&lt;</a>
+										</li>
 
+										@for (int a = 1; a <= (int)ViewData["TotalPages"]; a++)
+										{
+											<li class="page-item @(ViewData["CurrentPage"].ToString() == a.ToString() ? "active" : "")">
+												<a class="page-link" href="@Url.Action("IndexShop", new { query = ViewData["SearchQuery"], page = a })">@a</a>
+											</li>
+										}
+
+										<li class="page-item @((int)ViewData["CurrentPage"] == (int)ViewData["TotalPages"] ? "disabled" : "")">
+											<a class="page-link" href="@Url.Action("IndexShop", new { query = ViewData["SearchQuery"], page = (int)ViewData["CurrentPage"] + 1 })">&gt;</a>
+										</li>
+									</ul>
+								</nav>
 							</div>
 							
 							<div class="tab-pane fade" id="pending-products" role="tabpanel" aria-labelledby="pending-products-tab">

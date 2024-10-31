@@ -23,6 +23,9 @@
         public DateTime? Created_at { get; set; }
         public DateTime? Updated_at { get; set; }
         public ICollection<Order_details>? Order_Details { get; set; }
+		public int TotalProductPrice => Order_Details?.Sum(od => od.TotalPrice) ?? 0;
 
-    }
+        //public int TotalAmount => 
+
+	}
 }
