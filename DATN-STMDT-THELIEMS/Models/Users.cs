@@ -18,6 +18,7 @@
         public Shops Shops { get; set; }
         public ICollection<Orders> Orders { get; set; }
         public ICollection<Voucher> Vouchers { get; set; }
+
         public ICollection<Delivery_address> Delivery_Addresses { get; set; }
         public ICollection<User_shop_follow> User_Shop_Follows { get; set; }
         public ICollection<User_shop_rating> User_Shop_Ratings { get; set; }
