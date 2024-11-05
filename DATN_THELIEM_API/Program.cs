@@ -1,5 +1,5 @@
-using DATN_THELIEM_API;
 using DATN_THELIEM_API.DATA;
+using DATN_THELIEM_API.IService;
 using DATN_THELIEM_API.Service;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,6 +12,7 @@ builder.Services.AddDbContext<AppDBContext>(options =>
 	options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IUserService, UserService>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

@@ -1481,7 +1481,12 @@
 
 														<td>
 															<a class="text-primary fw-bold mb-1" href="@Url.Action("DetailProduct", "Products", new { area = "Shop", id = product.Id })">Chi tiết</a><br>
-															<a class="text-danger fw-bold mb-1 deleteBtn" href="#" data-id="@product.Id">Ẩn</a>
+															@if(product.Status == 1){
+																<a class="text-danger fw-bold mb-1 deleteBtn" href="#" data-id="@product.Id">Ẩn</a>
+															}
+															else{
+																<a class="text-success fw-bold mb-1 deleteBtn" href="#" data-id="@product.Id">Hiện</a>
+															}
 														</td>
 													</tr>
 												}

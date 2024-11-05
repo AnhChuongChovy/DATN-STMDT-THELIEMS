@@ -167,7 +167,14 @@ namespace DATN_STMDT_THELIEMS.Areas.Shop.Controllers
 			}
 
 			// Thay đổi trạng thái sản phẩm (ví dụ: từ 1 sang 0)
-			product.Status = 0; 
+			if (product.Status == 1) 
+			{
+                product.Status = 0;
+            }
+			else
+			{
+				product.Status = 1;
+			}
 			_context.SaveChanges(); 
 
 			// Chuyển hướng về trang danh sách sản phẩm (IndexShop)

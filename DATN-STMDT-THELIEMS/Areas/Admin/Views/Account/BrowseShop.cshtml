@@ -1348,23 +1348,29 @@
                     <div class="container-xxl" id="kt_content_container">
                        
                         <div class="row mb-5">
-							<div class="col-md-3 mt-2">
-									<div class="w-100">
-                                    <input class="form-control" style="border-radius: 0px;" type="text" id="searchInput" placeholder="Nhập mã nhà bán" onkeyup="searchByShopName()" />
-									</div>
-							</div>
+                            <form action="/Admin/Account/BrowseShop" method="GET">
+                            <div class="row mb-3">
                             <div class="col-md-3 mt-2">
-                                <select class="form-select select-categories" style="border-radius: 0;" id="filterStatus" onchange="filterAccounts()">
-                                    <option value="">Trạng thái</option>
-                                    <option value="1">Đã duyệt</option>
-                                    <option value="0">Chưa được duyệt</option>
-                                </select>
+                                    <div class="w-100">
+                                        <input class="form-control" style="border-radius: 0px;" type="text" id="searchInput"
+                                               name="searchQuery" placeholder="Nhập mã nhà bán"
+                                               value="@ViewData["SearchQuery"]" />
+                                    </div>
+                                </div>
+                                <div class="col-md-3 mt-2">
+                                    <select class="form-select select-categories" style="border-radius: 0;"
+                                            id="filterStatus" name="statusFilter">
+                                        <option value="">Trạng thái</option>
+                                        <option value="1" @(ViewData["StatusFilter"]?.ToString() == "1" ? "selected" : "")>Đã duyệt</option>
+                                        <option value="0" @(ViewData["StatusFilter"]?.ToString() == "0" ? "selected" : "")>Chưa được duyệt</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3 mt-2">
+                                    <button type="submit" class="btn btn-apdung">Áp dụng</button>
+                                    <a href="/Admin/Account/BrowseShop" class="btn btn-chonlai">Làm mới</a>
+                                </div>
                             </div>
-							<div class="col-md-3 mt-2">
-								<button class="btn btn-apdung">Áp dụng</button>
-								<button class="btn btn-chonlai">Làm mới</button>
-							</div>
-						</div>
+                            </form>
                         
                         <form action="/Admin/Account/ApproveShops" method="post" id="ApproveShop">
                             <table class="table table-bordered bg-white">
@@ -1391,7 +1397,7 @@
                                                 @if (shop.Status == 1) // Nếu đã duyệt
                                                 {
                                                 // Không hiển thị checkbox
-                                                    <span></span> <!-- Hoặc có thể để trống -->
+                                                    <span></span> 
                                                 }
                                                 else
                                                 {
@@ -8135,6 +8141,22 @@
     <!--end::Custom Javascript-->
     <!--end::Javascript-->
     <script src="~/js/ordershop.js"></script>
+    <script>
+        function searchByShopName() {
+            applyFilters();
+        }
+
+        function filterAccounts() {
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const searchQuery = document.getElementById('searchInput').value;
+            const statusFilter = document.getElementById('filterStatus').value;
+            window.location.href = `/Admin/Shop/BrowseShop?searchQuery=${searchQuery}&statusFilter=${statusFilter}`;
+        }
+    </script>
+
 </body>
 <!--end::Body-->
 

@@ -170,7 +170,7 @@
                                     <!--begin:Menu item-->
                                     <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                                         <!--begin:Menu link-->
-                                        <a class="menu-link" href="shop.html">
+                                        <a class="menu-link" href="/Admin/Account/BrowseShop">
                                             <span class="menu-bullet">
                                                 <span class="bullet bullet-dot"></span>
                                             </span>
@@ -180,15 +180,6 @@
                                     </div>
                                     <!--end:Menu item-->
                                     <!--begin:Menu item-->
-                                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                                        <!--begin:Menu link-->
-                                        <a class="menu-link" href="acceptuser.html">
-                                            <span class="menu-bullet">
-                                                <span class="bullet bullet-dot"></span>
-                                            </span>
-                                            <span class="menu-title">Xác nhận tài khoản</span>
-                                        </a>
-                                    </div>
                                 </div>
                                 <!--end:Menu sub-->
                             </div>
@@ -1391,11 +1382,16 @@
                     <!--begin::Container-->
                     <div class="container-xxl" id="kt_content_container">
 
-                        <div class="col-md-4">
-                            <form action="/search" method="GET">
+                        <div class="col-md-6">
+                            <form action="/Admin/Account/AccountIndex" method="GET">
                                 <div class="input-group mb-3">
-                                    <input type="text" name="query" class="form-control" placeholder="Tìm kiếm người dùng" aria-label="Tìm kiếm" aria-describedby="button-search">
-                                    <button class="btn btn-secondary" type="submit" id="button-search">Tìm kiếm</button>
+                                    <input type="text" name="query" class="form-control"
+                                           placeholder="Tìm kiếm người dùng"
+                                           aria-label="Tìm kiếm"
+                                           aria-describedby="button-search"
+                                           value="@ViewData["SearchQuery"]" />
+                                    <button class="btn btn-apdung" type="submit" id="button-search">Tìm kiếm</button>
+                                    <a href="/Admin/Account/AccountIndex" class="btn btn-chonlai ms-2">Chọn lại</a>
                                 </div>
                             </form>
                         </div>

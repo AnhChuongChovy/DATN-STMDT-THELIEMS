@@ -1,6 +1,7 @@
 ﻿using DATN_STMDT_THELIEMS.DATA;
 using DATN_STMDT_THELIEMS.Models;
 using Microsoft.AspNetCore.Mvc;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace DATN_STMDT_THELIEMS.Areas.Admin.Controllers
 {
@@ -14,11 +15,18 @@ namespace DATN_STMDT_THELIEMS.Areas.Admin.Controllers
 		{
 			_context = context;
 		}
-		public IActionResult AccountIndex()
+		public IActionResult AccountIndex(string query)
 		{
-			var user = _context.USERS.ToList();
-			return View(user);
-		}
+            var users = _context.USERS.AsQueryable();
+
+            if (!string.IsNullOrEmpty(query))
+            {
+                users = users.Where(u => u.Full_name.Contains(query));
+            }
+
+            ViewData["SearchQuery"] = query; // Pass the search query to the view
+            return View(users.ToList());
+        }
 
 		[HttpGet("{id}")]
 		public async Task<IActionResult> LockAccount(int id)
@@ -36,10 +44,25 @@ namespace DATN_STMDT_THELIEMS.Areas.Admin.Controllers
 			return Redirect("/Admin/Account/AccountIndex"); 
 		}
 
-		public IActionResult BrowseShop()
+		public IActionResult BrowseShop(string searchQuery, string statusFilter)
         {
-            var user = _context.SHOPS.ToList();
-            return View(user);
+            var shops = _context.SHOPS.AsQueryable();
+
+            // Search by shop code
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                shops = shops.Where(s => s.Name.Contains(searchQuery));
+            }
+
+            // Filter by status (assuming statusFilter can be "1" or "0")
+            if (byte.TryParse(statusFilter, out byte parsedStatus))
+            {
+                shops = shops.Where(s => s.Status == parsedStatus);
+            }
+
+            ViewData["SearchQuery"] = searchQuery;
+            ViewData["StatusFilter"] = statusFilter;
+            return View(shops.ToList());
         }
 
         [HttpPost]

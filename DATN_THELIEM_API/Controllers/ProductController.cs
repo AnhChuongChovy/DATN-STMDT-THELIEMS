@@ -1,10 +1,11 @@
-﻿using DATN_THELIEM_API.Models;
+﻿using DATN_THELIEM_API.IService;
+using DATN_THELIEM_API.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DATN_THELIEM_API.Controllers
 {
-	[Route("api/[controller]")]
+    [Route("api/[controller]")]
 	[ApiController]
 	public class ProductController : ControllerBase
 	{
@@ -19,7 +20,7 @@ namespace DATN_THELIEM_API.Controllers
         public IActionResult GetAllProducts()
         {
             var products = _productService.GetProducts();
-            return Ok(products); // Trả về danh sách sản phẩm dưới dạng JSON
+            return Ok(products); 
         }
 
         [HttpGet("{id}")]
@@ -31,6 +32,34 @@ namespace DATN_THELIEM_API.Controllers
                 return NotFound();
             }
             return Ok(product);
+        }
+        [HttpPost]
+        public async Task<ActionResult> CreateProduct([FromBody] Products product)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            await _productService.AddProduct(product);
+            return CreatedAtAction(nameof(GetProductById), new { id = product.Id }, product);
+        }
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateProduct(int id, [FromBody] Products product)
+        {
+            if (id != product.Id)
+            {
+                return BadRequest("Product ID ko tồn tại");
+            }
+
+            await _productService.UpdateProduct(product);
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteProduct(int id)
+        {
+            await _productService.DeleteProduct(id);
+            return NoContent();
         }
     }
 }
