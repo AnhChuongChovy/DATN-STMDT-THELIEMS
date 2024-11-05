@@ -16,13 +16,4 @@
     background-color: #EAEAEA;
     color: #007bff;
     border-radius: 10%;
-}
-
-#Commitment div div .d-flex:hover {
-    color: #007bff;
-    cursor: pointer;
-}
-
-#Commitment .align-items-center:hover {
-    color: #007bff;
-}
+}  

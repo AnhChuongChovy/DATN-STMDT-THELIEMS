@@ -1,7 +1,9 @@
 using DATN_STMDT_THELIEMS.Models;
-using DATN_STMDT_THELIEMS.Service;
+using DATN_STMDT_THELIEMS.DATA;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using DATN_STMDT_THELIEMS.Services;
+using DATN_STMDT_THELIEMS.Service;
 
 namespace DATN_STMDT_THELIEMS.Controllers
 {
@@ -14,22 +16,30 @@ namespace DATN_STMDT_THELIEMS.Controllers
         {
             _logger = logger;
             _homeService = homeService;
-
+             
         }
 
         [HttpGet]
-		public async Task<IActionResult> Index()
-		{
-			// Call the service to get the list of products
-			var products = await _homeService.GetAllProducts();
-			return View(products);
-		}
-		public IActionResult ShopView()
+        public async Task<IActionResult> Index()
+        {
+            // Call the service to get the list of products
+            var products = await _homeService.GetAllProducts();
+            return View(products);
+        }
+        public IActionResult ShopView()
         {
             return View();
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+        public IActionResult CategoryHomeView()
+        {
+            return View();
+        }
+        public IActionResult ProductDetails()
         {
             return View();
         }
