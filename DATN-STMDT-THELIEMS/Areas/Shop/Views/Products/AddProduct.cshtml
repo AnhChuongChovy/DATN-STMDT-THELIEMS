@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model DATN_STMDT_THELIEMS.Models.Products
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -24,11 +25,11 @@
     <div class="d-flex justify-content-between align-items-center mb-5 bg-white" style="height: 60px;">
         <div class="ms-5 fs-5">
             <a>Trang chủ ></a>
-            <a href="product.html" style="text-decoration: none;color: black;">Sản phẩm ></a>
+            <a href="/Shop/Products/IndexShop" style="text-decoration: none;color: black;">Sản phẩm ></a>
             <a>Tạo sản phẩm mới</a>
         </div>
         <div class="d-flex align-items-center me-4">
-            <img src="sg-11134201-7rbki-lnthoezew68ce0resize_w450_nl.jpg" height="40px" width="40px" class="rounded-circle me-2" alt="User profile">
+            <img src="" height="40px" width="40px" class="rounded-circle me-2" alt="User profile">
             <span>chngchovy</span>
         </div>
     </div>
@@ -37,7 +38,7 @@
         <div class="row">
             <!-- Sidebar -->
             <div class="col-md-3 mb-3">
-                <div class="bg-white" style="height: 230px; width: 100%;">
+                <div class="bg-white" style="height: auto; width: 100%;">
                     <div class="mb-4 fs-5" style="background-color: #6EA4F6; height: 50px; align-items: center; display: flex;">
                         <a style="color: white; font-weight: bold; padding-left: 30px;">Gợi ý điền thông tin</a>
                     </div>
@@ -53,13 +54,12 @@
                         <span class="bi bi-check2"></span>
                         <a>Thêm mô tả có ít nhất 100 ký tự</a>
                     </div>
-                    <div class="ms-3 mb-2">
+                    <div class="ms-3 pb-5">
                         <span class="bi bi-check2"></span>
                         <a>Thêm thương hiệu</a>
                     </div>
                 </div>
             </div>
-
             <!-- Main content -->
             <div class="col-md-9">
                 <div style="width: 100%; height: 50px; background-color: white; display: flex; align-items: center;">
@@ -69,58 +69,70 @@
                     <a href="#vanChuyen" style="text-decoration: none;color: black; padding-left: 20px;">Vận chuyển</a>
                     <a href="#thongTinKhac" style="text-decoration: none;color: black; padding-left: 20px;">Thông tin khác</a>
                 </div>
+                <form id="thongTinCoBan" action="@Url.Action("AddProduct", "Products", new { area = "Shop" })" method="post" enctype="multipart/form-data">
+                    <!-- Thông tin cơ bản -->
+                    <div class="bg-white mt-2">
+                        <br>
+                        <h5 class="mb-4 ms-3">1. Thông tin cơ bản</h5>
 
-                <!-- Thông tin cơ bản -->
-                <div id="thongTinCoBan" class="bg-white mt-2">
-                    <br>
-                    <h5 class="mb-4 ms-3">1. Thông tin cơ bản</h5>
-
-                    <!-- Hình ảnh sản phẩm -->
-                    <div class="d-flex align-items-center mb-4 ms-5">
-                        <div style="width: 25%;">
-                            <label for="productImage" class="form-label me-4">Hình ảnh sản phẩm</label>
+                        <!-- Hình ảnh sản phẩm -->
+                        <div class="d-flex align-items-center mb-4 ms-5">
+                            <div style="width: 25%;">
+                                <label class="form-label me-4">Hình ảnh sản phẩm</label>
+                            </div>
+                            <div style="width: 70%;">
+                                <!-- Ô vuông để hiển thị hình ảnh -->
+                                <div id="imagePreview" class="image-preview" style="width: 150px; height: 150px; border: 2px dashed #ddd; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+                                    <span>Chọn hình</span>
+                                </div>
+                                <!-- Input file ẩn -->
+                                <input type="file" id="productImage" name="Image" accept="image/*" style="display: none;">
+                            </div>
                         </div>
-                        <img src="https://via.placeholder.com/100" class="product-image-preview"
-                             alt="Product Image Preview">
+
+                        <!-- Tên sản phẩm -->
+                        <div class="d-flex align-items-center mb-4 ms-5">
+                            <div style="width: 25%;">
+                                <label for="productName" class="form-label me-3">Tên sản phẩm</label>
+                            </div>
+                            <div class="position-relative me-3" style="width: 70%;">
+                                <input type="text" class="form-control pe-5" id="productName" name="Name" maxlength="120" placeholder="Nhập tên sản phẩm" required>
+                                <small class="text-muted position-absolute end-0 top-50 translate-middle-y me-3">0/120</small>
+                            </div>
+                        </div>
+
+                        <!-- Ngành hàng -->
+                        @* <div class="d-flex align-items-center mb-4 ms-5">
+                            <div style="width: 25%;">
+                                <label for="productCategory" class="form-label">Ngành hàng</label>
+                            </div>
+                            <div style="width: 70%;">
+                                <select class="form-select" id="productCategory" name="Category_id">
+                                    <option selected disabled>Chọn ngành hàng</option>
+                                    @foreach (var category in ViewBag.Categories)
+                                    {
+                                        <option value="@category.Id">@category.Name</option>
+                                    }
+                                </select>
+                            </div>
+                        </div> *@
+
+                        <!-- Mô tả -->
+                        <div class="d-flex align-items-center mb-2 ms-5">
+                            <div style="width: 25%;">
+                                <label for="description1" class="form-label">Mô tả</label>
+                            </div>
+                            <div style="width: 70%; margin-bottom: 20px;">
+                                <textarea class="form-control" id="description1" name="Description" rows="4" placeholder="Nhập mô tả sản phẩm" style="height: 200px;"></textarea>
+                            </div>
+                        </div>
+
                     </div>
-
-                    <!-- Tên sản phẩm -->
-                    <div class="d-flex align-items-center mb-4 ms-5">
-                        <div style="width: 25%;">
-                            <label for="productName" class="form-label me-3">Tên sản phẩm</label>
-                        </div>
-                        <div class="position-relative me-3" style="width: 70%;">
-                            <input type="text" class="form-control pe-5" id="productName" maxlength="120" placeholder="Nhập tên sản phẩm">
-                            <small class="text-muted position-absolute end-0 top-50 translate-middle-y me-3">0/120</small>
-                        </div>
+                    <div class="form-group text-end">
+                        <button type="button" class="btn btn-danger">Huỷ</button>
+                        <button type="submit" class="btn btn-primary">Lưu thông tin</button>
                     </div>
-                    <!-- Ngành hàng -->
-                    <div class="d-flex align-items-center mb-4 ms-5">
-                        <div style="width: 25%;">
-                            <label for="productCategory" class="form-label">Ngành hàng</label>
-                        </div>
-                        <div style="width: 70%;">
-                            <select class="form-select" id="productCategory">
-                                <option selected>Chọn ngành hàng</option>
-                                <option value="1">Thời trang</option>
-                                <option value="2">Điện tử</option>
-                                <option value="3">Gia dụng</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Mô tả -->
-                    <div class="d-flex align-items-center mb-4 ms-5">
-                        <div style="width: 25%;">
-                            <label for="description" class="form-label">Mô tả</label>
-                        </div>
-                        <div style="width: 70%; margin-bottom: 20px;">
-                            <textarea class="form-control" id="description" rows="4"
-                                      placeholder="Nhập mô tả sản phẩm" style="height: 200px;"></textarea>
-                        </div>
-                    </div>
-                </div>
-
+                </form>
                 <!-- Thông tin chi tiết -->
                 <div id="thongTinChiTiet" class="bg-white mt-2">
                     <br>
@@ -153,9 +165,9 @@
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3 row ms-4">
-                                <label for="material" class="form-label col-sm-3">Chất liệu</label>
+                                <label for="avc" class="form-label col-sm-3">Chất liệu</label>
                                 <div class="col-sm-7">
-                                    <select id="material" class="form-select">
+                                    <select id="avc" class="form-select">
                                         <option selected>Vui lòng chọn</option>
                                         <option>Nhựa</option>
                                         <option>Kim loại</option>
@@ -179,9 +191,9 @@
 
                         <div class="col-md-6">
                             <div class="mb-3 row ms-4">
-                                <label for="material" class="form-label col-sm-3">Loại bảo hành</label>
+                                <label for="vcx" class="form-label col-sm-3">Loại bảo hành</label>
                                 <div class="col-sm-7">
-                                    <select id="material" class="form-select">
+                                    <select id="vcx" class="form-select">
                                         <option selected>Vui lòng chọn</option>
                                         <option>1 tháng</option>
                                         <option>2 thàng</option>
@@ -195,7 +207,7 @@
                 </div>
 
                 <!-- Thông tin bán hàng -->
-                <div class="container mt-2 bg-white" id="thongTinBanHang">
+                <div id="thongTinBanHang" class="container mt-2 bg-white">
                     <br>
                     <h5>3. Thông tin bán hàng</h5>
 
@@ -303,7 +315,7 @@
                 </div>
 
                 <!-- Vận chuyển -->
-                <div class="bg-white mt-2">
+                <div id="vanChuyen" class="bg-white mt-2">
                     <br>
                     <h5 class="ms-4">4. Vận chuyển</h5>
                     <!-- Thông tin vận chuyển sẽ được thêm tại đây -->
@@ -350,7 +362,7 @@
                 </div>
 
                 <!-- Thông tin khác -->
-                <div id="thongTinKhac" class="bg-white mt-2">
+                <div id="thongTinKhac" class="bg-white mt-2 mb-3">
                     <br>
                     <div>
                         <h5 class="ms-4">5. Thông tin khác</h5>
@@ -358,10 +370,10 @@
                     <!-- Thông tin khác sẽ được thêm tại đây -->
                     <div class="d-flex align-items-center mb-4 ms-5">
                         <div style="width: 25%;">
-                            <label for="productCategory" class="form-label">Tình trạng</label>
+                            <label for="" class="form-label">Tình trạng</label>
                         </div>
                         <div style="width: 70%;">
-                            <select class="form-select" id="productCategory">
+                            <select class="form-select" id="">
                                 <option selected>Mới</option>
                                 <option value="1">Đã sử dụng</option>
                             </select>
@@ -376,21 +388,39 @@
                         </div>
                     </div>
                 </div>
+
             </div>
 
-            <div class="form-group text-end">
-                <button type="button" class="btn btn-danger">Huỷ</button>
-                <button type="submit" class="btn btn-primary">Lưu thông tin</button>
-            </div>
+
         </div>
     </div>
-    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script>
+        <script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script>
+ 
     <script>
         ClassicEditor
            .create(document.querySelector('#description'))
            .catch(error => {
               console.error(error);
            });
+
+        document.getElementById("imagePreview").addEventListener("click", function () {
+            document.getElementById("productImage").click();
+        });
+
+        document.getElementById("productImage").addEventListener("change", function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const imagePreview = document.getElementById("imagePreview");
+                    imagePreview.style.backgroundImage = `url(${e.target.result})`;
+                    imagePreview.style.backgroundSize = "cover";
+                    imagePreview.style.backgroundPosition = "center";
+                    imagePreview.innerHTML = ""; // Xóa chữ "Chọn hình"
+                };
+                reader.readAsDataURL(file);
+            }
+        });
     </script>
 </body>
 

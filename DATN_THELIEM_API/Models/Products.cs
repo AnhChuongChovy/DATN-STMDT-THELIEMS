@@ -1,7 +1,7 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
 
-namespace DATN_STMDT_THELIEMS.Models
+namespace DATN_THELIEM_API.Models
 {
 	public class Products
 	{

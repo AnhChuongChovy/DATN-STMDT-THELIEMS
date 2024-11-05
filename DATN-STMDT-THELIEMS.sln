@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DATN-STMDT-THELIEMS", "DATN-STMDT-THELIEMS\DATN-STMDT-THELIEMS.csproj", "{ECDF7BD5-127D-448A-B2E1-F9C9FDF64DE6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DATN-STMDT-THELIEMS", "DATN-STMDT-THELIEMS\DATN-STMDT-THELIEMS.csproj", "{ECDF7BD5-127D-448A-B2E1-F9C9FDF64DE6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DATN_THELIEM_API", "DATN_THELIEM_API\DATN_THELIEM_API.csproj", "{CB0C8121-BD7E-47A0-865E-8A7F1D8ED2CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{ECDF7BD5-127D-448A-B2E1-F9C9FDF64DE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ECDF7BD5-127D-448A-B2E1-F9C9FDF64DE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ECDF7BD5-127D-448A-B2E1-F9C9FDF64DE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB0C8121-BD7E-47A0-865E-8A7F1D8ED2CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB0C8121-BD7E-47A0-865E-8A7F1D8ED2CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB0C8121-BD7E-47A0-865E-8A7F1D8ED2CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB0C8121-BD7E-47A0-865E-8A7F1D8ED2CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

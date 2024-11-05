@@ -1,17 +1,8 @@
 ﻿@using DATN_STMDT_THELIEMS.Models
-
+@{
+    var products = ViewBag.Products as List<DATN_STMDT_THELIEMS.Models.Products>;
+}
 <!DOCTYPE html>
-<!--
-Author: Keenthemes
-Product Name: MetronicProduct Version: 8.2.6
-Purchase: https://1.envato.market/EA4JP
-Website: http://www.keenthemes.com
-Contact: support@keenthemes.com
-Follow: www.twitter.com/keenthemes
-Dribbble: www.dribbble.com/keenthemes
-Like: www.facebook.com/keenthemes
-License: For each use you must have a valid license purchased only from above link in order to legally use the theme for your project.
--->
 <html lang="en">
 <!--begin::Head-->
 
@@ -99,7 +90,7 @@ License: For each use you must have a valid license purchased only from above li
 									<!--begin:Menu item-->
 									<div class="menu-item">
 										<!--begin:Menu link-->
-										<a class="menu-link" href="product.html">
+										<a class="menu-link" href="/Shop/Products/IndexShop">
 											<span class="menu-bullet">
 												<span class="bullet bullet-dot"></span>
 											</span>
@@ -111,7 +102,7 @@ License: For each use you must have a valid license purchased only from above li
 									<!--begin:Menu item-->
 									<div class="menu-item">
 										<!--begin:Menu link-->
-										<a class="menu-link" href="addproduct.html">
+										<a class="menu-link" href="/Shop/Products/AddProduct">
 											<span class="menu-bullet">
 												<span class="bullet bullet-dot"></span>
 											</span>
@@ -141,7 +132,7 @@ License: For each use you must have a valid license purchased only from above li
 									<!--begin:Menu item-->
 									<div class="menu-item">
 										<!--begin:Menu link-->
-										<a class="menu-link" href="order.html">
+										<a class="menu-link" href="/Shop/Orders/OrderIndex">
 											<span class="menu-bullet">
 												<span class="bullet bullet-dot"></span>
 											</span>
@@ -169,7 +160,7 @@ License: For each use you must have a valid license purchased only from above li
 									<!--begin:Menu item-->
 									<div class="menu-item">
 										<!--begin:Menu link-->
-										<a class="menu-link" href="user.html">
+										<a class="menu-link" href="/Admin/Account/AccountIndex">
 											<span class="menu-bullet">
 												<span class="bullet bullet-dot"></span>
 											</span>
@@ -193,7 +184,7 @@ License: For each use you must have a valid license purchased only from above li
 									<!--begin:Menu item-->
 									<div data-kt-menu-trigger="click" class="menu-item menu-accordion">
 										<!--begin:Menu link-->
-										<a class="menu-link" href="order.html">
+										<a class="menu-link" href="acceptuser.html">
 											<span class="menu-bullet">
 												<span class="bullet bullet-dot"></span>
 											</span>
@@ -1403,65 +1394,311 @@ License: For each use you must have a valid license purchased only from above li
 								<a class="btn btn-primary" style="float: right;" href="@Url.Action("AddProduct","Products","Shop")">Thêm sản phẩm mới</a>
 							</div>
 							<div class="clearfix mb-3"></div>
-							<div class="product-list">
-								<a class="select-status fs-4 text-dark">Tất cả</a>
-								<a class="fs-4 text-dark">Đang bán (1)</a>
-								<a class="fs-4 text-dark">Hết hàng (0)</a>
-								<a class="fs-4 text-dark">Chờ duyệt (0)</a>
-								<a class="fs-4 text-dark">Vi phạm (0)</a>
-							</div>
+							<ul class="nav nav-tabs" id="productTab" role="tablist">
+								<li class="nav-item" role="presentation">
+									<button class="nav-link active" id="all-products-tab" data-bs-toggle="tab" data-bs-target="#all-products" type="button" role="tab" aria-controls="all-products" aria-selected="true">Tất cả (@ViewBag.TotalProducts)</button>
+								</li>
+								<li class="nav-item" role="presentation">
+									<button class="nav-link" id="selling-products-tab" data-bs-toggle="tab" data-bs-target="#selling-products" type="button" role="tab" aria-controls="selling-products" aria-selected="false">Đang bán (@ViewBag.SellingProductCount)</button>
+								</li>
+								<li class="nav-item" role="presentation">
+									<button class="nav-link" id="out-of-stock-products-tab" data-bs-toggle="tab" data-bs-target="#out-of-stock-products" type="button" role="tab" aria-controls="out-of-stock-products" aria-selected="false">Hết hàng (@ViewBag.NoQuantityProductCount)</button>
+								</li>
+								<li class="nav-item" role="presentation">
+									<button class="nav-link" id="pending-products-tab" data-bs-toggle="tab" data-bs-target="#pending-products" type="button" role="tab" aria-controls="pending-products" aria-selected="false">Chờ duyệt (0)</button>
+								</li>
+								<li class="nav-item" role="presentation">
+									<button class="nav-link" id="violated-products-tab" data-bs-toggle="tab" data-bs-target="#violated-products" type="button" role="tab" aria-controls="violated-products" aria-selected="false">Vi phạm (0)</button>
+								</li>
+							</ul>
 							<hr>
 						</div>
 						<div class="row mt-2">
-							<div class="col-md-5">
+							<div class="col-md-5 mb-2">
 								<input type="text" style="border-radius: 0;" class="form-control input-timkiem"
-									   placeholder="Tìm kiếm sản phẩm theo tên sản phẩm, mã sản phẩm, mã SKU">
+									   placeholder="Tìm kiếm sản phẩm theo tên sản phẩm, mã sản phẩm, mã SKU"
+									   id="searchProduct">
 							</div>
-							<div class="col-md-4">
-								<select class="form-control select-categories" style="border-radius: 0;">
-									<option>Chọn ngành hàng</option>
+							<div class="col-md-4 mb-2">
+								<select class="form-control select-categories" style="border-radius: 0;" id="categorySelect">
+									<option value="">Chọn ngành hàng</option>
+									@foreach (var category in ViewBag.Categories)
+									{
+										<option value="@category.Id">@category.Name</option>
+									}
 								</select>
 							</div>
-							<div class="col-md-3">
-								<button class="btn btn-apdung">Áp dụng</button>
-								<button class="btn btn-chonlai">Chọn lại</button>
+							<div class="col-md-3 mb-2">
+								<button class="btn btn-apdung" id="applyFilter">Áp dụng</button>
+								<button class="btn btn-chonlai" id="resetFilter">Chọn lại</button>
 							</div>
 						</div>
 
-						<div class="mt-5">
-							<table class="table table-bordered bg-white">
-								<thead>
-									<tr>
-										<th scope="col">Id</th>
-										<th scope="col">Tên sản phẩm</th>
-										<th scope="col">Giá</th>
-										<th scope="col">Kho hàng</th>
-										<th scope="col">Danh số</th>
-										<th scope="col">Thao tác</th>
-									</tr>
-								</thead>
-								<tbody>
-								@for (int i = 0; i < Model.Count; i++)
-								{
-									var product = Model[i];
-									<tr>
-										<th scope="row">@product.Id</th>
-										<td>
-											<img src="@product.Product_link" width="40px" height="40px" />
-											<a>@product.Name</a>
-										</td>
-										<td>@product.Price.ToString("N0")đ</td>
-										<td>@product.View_count</td>
-										<td>@product.Sold_count</td>
-										<td>
-											<a class="text-primary fw-bold" href="@Url.Action("Update", "Products", new { id = product.Id })">Cập nhật</a><br>
-											<a class="text-danger fw-bold" href="@Url.Action("Delete", "Products", new { id = product.Id })">Xoá</a>
-										</td>
-									</tr>
-								}
-								</tbody>
-							</table>
+						<!-- Tab panes -->
+						<div class="tab-content mt-3">
+							<div class="tab-pane fade show active" id="all-products" role="tabpanel" aria-labelledby="all-products-tab">
+								<!-- Nội dung cho Tất cả -->
+								<p>Danh sách tất cả các sản phẩm sẽ hiển thị ở đây.</p>
+								<div class="mt-5">
+									<table class="table table-bordered bg-white">
+										<thead>
+											<tr>
+												<th scope="col">STT</th>
+												<th scope="col">Tên sản phẩm</th>
+												<th scope="col">Ngành hàng</th>
+												<th scope="col">Giá</th>
+												<th scope="col">Kho hàng</th>
+												<th scope="col">Danh số</th>
+												<th scope="col">Trạng thái</th>
+												<th scope="col">Thao tác</th>
+											</tr>
+										</thead>
+										<tbody>
+											@if (products != null && products.Count > 0) /* Kiểm tra số lượng sp */
+											{
+												for (int i = 0; i < products.Count; i++)
+												{
+													var product = products[i];
+													<tr class="product-row" data-category="@product.Categories.Id">
+														<th scope="row">@(i + 1)</th>
+														<td>
+															<img src="~/@Url.Content(@product.Image)" width="40px" height="40px" />
+															<a>@product.Name</a>
+														</td>
+														<td>@product.Categories.Name</td>
+														<td>@product.Price.ToString("N0")đ</td>
+														<td>@product.TotalQuantity</td>
+														<td>@product.Sold_count</td>
+
+														@if (product.Status == 1)
+														{
+															<td class=text-success>Đang bán</td>
+														}
+														else
+														{
+															<td class=text-danger>Ẩn</td>
+														}
+
+														<td>
+															<a class="text-primary fw-bold mb-1" href="@Url.Action("Update", "Products", new { area = "Shop", id = product.Id })">Cập nhật</a><br>
+															<a class="text-primary fw-bold mb-1" href="@Url.Action("DetailProduct", "Products", new { area = "Shop", id = product.Id })">Chi tiết</a><br>
+															<a class="text-danger fw-bold mb-1 deleteBtn" href="#" data-id="@product.Id">Ẩn</a>
+														</td>
+													</tr>
+												}
+											}
+											else
+											{
+												<tr>
+													<td colspan="7" class="text-center">Không có sản phẩm nào được tìm thấy.</td>
+												</tr>
+											}
+										</tbody>
+									</table>
+									<nav aria-label="Page navigation">
+										<ul class="pagination">
+											<li class="page-item">
+												<a class="page-link" href="#" aria-label="Previous">
+													<span aria-hidden="true">&lt;</span>
+												</a>
+											</li>
+											<li class="page-item active"><a class="page-link" href="#">1</a></li>
+											<li class="page-item"><a class="page-link" href="#">2</a></li>
+											<li class="page-item"><a class="page-link" href="#">3</a></li>
+											<li class="page-item"><a class="page-link" href="#">4</a></li>
+											<li class="page-item"><a class="page-link" href="#">5</a></li>
+											<li class="page-item">
+												<a class="page-link" href="#" aria-label="Next">
+													<span aria-hidden="true">&gt;</span>
+												</a>
+											</li>
+										</ul>
+									</nav>
+									</div>
+							</div>
+
+							<div class="tab-pane fade" id="selling-products" role="tabpanel" aria-labelledby="selling-products-tab">
+								<!-- Nội dung cho Đang bán -->
+								<p>Danh sách các sản phẩm đang bán sẽ hiển thị ở đây.</p>
+								<div class="mt-5">
+									<table class="table table-bordered bg-white">
+										<thead>
+											<tr>
+												<th scope="col">STT</th>
+												<th scope="col">Tên sản phẩm</th>
+												<th scope="col">Ngành hàng</th>
+												<th scope="col">Giá</th>
+												<th scope="col">Kho hàng</th>
+												<th scope="col">Danh số</th>
+												<th scope="col">Trạng thái</th>
+												<th scope="col">Thao tác</th>
+											</tr>
+										</thead>
+										<tbody>
+											@if (products != null && products.Count > 0) /* Kiểm tra số lượng sp */
+											{
+												for (int i = 0; i < products.Count; i++)
+												{
+														var product = products[i];
+														@if(product.Status == 1){
+													<tr class="product-row" data-category="@product.Categories.Id">
+														<th scope="row">@(i + 1)</th>
+														<td>
+															<img src="~/@Url.Content(@product.Image)" width="40px" height="40px" />
+															<a>@product.Name</a>
+														</td>
+														<td>@product.Categories.Name</td>
+														<td>@product.Price.ToString("N0")đ</td>
+														<td>@product.TotalQuantity</td>
+														<td>@product.Sold_count</td>
+
+														@if (product.Status == 1)
+														{
+															<td class=text-success>Đang bán</td>
+														}
+														else
+														{
+															<td class=text-danger>Ẩn</td>
+														}
+
+														<td>
+															<a class="text-primary fw-bold mb-1" href="@Url.Action("Update", "Products", new { area = "Shop", id = product.Id })">Cập nhật</a><br>
+															<a class="text-primary fw-bold mb-1" href="@Url.Action("DetailProduct", "Products", new { area = "Shop", id = product.Id })">Chi tiết</a><br>
+															<a class="text-danger fw-bold mb-1 deleteBtn" href="#" data-id="@product.Id">Ẩn</a>
+														</td>
+													</tr>
+													}
+													
+												}
+											}
+											else
+											{
+												<tr>
+													<td colspan="7" class="text-center">Không có sản phẩm nào được tìm thấy.</td>
+												</tr>
+											}
+										</tbody>
+									</table>
+									<nav aria-label="Page navigation">
+										<ul class="pagination">
+											<li class="page-item">
+												<a class="page-link" href="#" aria-label="Previous">
+													<span aria-hidden="true">&lt;</span>
+												</a>
+											</li>
+											<li class="page-item active"><a class="page-link" href="#">1</a></li>
+											<li class="page-item"><a class="page-link" href="#">2</a></li>
+											<li class="page-item"><a class="page-link" href="#">3</a></li>
+											<li class="page-item"><a class="page-link" href="#">4</a></li>
+											<li class="page-item"><a class="page-link" href="#">5</a></li>
+											<li class="page-item">
+												<a class="page-link" href="#" aria-label="Next">
+													<span aria-hidden="true">&gt;</span>
+												</a>
+											</li>
+										</ul>
+									</nav>
+								</div>
+							</div>
+							
+							<div class="tab-pane fade" id="out-of-stock-products" role="tabpanel" aria-labelledby="out-of-stock-products-tab">
+								<!-- Nội dung cho Hết hàng -->
+								<p>Danh sách các sản phẩm hết hàng sẽ hiển thị ở đây.</p>
+								<div class="mt-5">
+									<table class="table table-bordered bg-white">
+										<thead>
+											<tr>
+												<th scope="col">STT</th>
+												<th scope="col">Tên sản phẩm</th>
+												<th scope="col">Ngành hàng</th>
+												<th scope="col">Giá</th>
+												<th scope="col">Kho hàng</th>
+												<th scope="col">Danh số</th>
+												<th scope="col">Trạng thái</th>
+												<th scope="col">Thao tác</th>
+											</tr>
+										</thead>
+										<tbody>
+											@if (products != null && products.Count > 0) /* Kiểm tra số lượng sp */
+											{
+												for (int i = 0; i < products.Count; i++)
+												{
+													var product = products[i];
+													@if (product.TotalQuantity == 0)
+													{
+														<tr class="product-row" data-category="@product.Categories.Id">
+															<th scope="row">@(i + 1)</th>
+															<td>
+																<img src="~/@Url.Content(@product.Image)" width="40px" height="40px" />
+																<a>@product.Name</a>
+															</td>
+															<td>@product.Categories.Name</td>
+															<td>@product.Price.ToString("N0")đ</td>
+															<td>@product.TotalQuantity</td>
+															<td>@product.Sold_count</td>
+
+															@if (product.Status == 1)
+															{
+																<td class=text-success>Đang bán</td>
+															}
+															else
+															{
+																<td class=text-danger>Ẩn</td>
+															}
+
+															<td>
+																<a class="text-primary fw-bold mb-1" href="@Url.Action("Update", "Products", new { area = "Shop", id = product.Id })">Cập nhật</a><br>
+																<a class="text-primary fw-bold mb-1" href="@Url.Action("DetailProduct", "Products", new { area = "Shop", id = product.Id })">Chi tiết</a><br>
+																<a class="text-danger fw-bold mb-1 deleteBtn" href="#" data-id="@product.Id">Ẩn</a>
+															</td>
+														</tr>
+													}
+
+												}
+											}
+											else
+											{
+												<tr>
+													<td colspan="7" class="text-center">Không có sản phẩm nào được tìm thấy.</td>
+												</tr>
+											}
+										</tbody>
+									</table>
+
+								</div>
+
+							</div>
+							
+							<div class="tab-pane fade" id="pending-products" role="tabpanel" aria-labelledby="pending-products-tab">
+								<!-- Nội dung cho Chờ duyệt -->
+								<p>Danh sách các sản phẩm chờ duyệt sẽ hiển thị ở đây.</p>
+							
+								</div>
+							<div class="tab-pane fade" id="violated-products" role="tabpanel" aria-labelledby="violated-products-tab">
+								<!-- Nội dung cho Vi phạm -->
+								<p>Danh sách các sản phẩm vi phạm sẽ hiển thị ở đây.</p>
+							</div>
 						</div>
+
+						
+						<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="deleteConfirmModalLabel">Xác nhận ẩn sản phẩm</h5>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										Bạn có chắc chắn muốn ẩn sản phẩm này không?
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+										<button type="button" class="btn btn-danger" id="confirmDeleteBtn">Ẩn sản phẩm</button>
+									</div>
+								</div>
+							</div>
+						</div>
+
 					</div>
 
 					<!--end::Container-->
@@ -8468,7 +8705,24 @@ License: For each use you must have a valid license purchased only from above li
 	<script src="assets/js/custom/utilities/modals/create-project/complete.js"></script>
 	<script src="assets/js/custom/utilities/modals/create-project/main.js"></script>
 	<script src="assets/js/custom/utilities/modals/users-search.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="~/js/shopproduct.js"></script>
 	<!--end::Custom Javascript-->
+	<script>
+		$(document).ready(function () {
+			var productId;
+
+			$('.deleteBtn').on('click', function (e) {
+				e.preventDefault();
+				productId = $(this).data('id');
+				$('#deleteConfirmModal').modal('show');
+			});
+
+			$('#confirmDeleteBtn').on('click', function () {
+				window.location.href = '@Url.Action("Delete", "Products", new { area = "Shop", id = "__productId__" })'.replace('__productId__', productId);
+			});
+		});
+	</script>
 	<!--end::Javascript-->
 </body>
 <!--end::Body-->

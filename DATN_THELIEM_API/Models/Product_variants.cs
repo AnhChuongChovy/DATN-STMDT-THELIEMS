@@ -1,4 +1,4 @@
-﻿namespace DATN_STMDT_THELIEMS.Models
+﻿namespace DATN_THELIEM_API.Models
 {
     public class Product_variants
     {
