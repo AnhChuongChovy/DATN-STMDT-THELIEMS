@@ -20,7 +20,23 @@ namespace DATN_STMDT_THELIEMS.Areas.Admin.Controllers
 			return View(user);
 		}
 
-        public IActionResult BrowseShop()
+		[HttpGet("{id}")]
+		public async Task<IActionResult> LockAccount(int id)
+		{
+			var user = await _context.USERS.FindAsync(id);
+			if (user == null)
+			{
+				return NotFound();
+			}
+
+			// Change status to 1 (locked)
+			user.Status = 1;
+			await _context.SaveChangesAsync();
+
+			return Redirect("/Admin/Account/AccountIndex"); 
+		}
+
+		public IActionResult BrowseShop()
         {
             var user = _context.SHOPS.ToList();
             return View(user);
@@ -39,10 +55,10 @@ namespace DATN_STMDT_THELIEMS.Areas.Admin.Controllers
                     shop.Status = 1; // Đặt trạng thái thành 1 (đã duyệt)
                 }
 
-                _context.SaveChanges(); // Lưu thay đổi vào cơ sở dữ liệu
+                _context.SaveChanges(); 
             }
 
-            return Redirect("/Admin/Account/BrowseShop"); // Quay lại trang hiện tại sau khi duyệt
+            return Redirect("/Admin/Account/BrowseShop");
         }
 
         public IActionResult FilterShops(int? status)

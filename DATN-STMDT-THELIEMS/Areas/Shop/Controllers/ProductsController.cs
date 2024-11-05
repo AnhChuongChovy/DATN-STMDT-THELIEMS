@@ -39,8 +39,9 @@ namespace DATN_STMDT_THELIEMS.Areas.Shop.Controllers
 			return View(products);
 		}
 
+		[HttpGet]
 		[Route("{id}")]
-		public IActionResult DetailProduct(int id)
+		public async Task<IActionResult> DetailProduct(int id)
 		{
 			// Lấy sản phẩm từ database bao gồm các biến thể và các tùy chọn biến thể
 			var product = _context.PRODUCTS
@@ -55,9 +56,43 @@ namespace DATN_STMDT_THELIEMS.Areas.Shop.Controllers
 			{
 				return NotFound();
 			}
-
+			var categories = _context.CATEGORIES.ToList();
+			ViewBag.Categories = categories;
 			return View(product);
 		}
+
+        [HttpPost]
+        [Route("{id}")]
+		public async Task<IActionResult> DetailProduct(int id, Products updatedProduct)
+		{
+			if (id != updatedProduct.Id)
+			{
+				return BadRequest();
+			}
+
+			// Validate the model
+			if (!ModelState.IsValid)
+			{
+				var product = await _context.PRODUCTS
+					.Include(p => p.Product_Variants)
+						.ThenInclude(v => v.Product_Variant_Options)
+							.ThenInclude(o => o.variant_values)
+								.ThenInclude(vv => vv.Variant_Options)
+					.Include(p => p.Categories)
+					.FirstOrDefaultAsync(p => p.Id == id);
+				ViewBag.Categories = await _context.CATEGORIES.ToListAsync();
+				return View(product);
+			}
+
+			// Update the product in the database
+			_context.PRODUCTS.Update(updatedProduct);
+			await _context.SaveChangesAsync();
+
+			// Redirect to the detail view of the updated product
+			return RedirectToAction("DetailProduct", "Products", new { area = "Shop", id = updatedProduct.Id });
+			//return RedirectToAction("DetailProduct", new { id = updatedProduct.Id });
+		}
+
 
 		[HttpGet]
 		public IActionResult AddProduct()
@@ -121,6 +156,7 @@ namespace DATN_STMDT_THELIEMS.Areas.Shop.Controllers
 
 			return RedirectToAction("IndexShop", "Products", new { area = "Shop" });
 		}
+		
 		[HttpGet]
 		public IActionResult Delete(int id)
 		{
