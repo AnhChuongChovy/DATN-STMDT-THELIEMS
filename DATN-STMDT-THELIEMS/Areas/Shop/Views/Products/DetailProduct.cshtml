@@ -1,0 +1,43 @@
+﻿@model DATN_STMDT_THELIEMS.Models.Products // Use your actual namespace and model
+
+<div class="product-detail">
+    <h1>@Model.Name</h1>
+    <img src="~/@Url.Content(Model.Image)" alt="@Model.Name" class="img-fluid" />
+    <p><strong>Category:</strong> @Model.Categories.Name</p>
+    <p><strong>Price:</strong> @Model.Price.ToString("N0")đ</p>
+    <p><strong>SKU:</strong> @Model.Sku</p>
+    <div class="product-variants">
+        @foreach (var variant in Model.Product_Variants)
+        {
+            <div class="variant">
+                <ul>
+                    <ul>
+                        @foreach (var option in variant.Product_Variant_Options)
+                        {
+                            <li>
+                                @option.variant_values.Variant_Options.Name: @option.variant_values.Name
+                            </li>
+                        }
+                    </ul>
+                    <!-- Hiển thị số lượng -->
+                    <li>
+                        <strong>Số lượng:</strong> @variant.Quantity
+                    </li>
+                    <!-- Hiển thị giá -->
+                    <li>
+                        <strong>Giá:</strong> @variant.Price.ToString("N0") VND
+                    </li>
+                    <!-- Hiển thị SKU -->
+                    <li>
+                        <strong>SKU:</strong> @variant.Sku
+                    </li>
+                </ul>
+            </div>
+        }
+    </div>
+    <p><strong>View Count:</strong> @Model.View_count</p>
+    <p><strong>Sold Count:</strong> @Model.Sold_count</p>
+    <p><strong>Description:</strong> @Model.Description</p> <!-- Assuming there's a description field -->
+
+    <a class="btn btn-primary" href="@Url.Action("Index", "Products", new { area = "Shop" })">Back to Products</a>
+</div>
