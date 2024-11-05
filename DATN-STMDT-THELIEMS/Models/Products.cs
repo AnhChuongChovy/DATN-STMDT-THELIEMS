@@ -22,6 +22,7 @@ namespace DATN_STMDT_THELIEMS.Models
         public int? Sold_count { get; set; }
         public string? Meta_title { get; set; }
         public string? Meta_keyword { get; set; }
+        public byte? Status { get; set; }
         public DateTime? Created_at { get; set; }
         public DateTime? Updated_at { get; set; }
         public ICollection<Product_variants> Product_Variants { get; set; }

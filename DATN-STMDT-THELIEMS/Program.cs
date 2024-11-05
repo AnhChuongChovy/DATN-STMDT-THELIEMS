@@ -1,13 +1,24 @@
-using DATN_STMDT_THELIEMS.DATA;
+﻿using DATN_STMDT_THELIEMS.DATA;
+using DATN_STMDT_THELIEMS.Service;
+using DATN_STMDT_THELIEMS.Services;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+ 
 using Microsoft.EntityFrameworkCore;
+ 
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IHomeService, HomeService>();
+/*builder.Services.AddScoped<ILayoutSerivce, LayoutService>();*/
+
 builder.Services.AddDbContext<AppDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -26,6 +37,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{areas=exist}/{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
