@@ -28,7 +28,7 @@ namespace DATN_STMDT_THELIEMS.Models
         public DateTime? Updated_at { get; set; }
         public ICollection<Product_variants> Product_Variants { get; set; }
         public ICollection<Product_parts> Product_Parts { get; set; }
-
+		
         public decimal? DiscountedPrice
         {
             get
@@ -40,5 +40,5 @@ namespace DATN_STMDT_THELIEMS.Models
                 return null;
             }
         }   
-    }
+	}
 }

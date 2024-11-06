@@ -1435,7 +1435,8 @@
 						<div class="mt-5">
 							@foreach (var order in Model)
 							{
-								<table class="table table-bordered bg-white mt-2">
+							<table class="table table-bordered bg-white mt-2">
+								
 									<thead>
 										<tr>
 											<th scope="col" colspan="3">Mã đơn hàng: @order.Id</th>
@@ -1457,50 +1458,51 @@
 										@{
 											int stt = 1;
 											foreach (var detail in order.Order_Details)
-											{
-												<tr>
+										{
+											<tr>
 													<th scope="row">@stt</th>
-													<td style="width: 300px;">
-														<img src="~/@detail.Product_variants?.Products?.Image" width="40px" height="40px" alt="">
-														<a>@detail.Product_variants?.Products?.Name</a>
+												<td style="width: 300px;">
+													<img src="~/@detail.Product_variants?.Products?.Image" width="40px" height="40px" alt="">
+													<a>@detail.Product_variants?.Products?.Name</a>
 
-														<!-- Danh sách biến thể -->
+													<!-- Danh sách biến thể -->
 														@if (detail.Product_variants.Product_Variant_Options != null)
-														{
-															<ul>
-																@foreach (var childDetail in detail.Product_variants.Product_Variant_Options)
-																{
-																	<li>
+													{
+														<ul>
+															@foreach (var childDetail in detail.Product_variants.Product_Variant_Options)
+															{
+																<li>
 																		@childDetail.variant_values.Variant_Options.Name
 																		@childDetail.variant_values.Name
-																	</li>
-																}
-															</ul>
-														}
-													</td>
-													<td>@detail.Product_quantity</td>
-													<td>@string.Format(new System.Globalization.CultureInfo("vi-VN"), "{0:C0}", detail.Product_price)</td>
+																</li>
+															}
+														</ul>
+													}
+												</td>
+												<td>@detail.Product_quantity</td>
+												<td>@string.Format(new System.Globalization.CultureInfo("vi-VN"), "{0:C0}", detail.Product_price)</td>
 													<td>@(order.Shipping_method == 1 ? "Nhanh" : "Thông thường")</td>
 													<td class="@(order.Status == 0 ? "text-success" : order.Status == 1 ? "text-primary" : "text-danger")">
 														@(order.Status == 0 ? "Đã xác nhận" : order.Status == 1 ? "Chờ xác nhận" : "Đã huỷ")
-													</td>
-													<td>
+												</td>
+												<td>
 														<form action="@Url.Action("UpdateStatusOrder", "Orders", new { area = "Shop" })" method="post" style="display: inline;">
 															<input type="hidden" name="orderId" value="@order.Id" />
 															<button type="submit" class="text-success fw-bold btn btn-link p-0">Cập nhật</button>
 														</form><br />
-														<a class="text-primary fw-bold" href="@Url.Action("Details", "Orders", new { id = order.Id })" target="_blank">Xem chi tiết</a><br>
+													<a class="text-primary fw-bold" href="@Url.Action("Details", "Orders", new { id = order.Id })" target="_blank">Xem chi tiết</a><br>
 														<form action="@Url.Action("CancelOrder", "Orders", new { area = "Shop" })" method="post" style="display: inline;">
 															<input type="hidden" name="orderId" value="@order.Id" />
 															<button type="submit" class="text-danger fw-bold btn btn-link p-0">Huỷ</button>
 														</form>
-													</td>
-												</tr>
+												</td>
+											</tr>
 												stt++;
 											}
 										}
 									</tbody>
-								</table>
+								
+							</table>
 							}
 						</div>
 
