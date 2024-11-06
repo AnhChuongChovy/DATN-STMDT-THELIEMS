@@ -1,4 +1,6 @@
-﻿@{
+﻿@model DATN_STMDT_THELIEMS.Models.Products
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -13,7 +15,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
-        /* Chỉnh phông chữ và kích thước chữ */
         body {
             font-family: 'Arial', sans-serif;
         }
@@ -63,8 +64,8 @@
         }
 
        .card-img-top {
-        width: 200px; /* Đặt chiều ngang cố định */
-        height: 250px; /* Đặt chiều cao cố định */
+        width: 200px;
+        height: 250px; 
         object-fit: cover; /* Cắt ảnh để vừa khung */
         margin: 0 auto; /* Căn giữa ảnh nếu chiều ngang cố định nhỏ hơn chiều ngang thẻ chứa */
         }
@@ -83,9 +84,9 @@
 
         /* Điều chỉnh kích thước của cả 2 nút "Mua Ngay" và "Thêm Vào Giỏ" */
         .btn-buy {
-            font-size: 18px; /* Kích thước chữ lớn hơn */
-            padding: 15px 30px; /* Thêm khoảng trống để nút lớn hơn */
-            width: 200px; /* Độ rộng của nút */
+            font-size: 18px;
+            padding: 15px 30px; 
+            width: 200px;
         }
 
         /* Ẩn spinner (nút tăng/giảm số) trên trình duyệt Chrome, Safari, Edge, Opera */
@@ -187,7 +188,7 @@
 
         .category-menu {
             padding: 20px;
-            background-color: #fff; /* Nền màu trắng */
+            background-color: #fff; 
             border-radius: 10px;
             margin-bottom: 20px;
             text-align: center;
@@ -197,7 +198,7 @@
             width: 23%;
             display: inline-block;
             margin: 0 10px;
-            transition: all 0.3s ease; /* Hiệu ứng khi hover */
+            transition: all 0.3s ease; 
         }
         .category-item img {
             max-width: 60px;
@@ -214,8 +215,8 @@
         }
         /* Hover effect */
         .category-item:hover p {
-            color: #007bff; /* Đổi màu chữ */
-            text-decoration: underline; /* Gạch chân */
+            color: #007bff;
+            text-decoration: underline; 
         }
         .product-card {
             padding: 15px;
@@ -251,13 +252,13 @@
         }
 
         .main-image {
-            width: 90%; /* Giảm chiều ngang ảnh */
-            max-width: 500px; /* Giới hạn chiều ngang tối đa */
-            height: 500px; /* Giữ chiều cao cố định */
-            object-fit: cover; /* Đảm bảo ảnh không bị méo */
+            width: 90%;
+            max-width: 500px; 
+            height: 500px; 
+            object-fit: cover; 
             margin: 0 auto; /* Căn giữa ảnh */
             position: relative;
-            z-index: 1; /* Ảnh chính luôn ở trên thumbnail */
+            z-index: 1; 
         }
 
         .thumbnail {
@@ -299,24 +300,22 @@
             transform: translateY(-50%);
         }
 
-        /* Vị trí nút trái ngoài mép bìa của ảnh chính */
         .carousel-control-prev {
-            left: 10px; /* Căn sát vào ảnh chính ở bên trái */
+            left: 10px; 
         }
 
         .carousel-control-next {
-            right: 10px; /* Căn sát vào ảnh chính ở bên phải */
+            right: 10px; 
         }
 
-        /* Nút điều hướng bị mờ khi không thể cuộn */
         .thumbnail-control.disabled {
             opacity: 0.3;
             pointer-events: none;
         }
 
         .custom-frame {
-            max-width: 600px; /* Bạn có thể thay đổi giá trị này tùy ý */
-            margin: 0 auto; /* Căn giữa khung */
+            max-width: 600px;
+            margin: 0 auto; 
         }
 
         /* Style hover và active cho danh mục */
@@ -326,11 +325,11 @@
         }
 
         .category-item:hover {
-            transform: scale(1.05); /* Phóng to nhẹ khi hover */
+            transform: scale(1.05);
         }
 
         .category-item.active-category a {
-            color: #28a745; /* Màu chữ khi danh mục được chọn */
+            color: #28a745;
             font-weight: bold;
             text-decoration: underline;
         }
@@ -352,7 +351,7 @@
         <!-- Breadcrumb -->
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Trang Chủ</a></li>
+                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")">Trang Chủ</a></li>
                 <li class="breadcrumb-item"><a href="#">Áo Sơ Mi</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Áo Sơ Mi Nam Thiết Kế Nam Tính</li>
             </ol>
@@ -369,7 +368,7 @@
                     </button>
 
                     <!-- Ảnh chính -->
-                    <img id="main-image" src="/images/aosm1.webp" alt="Áo Sơ Mi Nam" class="img-fluid border mb-2 main-image">
+                    <img id="main-image" src="@Model.Image" alt="Áo Sơ Mi Nam" class="img-fluid border mb-2 main-image">
 
                     <!-- Nút cuộn phải kiểu Bootstrap -->
                     <button id="next-btn" class="carousel-control-next thumbnail-control" type="button" onclick="scrollThumbnails(1)">
@@ -383,13 +382,16 @@
                     <!-- Các ảnh thumbnail được đặt trong một khung cuộn -->
                     <div class="thumbnail-container mx-2 overflow-hidden">
                         <div class="d-flex" id="thumbnail-wrapper">
-                            <img src="/images/aosm1.webp" alt="Thumbnail 1" class="img-thumbnail me-2 thumbnail" width="80" height="80" onclick="changeImage(this)">
-                            <img src="/images/sptt1.webp" alt="Thumbnail 2" class="img-thumbnail me-2 thumbnail" width="80" height="80" onclick="changeImage(this)">
-                            <img src="/images/sptt2.webp" alt="Thumbnail 3" class="img-thumbnail me-2 thumbnail" width="80" height="80" onclick="changeImage(this)">
-                            <img src="/images/sptt3.webp" alt="Thumbnail 4" class="img-thumbnail me-2 thumbnail" width="80" height="80" onclick="changeImage(this)">
-                            <img src="/images/sptt4.webp" alt="Thumbnail 5" class="img-thumbnail me-2 thumbnail" width="80" height="80" onclick="changeImage(this)">
-                            <img src="/images/sptt5.webp" alt="Thumbnail 6" class="img-thumbnail me-2 thumbnail" width="80" height="80" onclick="changeImage(this)">
-                            <img src="/images/sptt6.webp" alt="Thumbnail 7" class="img-thumbnail me-2 thumbnail" width="80" height="80" onclick="changeImage(this)">
+                            @foreach (var product in Model.Product_Variants)
+                            {
+                                @foreach (var value in product.Product_Variant_Options)
+                                {
+                                    if (value.variant_values.Variant_Options.Name == "Màu")
+                                    {
+                                        <img src="@value.product_Variants.Image" alt="Thumbnail 2" class="img-thumbnail me-2 thumbnail" width="80" height="80" onclick="changeImage(this)">
+                                    }
+                                }
+                            }                 
                         </div>
                     </div>
                 </div>
@@ -443,59 +445,57 @@
 
             <!-- Product Information Section -->
             <div class="col-md-6">
-                <h1 class="product-title">Áo Sơ Mi Nam Thiết Kế Nam Tính, Sang Trọng</h1>
-                <p class="text-muted fs-6 fw-bold">Thương hiệu: <span class="text-primary">OREM</span></p>
+                <h1 class="product-title">@Model.Name</h1>
+                <p class="text-muted fs-6 fw-bold">Thương hiệu: <span class="text-primary">@Model.Brands.Name</span></p>
                 <div class="d-flex align-items-center mb-2">
                     <span class="me-2">⭐⭐⭐⭐⭐</span>
-                    <span>(205 đánh giá) | Đã bán: 356</span>
+                    <span>(205 đánh giá) | Đã bán: @Model.Sold_count</span>
                 </div>
                 <div class="mb-3">
-                    <span class="price">129.000₫</span>
-                    <span class="original-price ms-2">199.000₫</span>
-                    <span class="badge bg-danger ms-2">-35%</span>
+                    <span class="price">@Model.DiscountedPrice?.ToString("N0")₫</span>
+                    <span class="original-price ms-2">@Model.Price.GetValueOrDefault().ToString("N0")₫</span>
+                    <span class="badge bg-danger ms-2">-@Model.Percent_Decrease%</span>
                 </div>
                 <!-- Color Options -->
                 <div class="mb-3">
                 <p><strong class="fs-6">Màu sắc:</strong></p>
-                <div class="d-inline-flex flex-wrap">
-                    <button class="btn btn-outline-secondary btn-sm me-2 d-flex align-items-center fs-6 mb-2" style="width: 160px; height: 60px;" onclick="changeColor('/images/aosm1.webp')">
-                        <img src="/images/aosm1.webp" alt="Màu Trắng" class="rounded-circle me-2" width="50" height="50">
-                        Màu Trắng Vang
-                    </button>
-
-                    <button class="btn btn-outline-secondary btn-sm me-2 d-flex align-items-center fs-6 mb-2" style="width: 160px; height: 60px;" onclick="changeColor('/images/aoden.webp')">
-                        <img src="/images/aoden.webp" alt="Màu Đen" class="rounded-circle me-2" width="50" height="50">
-                        Màu Đen
-                    </button>
-
-                    <button class="btn btn-outline-secondary btn-sm me-2 d-flex align-items-center fs-6 mb-2" style="width: 160px; height: 60px;" onclick="changeColor('/images/aotrangkem.webp')">
-                        <img src="/images/aotrangkem.webp" alt="Màu Xanh" class="rounded-circle me-2" width="50" height="50">
-                        Màu Xanh Kem
-                    </button>
-
-                    <button class="btn btn-outline-secondary btn-sm me-2 d-flex align-items-center fs-6 mb-2" style="width: 160px; height: 60px;" onclick="changeColor('/images/aosoc.webp')">
-                        <img src="/images/aosoc.webp" alt="Màu Đỏ" class="rounded-circle me-2" width="50" height="50">
-                        Màu Đỏ Kem
-                    </button>
+                    <div class="d-inline-flex flex-wrap">
+                            @foreach (var product in Model.Product_Variants)
+                            {
+                                @foreach (var value in product.Product_Variant_Options)
+                                {
+                                    if (value.variant_values.Variant_Options.Name == "Màu")
+                                    {
+                                        <button class="btn btn-outline-secondary btn-sm me-2 d-flex align-items-center fs-6 mb-2" style="width: 160px; height: 60px;" onclick="changeColor('@value.product_Variants.Image')">
+                                            <img src="@value.product_Variants.Image" alt="Màu Trắng" class="rounded-circle me-2" width="50" height="50">
+                                            @value.variant_values.Name
+                                        </button>
+                                    }
+                                }
+                            }                 
+                    </div>
                 </div>
-            </div>
 
-
-                <!-- Size Options -->
-                <div class="mb-3">
-                 <p><strong class="fs-6">Size:</strong></p>
+            <!-- Size Options -->
+            <div class="mb-3">
+                <p><strong class="fs-6">Size:</strong></p>
                 <div class="d-flex">
-                    <button class="btn btn-outline-secondary btn-sm me-3" style="min-width: 45px;">S</button>
-                    <button class="btn btn-outline-secondary btn-sm me-3" style="min-width: 45px;">M</button>
-                    <button class="btn btn-outline-secondary btn-sm me-3" style="min-width: 45px;">L</button>
-                    <button class="btn btn-outline-secondary btn-sm me-3" style="min-width: 45px;">XL</button>
-                    <button class="btn btn-outline-secondary btn-sm" style="min-width: 45px;">XXL</button>
+                    @foreach (var product in Model.Product_Variants)
+                    {
+                        @foreach (var value in product.Product_Variant_Options)
+                        {
+                            if (value.variant_values.Variant_Options.Name == "Kích thước")
+                            {
+                                <button class="btn btn-outline-secondary btn-sm me-3" style="min-width: 45px;">@value.variant_values.Name</button>
+                            }
+                        }
+                    }       
                 </div>
                 <div class="mt-2">
                     <a href="#" class="text-primary">Bảng Quy Đổi Kích Thước</a>
                 </div>
                 
-                </div>
+            </div>
 
                 <hr class="my-4">
                 <!-- Shipping Information -->
@@ -528,13 +528,14 @@
                     <p><strong class="fs-6">Số lượng:</strong></p>    
                     <div class="input-group mb-3" style="width: 180px;">
                         <!-- Button Giảm -->
-                        <button class="btn btn-outline-primary rounded-start px-3" type="button">-</button>
+                        <button class="btn btn-outline-primary rounded-start px-3 decrease-btn" type="button">-</button>
                         <!-- Input Số lượng -->
-                        <input type="number" class="form-control text-center border-primary" value="1" min="1" style="height: 38px; padding: 0; width: 50px;">
+                        <input id="quantityInput" type="number" class="form-control text-center border-primary" value="1" min="1" max="20" style="height: 38px; padding: 0; width: 50px;">
                         <!-- Button Tăng -->
-                        <button class="btn btn-outline-primary rounded-end px-3" type="button">+</button>
+                        <button class="btn btn-outline-primary rounded-end px-3 increase-btn" type="button">+</button>
                     </div>
-                    <p><strong class="fs-6">Tạm tính: <span class="price">129.000₫</span></strong></p>
+                    <p id="quantityAlert" class="text-danger" style="display: none; font-size: 14px;">Chỉ được chọn tối đa số lượng là 20</p>
+                    <p><strong class="fs-6">Tạm tính: <span id="subtotal" class="price">@Model.DiscountedPrice.GetValueOrDefault().ToString("N0")₫</span></strong></p>
                 </div>
 
                 <!-- Buy and Cart Buttons -->
@@ -609,8 +610,6 @@
         </div>
 
         <hr class="my-4">
-
-
 
         <div class="container my-5">
           <!-- Rating Section -->
@@ -1492,6 +1491,69 @@
         document.addEventListener("DOMContentLoaded", function() {
             showCategory('danh-cho-ban', document.querySelector(".category-item"));
         });
+
+        // Phần tăng giảm số lượng, giá tạm tính
+        // Nút tăng giảm số lượng, tạm tính số tiền 
+        const maxQuantity = 20;
+
+        // Lấy giá sản phẩm đã giảm từ Razor và chuyển vào biến JavaScript
+        const discountedPrice = parseFloat('@Model.DiscountedPrice.GetValueOrDefault()');
+
+        // Lấy các thành phần cần thiết
+        const quantityInput = document.getElementById('quantityInput');
+        const subtotalElement = document.getElementById('subtotal');
+        const decreaseButton = document.querySelector('.decrease-btn');
+        const increaseButton = document.querySelector('.increase-btn');
+
+        // Hàm tính toán tạm tính và cập nhật với định dạng dấu phẩy
+        function updateSubtotal() {
+            const quantity = parseInt(quantityInput.value);
+            const subtotal = quantity * discountedPrice; // Dùng giá đã giảm
+    
+            // Định dạng số với dấu phẩy làm dấu phân cách phần nghìn
+            const formattedSubtotal = subtotal.toLocaleString('vi-VN'); // Định dạng kiểu Việt Nam với dấu phẩy
+
+            subtotalElement.textContent = formattedSubtotal + '₫'; // Hiển thị với dấu phẩy và đơn vị tiền tệ
+        }
+
+       // Sự kiện giảm số lượng
+        decreaseButton.addEventListener('click', function () {
+            let currentValue = parseInt(quantityInput.value);
+            if (currentValue > 1) {
+                quantityInput.value = currentValue - 1;
+                quantityAlert.style.display = 'none'; // Ẩn thông báo nếu số lượng hợp lệ
+                updateSubtotal();
+            }
+        });
+
+        // Sự kiện tăng số lượng
+        increaseButton.addEventListener('click', function () {
+            let currentValue = parseInt(quantityInput.value);
+            if (currentValue < maxQuantity) {
+                quantityInput.value = currentValue + 1;
+                quantityAlert.style.display = 'none'; // Ẩn thông báo nếu số lượng hợp lệ
+                updateSubtotal();
+            } else {
+                // Hiển thị thông báo khi đạt đến số lượng tối đa
+                quantityAlert.style.display = 'block';
+            }
+        });
+
+        // Cập nhật tạm tính khi thay đổi thủ công số lượng
+        quantityInput.addEventListener('input', function () {
+            if (quantityInput.value < 1) quantityInput.value = 1; // Giữ giá trị tối thiểu là 1
+            if (quantityInput.value > maxQuantity) {
+                quantityInput.value = maxQuantity; // Giữ giá trị tối đa
+                quantityAlert.style.display = 'block'; // Hiển thị thông báo
+            } else {
+                quantityAlert.style.display = 'none'; // Ẩn thông báo nếu số lượng hợp lệ
+            }
+            updateSubtotal();
+        });
+
+        // Cập nhật giá tạm tính ban đầu
+        updateSubtotal();
+
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
