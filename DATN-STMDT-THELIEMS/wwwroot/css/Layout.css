@@ -6,22 +6,23 @@
     transition: background-color 0.5s ease 0s;
     color: black;
     transition: color 0.5s ease 0s;
-
 }
 
-    #Menu_Navigation a:hover {
-        background-color: #EAEAEA;
-        color: #007bff;
-        border-radius: 10%;
-    }
+#Menu_Navigation span {
+    font-size: 13px;
+}
 
-/*    Commitment selection*/
+#Menu_Navigation a:hover {
+    background-color: #EAEAEA;
+    color: #007bff;
+    border-radius: 10%;
+}
 
-#Commitment .align-items-center {
-    color: black;
-    transition: color 0.3s ease 0s;
+#Commitment div div .d-flex:hover {
+    color: #007bff;
     cursor: pointer;
 }
-    #Commitment .align-items-center:hover {
-        color: #007bff;
-    }
+
+#Commitment .align-items-center:hover {
+    color: #007bff;
+}

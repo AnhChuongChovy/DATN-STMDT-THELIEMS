@@ -1,10 +1,13 @@
 using DATN_STMDT_THELIEMS.DATA;
+using DATN_STMDT_THELIEMS.Service;
+using DATN_STMDT_THELIEMS.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IHomeService, HomeService>();
 builder.Services.AddDbContext<AppDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
