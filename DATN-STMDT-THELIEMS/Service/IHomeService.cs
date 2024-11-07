@@ -6,4 +6,6 @@ namespace DATN_STMDT_THELIEMS.Service
     {
         Task<IEnumerable<Products>> GetAllProducts();
     }
+
 }
+ 

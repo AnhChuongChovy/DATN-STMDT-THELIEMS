@@ -23,11 +23,26 @@ namespace DATN_STMDT_THELIEMS.Models
         public string? Meta_title { get; set; }
         public string? Meta_keyword { get; set; }
         public byte? Status { get; set; }
+        public int? Percent_Decrease { get; set; }
         public DateTime? Created_at { get; set; }
         public DateTime? Updated_at { get; set; }
         public ICollection<Product_variants> Product_Variants { get; set; }
         public ICollection<Product_parts> Product_Parts { get; set; }
-		
 
-	}
+
+
+
+        public decimal? DiscountedPrice
+        {
+            get
+            {
+                if (Price.HasValue && Percent_Decrease.HasValue)
+                {
+                    return Price.Value * (1 - Percent_Decrease.Value / 100m);
+                }
+                return null;
+            }
+        }
+    }
+
 }

@@ -1,4 +1,4 @@
-using DATN_STMDT_THELIEMS.Models;
+﻿using DATN_STMDT_THELIEMS.Models;
 using DATN_STMDT_THELIEMS.DATA;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -11,12 +11,15 @@ namespace DATN_STMDT_THELIEMS.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IHomeService _homeService;
+        private readonly IProductService _productService;
 
-        public HomeController(ILogger<HomeController> logger, IHomeService homeService)
+        public HomeController(ILogger<HomeController> logger, IHomeService homeService, IProductService productService)
         {
             _logger = logger;
             _homeService = homeService;
-             
+            _productService = productService;
+
+
         }
 
         [HttpGet]
@@ -26,15 +29,14 @@ namespace DATN_STMDT_THELIEMS.Controllers
             var products = await _homeService.GetAllProducts();
             return View(products);
         }
-        public IActionResult ShopView()
-        {
-            return View();
-        }
-        public IActionResult ShopView()
-        {
-            return View();
-        }
 
+         
+
+
+        public IActionResult ShopView()
+        {
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();
@@ -43,9 +45,16 @@ namespace DATN_STMDT_THELIEMS.Controllers
         {
             return View();
         }
-        public IActionResult ProductDetails()
+        public async Task<IActionResult> ProductDetails(int id)
         {
-            return View();
+            var products = await _productService.GetProductsByIdAsync(id);
+
+            if (products == null)
+            {
+                return NotFound();
+            }
+
+            return View(products);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
