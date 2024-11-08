@@ -1,6 +1,7 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model DATN_STMDT_THELIEMS.Models.Users
+@{
+       
+}
 
 <head>
     <title>Đăng nhập</title>
@@ -29,14 +30,17 @@
             <div class="col-md-6 p-5">
                 <h2 class="text-bold">Đăng nhập</h2>
                 <p>Đăng nhập để vào cửa hàng mua sắm nào!</p>
-
                 <form>
                     <div class="mb-3 ">
-                        <input type="text" class="form-control" name="username" id="username" placeholder="Nhập email hoặc số điện thoại của bạn">
+                        <input type="text" class="form-control" name="username" id="username" placeholder="Nhập email của bạn">
                     </div>
                     <div class="mb-3 position-relative">
                         <input type="password" class="form-control" id="passwordInput" placeholder="Nhập mật khẩu của bạn">
                         <i class="bi bi-eye-slash password-toggle" id="togglePassword"></i>
+                    </div>
+                    <div class="row mb-1 justify- ">
+                        <p>Bạn chưa có tài khoản?</p>
+                        <a asp-controller="Home" asp-action="Register">Đăng ký</a>
                     </div>
                     <button type="submit" class="btn btn-danger w-100">Đăng nhập</button>
                 </form>

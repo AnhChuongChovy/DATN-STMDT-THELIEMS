@@ -1,3 +1,4 @@
+using DATN_STMDT_THELIEMS.DATA;
 using DATN_STMDT_THELIEMS.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -7,6 +8,7 @@ namespace DATN_STMDT_THELIEMS.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly AppDBContext _db;
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -22,8 +24,20 @@ namespace DATN_STMDT_THELIEMS.Controllers
             return View();
         }
 
-        public IActionResult Register()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Register(Users user, Role role)
         {
+            if(_db.USERS.Any(h => h.Email == user.Email))
+            {
+                ModelState.AddModelError("Thông báo", "Email ?ã t?n t?i!");
+            }
+            if (ModelState.IsValid)
+            {
+                //user.Role_id ==
+
+            }
+
             return View();
         }
 

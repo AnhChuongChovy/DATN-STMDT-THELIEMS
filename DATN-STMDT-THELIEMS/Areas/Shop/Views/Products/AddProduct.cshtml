@@ -120,10 +120,10 @@
                     <!-- Mô tả -->
                     <div class="d-flex align-items-center mb-4 ms-5">
                         <div style="width: 25%;">
-                            <label for="productDescription" class="form-label">Mô tả</label>
+                            <label for="description" class="form-label">Mô tả</label>
                         </div>
                         <div style="width: 70%; margin-bottom: 20px;">
-                            <textarea class="form-control" id="productDescription" rows="4"
+                            <textarea class="form-control" id="description" rows="4"
                                       placeholder="Nhập mô tả sản phẩm" style="height: 200px;"></textarea>
                         </div>
 
@@ -394,7 +394,14 @@
 
         </div>
     </div>
-
+    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+           .create(document.querySelector('#description'))
+           .catch(error => {
+              console.error(error);
+           });
+    </script>
 </body>
 
 </html>

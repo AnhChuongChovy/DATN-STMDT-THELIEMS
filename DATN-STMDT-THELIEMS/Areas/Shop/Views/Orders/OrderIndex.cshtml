@@ -1454,20 +1454,22 @@
 										</tr>
 									</thead>
 									<tbody>
-										@foreach (var detail in order.Order_Details)
-										{
-											<tr>
-												<th scope="row">@detail.Id</th>
-												<td style="width: 300px;">
-												 <img src="~/@detail.Product_variants?.Products?" width="40px" height="40px" alt="">
-													<a>@detail.Product_variants?.Products?.Name</a>
+										@{
+											int stt = 1;
+											foreach (var detail in order.Order_Details)
+											{
+												<tr>
+													<th scope="row">@stt</th>
+													<td style="width: 300px;">
+														<img src="~/@detail.Product_variants.Products.Image" width="50px" height="50px" alt="">
+														<a>@detail.Product_variants.Products.Name</a>
 
 														<!-- Danh sách biến thể -->
 														<p>
 															Phân loại: @(detail.Product_variants.Product_Variant_Options.FirstOrDefault(pvo => pvo.variant_values.Variant_Options.Name == "Màu")?.variant_values.Name ?? "Chưa có")/
 															@(detail.Product_variants.Product_Variant_Options.FirstOrDefault(pvo => pvo.variant_values.Variant_Options.Name == "Kích thước")?.variant_values.Name ?? "Chưa có")
 														</p>
-														
+
 													</td>
 													<td>@detail.Product_quantity</td>
 													<td>@string.Format(new System.Globalization.CultureInfo("vi-VN"), "{0:C0}", detail.Product_price)</td>
@@ -1486,8 +1488,9 @@
 												stt++;
 											}
 										}
-									
+
 									</tbody>
+									thiếu cái ngoặc ở ngoài
 								</table>
 								<div class="d-flex justify-content-between align-items-center mt-2">
 									<div>
