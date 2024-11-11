@@ -9,7 +9,7 @@
         public byte? Status { get; set; } // Tinyint -> bool
         public DateTime? Created_at { get; set; }
         public DateTime? Updated_at { get; set; }
-        public ICollection<Products> Products { get; set; }
+        public ICollection<Products>? Products { get; set; }
 
     }
 }

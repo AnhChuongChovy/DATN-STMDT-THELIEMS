@@ -1,4 +1,5 @@
 ﻿@using DATN_STMDT_THELIEMS.Models
+
 <!DOCTYPE html>
 <html lang="en">
 <!--begin::Head-->
@@ -1430,7 +1431,7 @@
                                         {
                                             <tr>
                                                 <td>@STT</td>
-                                                <td>@category.Name</td>
+                                                <td><img src="~/@category.Image" width="50px" height="50px"> @category.Name</td>
                                                 @if (@category.Status == 1)
                                                 {
                                                     <td class="text-success">Hiện</td>
@@ -1441,10 +1442,19 @@
                                                 }
                                                 <td>@category.Created_at.ToString("dd/MM/yyyy")</td>
                                                 <td>
-                                                    <a href="/Admin/Category/Edit/@category.Id" class="text-primary">Cập nhật</a><br />
-                                                    <a href="javascript:void(0);"
+                                                    <a href="@Url.Action("EditCategoryForm", "Category", new { area = "Admin", id = category.Id })" class="text-primary">Cập nhật</a><br />
+                                                    @if (@category.Status == 1)
+                                                {
+                                                     <a href="javascript:void(0);"
                                                        onclick="showConfirmHideModal(@category.Id)"
                                                        class="text-danger">Ẩn</a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="javascript:void(0);"
+                                                       onclick="showConfirmDisplayModal(@category.Id)"
+                                                       class="text-success">Hiện</a>
+                                                }
                                                 </td>
                                             </tr>
                                             STT++;
@@ -1492,16 +1502,16 @@
                                                 <input type="text" class="form-control" id="categoryName" name="Name" required>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="parentCategory" class="form-label">Danh mục cha</label>
-                                                <select name="Parent_id" class="form-control">
-                                                    <option value="">Chọn danh mục cha</option>
-                                                    @if (ViewData["ParentCategories"] != null)
-                                                    {
-                                                        foreach (var category in (SelectList)ViewData["ParentCategories"])
+                                                <label for="parentCategory" class="form-label">Danh mục</label>
+                                                 <select class="form-select" id="parentCategory" name="Parent_id">
+                                                    <option value="" selected>Không có</option>
+                                                        @foreach (var category in ViewBag.Categories)
                                                         {
-                                                            <option value="@category.Value">@category.Text</option>
+                                                            if (category.Parent_id == null || category.Parent_id != null)
+                                                            {
+                                                                <option value="@category.Id">@category.Name</option>
+                                                            }
                                                         }
-                                                    }
                                                 </select>
                                             </div>
                                             <div class="row">
@@ -1527,7 +1537,7 @@
                                                 <!-- Cột hình ảnh -->
                                                 <div class="col-md-4">
                                                     <label for="categoryImage" class="form-label">Chọn hình ảnh</label>
-                                                    <input type="file" class="form-control" id="categoryImage" name="Image" accept="image/*" onchange="previewImage(event)">
+                                                    <input type="file" class="form-control" id="categoryImage" name="imageFile" accept="image/*" onchange="previewImage(event)">
                                                     <div class="mt-3" style="width: 100px; height: 100px; border: 1px solid #ddd; display: flex; align-items: center; justify-content: center;">
                                                         <img id="imagePreview" src="#" alt="Preview" style="max-width: 100%; max-height: 100%; display: none;">
                                                     </div>
@@ -1541,16 +1551,14 @@
                                             </div>
 
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary">Save Category</button>
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                                <button type="submit" class="btn btn-primary">Tạo danh mục</button>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-
 
 
                         <!-- Modal xác nhận ẩn danh mục -->
@@ -1568,6 +1576,26 @@
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
                                         <form id="hideCategoryForm" method="post">
                                             <button type="submit" class="btn btn-danger">Ẩn</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal fade" id="confirmDisplayModal" tabindex="-1" aria-labelledby="confirmDisplayModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="confirmHideDisplayLabel">Xác nhận hiện danh mục</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Bạn có chắc chắn muốn hiện danh mục này không?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                                        <form id="displayCategoryForm" method="post">
+                                            <button type="submit" class="btn btn-primary">Hiện</button>
                                         </form>
                                     </div>
                                 </div>
@@ -8582,23 +8610,9 @@
     <script src="~/shop/assets/js/custom/utilities/modals/users-search.js"></script>
     <!--end::Custom Javascript-->
     <!--end::Javascript-->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="~/js/order.js"></script>
-    <script>
-        function showConfirmHideModal(categoryId) {
-            const form = document.getElementById("hideCategoryForm");
-            form.action = "/Admin/Category/HideCategory/" + categoryId;
-            new bootstrap.Modal(document.getElementById("confirmHideModal")).show();
-        }
-                 <!--Script để hiển thị ảnh khi người dùng chọn-- >
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-            function previewImage(event) {
-                const image = document.getElementById('imagePreview');
-                image.src = URL.createObjectURL(event.target.files[0]);
-                image.style.display = 'block';
-            }
-
-    </script>
+    <script src="~/js/category.js"></script>
 </body>
 <!--end::Body-->
 

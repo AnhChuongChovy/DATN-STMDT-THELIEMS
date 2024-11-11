@@ -1413,32 +1413,35 @@
 							</ul>
 							<hr>
 						</div>
-						<div class="row mt-2">
-							<div class="col-md-5 mb-2">
-								<input type="text" style="border-radius: 0;" class="form-control input-timkiem"
-									   placeholder="Tìm kiếm sản phẩm theo tên sản phẩm, mã sản phẩm, mã SKU"
-									   id="searchProduct">
+						
+							<form id="filterForm" method="get">
+							<div class="row mt-2">
+								<div class="col-md-5 mb-2">
+									<input type="text" name="searchTerm" style="border-radius: 0;" class="form-control input-timkiem"
+										   placeholder="Tìm kiếm sản phẩm theo tên sản phẩm"
+										   id="searchProduct" value="@ViewData["SearchTerm"]">
+								</div>
+								<div class="col-md-4 mb-2">
+									<select name="categoryId" class="form-control select-categories" style="border-radius: 0;" id="categorySelect">
+										<option value="">Chọn ngành hàng</option>
+										@foreach (var category in ViewBag.Categories)
+										{
+											<option value="@category.Id" @(category.Id == (int?)ViewData["SelectedCategory"] ? "selected" : "")>@category.Name</option>
+										}
+									</select>
+								</div>
+								<div class="col-md-3 mb-2">
+									<button type="submit" class="btn btn-apdung">Áp dụng</button>
+									<a href="@Url.Action("IndexShop", new { page = 1, pageSize = ViewData["ItemsPerPage"] })" class="btn btn-chonlai">Chọn lại</a>
+								</div>
 							</div>
-							<div class="col-md-4 mb-2">
-								<select class="form-control select-categories" style="border-radius: 0;" id="categorySelect">
-									<option value="">Chọn ngành hàng</option>
-									@foreach (var category in ViewBag.Categories)
-									{
-										<option value="@category.Id">@category.Name</option>
-									}
-								</select>
-							</div>
-							<div class="col-md-3 mb-2">
-								<button class="btn btn-apdung" id="applyFilter">Áp dụng</button>
-								<button class="btn btn-chonlai" id="resetFilter">Chọn lại</button>
-							</div>
-						</div>
+							</form>
+						
 
 						<!-- Tab panes -->
 						<div class="tab-content mt-3">
 							<div class="tab-pane fade show active" id="all-products" role="tabpanel" aria-labelledby="all-products-tab">
 								<!-- Nội dung cho Tất cả -->
-								<p>Danh sách tất cả các sản phẩm sẽ hiển thị ở đây.</p>
 								<div class="mt-5">
 									<table class="table table-bordered bg-white">
 										<thead>
@@ -1488,7 +1491,7 @@
 																<a class="text-danger fw-bold mb-1 deleteBtn" href="#" data-id="@product.Id">Ẩn</a>
 															}
 															else{
-																<a class="text-success fw-bold mb-1 deleteBtn" href="#" data-id="@product.Id">Hiện</a>
+																<a class="text-success fw-bold mb-1 openBtn" href="#" data-id="@product.Id">Hiện</a>
 															}
 														</td>
 													</tr>
@@ -1503,31 +1506,11 @@
 											}
 										</tbody>
 									</table>
-									<nav aria-label="Category pagination">
-                                    <ul class="pagination">
-                                        <li class="page-item @(ViewData["CurrentPage"].ToString() == "1" ? "disabled" : "")">
-                                            <a class="page-link" href="@Url.Action("IndexShop", new { query = ViewData["SearchQuery"], page = ((int?)ViewData["CurrentPage"] ?? 1) - 1 })">&lt;</a>
-
-                                        </li>
-
-                                        @for (int a = 1; a <= (int)ViewData["TotalPages"]; a++)
-                                        {
-                                            <li class="page-item @(ViewData["CurrentPage"].ToString() == a.ToString() ? "active" : "")">
-                                                <a class="page-link" href="@Url.Action("IndexShop", new { query = ViewData["SearchQuery"], page = a })">@a</a>
-                                            </li>
-                                        }
-
-                                        <li class="page-item @((int)ViewData["CurrentPage"] == (int)ViewData["TotalPages"] ? "disabled" : "")">
-                                            <a class="page-link" href="@Url.Action("IndexShop", new { query = ViewData["SearchQuery"], page = (int)ViewData["CurrentPage"] + 1 })">&gt;</a>
-                                        </li>
-                                    </ul>
-                                </nav>
 									</div>
 							</div>
 
 							<div class="tab-pane fade" id="selling-products" role="tabpanel" aria-labelledby="selling-products-tab">
 								<!-- Nội dung cho Đang bán -->
-								<p>Danh sách các sản phẩm đang bán sẽ hiển thị ở đây.</p>
 								<div class="mt-5">
 									<table class="table table-bordered bg-white">
 										<thead>
@@ -1548,8 +1531,9 @@
 												for (int i = 0; i < products.Count; i++)
 												{
 														var product = products[i];
-														@if(product.Status == 1){
-													<tr class="product-row" data-category="@product.Categories.Id">
+													@if(product.Status == 1)
+													{
+														<tr class="product-row" data-category="@product.Categories.Id">
 														<th scope="row">@(i + 1)</th>
 														<td>
 															<img src="~/@Url.Content(@product.Image)" width="40px" height="40px" />
@@ -1587,31 +1571,11 @@
 											}
 										</tbody>
 									</table>
-									<nav aria-label="Page navigation">
-										<ul class="pagination">
-											<li class="page-item">
-												<a class="page-link" href="#" aria-label="Previous">
-													<span aria-hidden="true">&lt;</span>
-												</a>
-											</li>
-											<li class="page-item active"><a class="page-link" href="#">1</a></li>
-											<li class="page-item"><a class="page-link" href="#">2</a></li>
-											<li class="page-item"><a class="page-link" href="#">3</a></li>
-											<li class="page-item"><a class="page-link" href="#">4</a></li>
-											<li class="page-item"><a class="page-link" href="#">5</a></li>
-											<li class="page-item">
-												<a class="page-link" href="#" aria-label="Next">
-													<span aria-hidden="true">&gt;</span>
-												</a>
-											</li>
-										</ul>
-									</nav>
 								</div>
 							</div>
 							
 							<div class="tab-pane fade" id="out-of-stock-products" role="tabpanel" aria-labelledby="out-of-stock-products-tab">
 								<!-- Nội dung cho Hết hàng -->
-								<p>Danh sách các sản phẩm hết hàng sẽ hiển thị ở đây.</p>
 								<div class="mt-5">
 									<table class="table table-bordered bg-white">
 										<thead>
@@ -1657,7 +1621,14 @@
 															<td>
 																<a class="text-primary fw-bold mb-1" href="@Url.Action("Update", "Products", new { area = "Shop", id = product.Id })">Cập nhật</a><br>
 																<a class="text-primary fw-bold mb-1" href="@Url.Action("DetailProduct", "Products", new { area = "Shop", id = product.Id })">Chi tiết</a><br>
-																<a class="text-danger fw-bold mb-1 deleteBtn" href="#" data-id="@product.Id">Ẩn</a>
+																@if (product.Status == 1)
+																{
+																	<a class="text-danger fw-bold mb-1 deleteBtn" href="#" data-id="@product.Id">Ẩn</a>
+																}
+																else
+																{
+																	<a class="text-danger fw-bold mb-1 openBtn" href="#" data-id="@product.Id">Ẩn</a>
+																}
 															</td>
 														</tr>
 													}
@@ -1674,36 +1645,36 @@
 									</table>
 
 								</div>
-								<nav aria-label="Category pagination">
-									<ul class="pagination">
-										<li class="page-item @(ViewData["CurrentPage"].ToString() == "1" ? "disabled" : "")">
-											<a class="page-link" href="@Url.Action("IndexShop", new { query = ViewData["SearchQuery"], page = ((int?)ViewData["CurrentPage"] ?? 1) - 1 })">&lt;</a>
-										</li>
-
-										@for (int a = 1; a <= (int)ViewData["TotalPages"]; a++)
-										{
-											<li class="page-item @(ViewData["CurrentPage"].ToString() == a.ToString() ? "active" : "")">
-												<a class="page-link" href="@Url.Action("IndexShop", new { query = ViewData["SearchQuery"], page = a })">@a</a>
-											</li>
-										}
-
-										<li class="page-item @((int)ViewData["CurrentPage"] == (int)ViewData["TotalPages"] ? "disabled" : "")">
-											<a class="page-link" href="@Url.Action("IndexShop", new { query = ViewData["SearchQuery"], page = (int)ViewData["CurrentPage"] + 1 })">&gt;</a>
-										</li>
-									</ul>
-								</nav>
 							</div>
 							
 							<div class="tab-pane fade" id="pending-products" role="tabpanel" aria-labelledby="pending-products-tab">
 								<!-- Nội dung cho Chờ duyệt -->
-								<p>Danh sách các sản phẩm chờ duyệt sẽ hiển thị ở đây.</p>
 							
 								</div>
 							<div class="tab-pane fade" id="violated-products" role="tabpanel" aria-labelledby="violated-products-tab">
 								<!-- Nội dung cho Vi phạm -->
-								<p>Danh sách các sản phẩm vi phạm sẽ hiển thị ở đây.</p>
 							</div>
 						</div>
+
+						<nav aria-label="Category pagination">
+							<ul class="pagination">
+								<li class="page-item @(ViewData["CurrentPage"].ToString() == "1" ? "disabled" : "")">
+									<a class="page-link" href="@Url.Action("IndexShop", new { query = ViewData["SearchQuery"], page = ((int?)ViewData["CurrentPage"] ?? 1) - 1 })">&lt;</a>
+
+								</li>
+
+								@for (int a = 1; a <= (int)ViewData["TotalPages"]; a++)
+								{
+									<li class="page-item @(ViewData["CurrentPage"].ToString() == a.ToString() ? "active" : "")">
+										<a class="page-link" href="@Url.Action("IndexShop", new { query = ViewData["SearchQuery"], page = a })">@a</a>
+									</li>
+								}
+
+								<li class="page-item @((int)ViewData["CurrentPage"] == (int)ViewData["TotalPages"] ? "disabled" : "")">
+									<a class="page-link" href="@Url.Action("IndexShop", new { query = ViewData["SearchQuery"], page = (int)ViewData["CurrentPage"] + 1 })">&gt;</a>
+								</li>
+							</ul>
+						</nav>
 
 						
 						<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
@@ -1719,6 +1690,24 @@
 									<div class="modal-footer">
 										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
 										<button type="button" class="btn btn-danger" id="confirmDeleteBtn">Ẩn sản phẩm</button>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="modal fade" id="openConfirmModal" tabindex="-1" aria-labelledby="openConfirmModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="openConfirmModalLabel">Xác nhận hiện sản phẩm</h5>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										Bạn có chắc chắn muốn hiện sản phẩm này không?
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+										<button type="button" class="btn btn-success" id="confirmOpenBtn">Hiện sản phẩm</button>
 									</div>
 								</div>
 							</div>
@@ -8733,23 +8722,32 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="~/js/shopproduct.js"></script>
 	<!--end::Custom Javascript-->
+	<!--end::Javascript-->
 	<script>
 		$(document).ready(function () {
-			var productId;
+	var productId;
 
-			$('.deleteBtn').on('click', function (e) {
-				e.preventDefault();
-				productId = $(this).data('id');
-				$('#deleteConfirmModal').modal('show');
-			});
+	$('.deleteBtn').on('click', function (e) {
+		e.preventDefault();
+		productId = $(this).data('id');
+		$('#deleteConfirmModal').modal('show');
+	});
 
-			$('#confirmDeleteBtn').on('click', function () {
-				window.location.href = '@Url.Action("Delete", "Products", new { area = "Shop", id = "__productId__" })'.replace('__productId__', productId);
-			});
-		});
+	$('#confirmDeleteBtn').on('click', function () {
+		window.location.href = '@Url.Action("Delete", "Products", new { area = "Shop", id = "__productId__" })'.replace('__productId__', productId);
+	});
+
+	$('.openBtn').on('click', function (e) {
+		e.preventDefault();
+		productId = $(this).data('id');
+		$('#openConfirmModal').modal('show');
+	});
+
+	$('#confirmOpenBtn').on('click', function () {
+		window.location.href = '@Url.Action("Open", "Products", new { area = "Shop", id = "__productId__" })'.replace('__productId__', productId);
+	});
+});
 	</script>
-	<!--end::Javascript-->
 </body>
 <!--end::Body-->
-
 </html>

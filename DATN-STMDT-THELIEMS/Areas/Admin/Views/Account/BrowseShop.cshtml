@@ -1,4 +1,5 @@
 ﻿@using DATN_STMDT_THELIEMS.Models
+
 <!DOCTYPE html>
 <html lang="en">
 <!--begin::Head-->
@@ -1349,27 +1350,27 @@
                        
                         <div class="row mb-5">
                             <form action="/Admin/Account/BrowseShop" method="GET">
-                            <div class="row mb-3">
-                            <div class="col-md-3 mt-2">
-                                    <div class="w-100">
-                                        <input class="form-control" style="border-radius: 0px;" type="text" id="searchInput"
-                                               name="searchQuery" placeholder="Nhập mã nhà bán"
-                                               value="@ViewData["SearchQuery"]" />
+                                <div class="row mb-3">
+                                    <div class="col-md-3 mt-2">
+                                        <div class="w-100">
+                                            <input class="form-control" style="border-radius: 0px;" type="text" id="searchInput"
+                                                   name="searchQuery" placeholder="Nhập tên nhà bán"
+                                                   value="@ViewData["SearchQuery"]" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 mt-2">
+                                        <select class="form-select select-categories" style="border-radius: 0;"
+                                                id="filterStatus" name="statusFilter">
+                                            <option value="">Trạng thái</option>
+                                            <option value="1" @(ViewData["StatusFilter"]?.ToString() == "1" ? "selected" : "")>Đã duyệt</option>
+                                            <option value="0" @(ViewData["StatusFilter"]?.ToString() == "0" ? "selected" : "")>Chưa được duyệt</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 mt-2">
+                                        <button type="submit" class="btn btn-apdung">Áp dụng</button>
+                                        <a href="/Admin/Account/BrowseShop" class="btn btn-chonlai">Làm mới</a>
                                     </div>
                                 </div>
-                                <div class="col-md-3 mt-2">
-                                    <select class="form-select select-categories" style="border-radius: 0;"
-                                            id="filterStatus" name="statusFilter">
-                                        <option value="">Trạng thái</option>
-                                        <option value="1" @(ViewData["StatusFilter"]?.ToString() == "1" ? "selected" : "")>Đã duyệt</option>
-                                        <option value="0" @(ViewData["StatusFilter"]?.ToString() == "0" ? "selected" : "")>Chưa được duyệt</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-3 mt-2">
-                                    <button type="submit" class="btn btn-apdung">Áp dụng</button>
-                                    <a href="/Admin/Account/BrowseShop" class="btn btn-chonlai">Làm mới</a>
-                                </div>
-                            </div>
                             </form>
                         
                         <form action="/Admin/Account/ApproveShops" method="post" id="ApproveShop">
@@ -1415,10 +1416,17 @@
                                             </td>
                                             <td>
                                                 <a href="#" class="fw-bold text-success" onclick="document.getElementById('ApproveShop').submit();">Duyệt</a><br />
-                                                <a href="#" class="text-primary fw-bold">Chi tiết</a><br>
-                                            </td>
+                                                <a href="javascript:void(0);" class="text-primary fw-bold" onclick="loadShopDetails(@shop.Id)">Chi tiết</a>                                            </td>
                                         </tr>
-                                        // i++;
+
+                                        <div class="modal fade" id="shopModal" tabindex="-1" aria-labelledby="shopModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content" id="shopModalContent">
+                                                    <!-- Nội dung sẽ được nạp từ AJAX -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
                                     }
                                 </tbody>
                             </table>
@@ -1426,22 +1434,35 @@
                             <!-- Nút Duyệt để gửi form -->
                         </form>
 
-
+                            @{
+                                int currentPage = ViewData["CurrentPage"] != null ? (int)ViewData["CurrentPage"] : 1; //Nếu có giá trị thì ép kiểu còn ko thì để page hieện tại là 1
+                                int totalPages = ViewData["TotalPages"] != null ? (int)ViewData["TotalPages"] : 1;
+                            }
                                 <!-- User Pagination -->
-                                <nav aria-label="User pagination">
-                                    <ul class="pagination">
-                                        <li class="page-item disabled">
-                                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">&lt;</a>
+                            <nav aria-label="User pagination">
+                                <ul class="pagination">
+                                    <!-- Nút trang trước -->
+                                    <li class="page-item @(currentPage == 1 ? "disabled" : "")">
+                                        <a class="page-link" href="@Url.Action("BrowseShop", new { page = currentPage - 1, searchQuery = ViewData["SearchQuery"], statusFilter = ViewData["StatusFilter"] })">&lt;</a>
+                                    </li>
+
+                                    <!-- Liên kết các trang -->
+                                    @for (int a = 1; a <= totalPages; a++)
+                                    {
+                                        <li class="page-item @(currentPage == a ? "active" : "")">
+                                            <a class="page-link" href="@Url.Action("BrowseShop", new { page = a, searchQuery = ViewData["SearchQuery"], statusFilter = ViewData["StatusFilter"] })">@a</a>
                                         </li>
-                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">&gt;</a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                    </div>
+                                    }
+
+                                    <!-- Nút trang kế -->
+                                    <li class="page-item @(currentPage == totalPages ? "disabled" : "")">
+                                        <a class="page-link" href="@Url.Action("BrowseShop", new { page = currentPage + 1, searchQuery = ViewData["SearchQuery"], statusFilter = ViewData["StatusFilter"] })">&gt;</a>
+                                    </li>
+                                </ul>
+                            </nav>
+
+                            
+                        </div>
 
                     <!--end::Container-->
                 </div>
@@ -8140,23 +8161,7 @@
     <script src="~/shop/assets/js/custom/utilities/modals/users-search.js"></script>
     <!--end::Custom Javascript-->
     <!--end::Javascript-->
-    <script src="~/js/ordershop.js"></script>
-    <script>
-        function searchByShopName() {
-            applyFilters();
-        }
-
-        function filterAccounts() {
-            applyFilters();
-        }
-
-        function applyFilters() {
-            const searchQuery = document.getElementById('searchInput').value;
-            const statusFilter = document.getElementById('filterStatus').value;
-            window.location.href = `/Admin/Shop/BrowseShop?searchQuery=${searchQuery}&statusFilter=${statusFilter}`;
-        }
-    </script>
-
+    <script src="~/js/brosweshop.js"></script>
 </body>
 <!--end::Body-->
 

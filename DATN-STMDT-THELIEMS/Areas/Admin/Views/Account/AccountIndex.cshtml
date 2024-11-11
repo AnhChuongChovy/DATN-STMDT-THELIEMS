@@ -1385,12 +1385,12 @@
                         <div class="col-md-6">
                             <form action="/Admin/Account/AccountIndex" method="GET">
                                 <div class="input-group mb-3">
-                                    <input type="text" name="query" class="form-control"
+                                    <input type="text" name="query" class="form-control" style="border-radius:0px"
                                            placeholder="Tìm kiếm người dùng"
                                            aria-label="Tìm kiếm"
                                            aria-describedby="button-search"
                                            value="@ViewData["SearchQuery"]" />
-                                    <button class="btn btn-apdung" type="submit" id="button-search">Tìm kiếm</button>
+                                    <button class="btn btn-apdung ms-2" type="submit" id="button-search">Tìm kiếm</button>
                                     <a href="/Admin/Account/AccountIndex" class="btn btn-chonlai ms-2">Chọn lại</a>
                                 </div>
                             </form>
@@ -1415,19 +1415,24 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @{
+                                            int currentPage = (int)ViewData["CurrentPage"];
+                                            int itemsPerPage = (int)ViewData["ItemsPerPage"];
+                                            int STT = (currentPage - 1) * itemsPerPage + 1; //lấy số dữ liệu trang trước + 1
+                                        }
                                         @foreach (var user in @Model)
                                         {
                                             <tr>
-                                                <td>@user.Id</td>
+                                                <td>@STT</td>
                                                 <td>@user.Full_name</td>
                                                 <td>@user.Phone</td>
                                                 <td>@user.Email</td>
                                                 <td>
-                                                    @if (user.Role_id == 1)
+                                                    @if (user.Role_id == 2)
                                                     {
                                                         <span>Admin</span>
                                                     }
-                                                    else if (user.Role_id == 2)
+                                                    else if (user.Role_id == 1)
                                                     {
                                                         <span>User</span>
                                                     }
@@ -1436,34 +1441,102 @@
                                                         <span>Chưa phân quyền</span>
                                                     }
                                                 </td>
-                                                <td>@user.Status</td>
+                                                <td>
+                                                    @if(user.Status == 0){
+                                                    <span class="text-success">Đang hoạt động</span>
+                                                    }
+                                                    else{
+                                                    <span class="text-danger">Khoá</span>
+                                                    }
+                                                </td>
                                                 <td>
                                                     <a href="#" class="text-primary fw-bold">Cập nhật</a><br>
-                                                    <a href="/Admin/Account/LockAccount/@user.Id" class="text-danger fw-bold">Khoá</a>
+                                                    @if(user.Status == 0){
+                                                        <a href="javascript:void(0);" class="text-danger fw-bold" onclick="showLockAccountModal('@user.Id')">Khoá</a><br>
+                                                    }
+                                                    else{
+                                                         <a href="javascript:void(0);" class="text-success fw-bold" onclick="showUnLockAccountModal('@user.Id')">Mở khoá</a><br>
+                                                    }
+                                                    <a href="javascript:void(0);" class="text-primary fw-bold" onclick="loadUserDetails(@user.Id)">Chi tiết</a>
                                                 </td>
                                             </tr>
+                                            <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content" id="userModalContent">
+                                                        <!-- Nội dung sẽ được nạp từ AJAX -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            STT++;
+
+                                            
                                         }
                                     </tbody>
                                 </table>
 
                                 <!-- User Pagination -->
-                                <nav aria-label="User pagination">
+                                <nav aria-label="Account pagination">
                                     <ul class="pagination">
-                                        <li class="page-item disabled">
-                                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">&lt;</a>
+                                        <li class="page-item @(ViewData["CurrentPage"].ToString() == "1" ? "disabled" : "")">
+                                            <a class="page-link" href="@Url.Action("AccountIndex", new { query = ViewData["SearchQuery"], page = ((int?)ViewData["CurrentPage"] ?? 1) - 1 })">&lt;</a>
+
                                         </li>
-                                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">&gt;</a>
+
+                                        @for (int a = 1; a <= (int)ViewData["TotalPages"]; a++)
+                                        {
+                                            <li class="page-item @(ViewData["CurrentPage"].ToString() == a.ToString() ? "active" : "")">
+                                                <a class="page-link" href="@Url.Action("AccountIndex", new { query = ViewData["SearchQuery"], page = a })">@a</a>
+                                            </li>
+                                        }
+
+                                        <li class="page-item @((int)ViewData["CurrentPage"] == (int)ViewData["TotalPages"] ? "disabled" : "")">
+                                            <a class="page-link" href="@Url.Action("AccountIndex", new { query = ViewData["SearchQuery"], page = (int)ViewData["CurrentPage"] + 1 })">&gt;</a>
                                         </li>
                                     </ul>
                                 </nav>
-                            </div>
 
+                            </div>
+                            
+                        </div>
+                        <div class="modal fade" id="lockAccountModal" tabindex="-1" role="dialog" aria-labelledby="lockAccountModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="lockAccountModalLabel">Xác nhận khoá tài khoản</h5>
+                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Bạn có chắc chắn muốn khoá tài khoản này không?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                                        <a id="confirmLockBtn" href="#" class="btn btn-danger">Xác nhận</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
+                        <div class="modal fade" id="unlockAccountModal" tabindex="-1" role="dialog" aria-labelledby="unlockAccountModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="unlockAccountModalLabel">Xác nhận mở khoá tài khoản</h5>
+                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Bạn có chắc chắn muốn mở khoá tài khoản này không?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                                        <a id="confirmUnLockBtn" href="#" class="btn btn-primary">Xác nhận</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <!--end::Container-->
@@ -8473,7 +8546,12 @@
     <!--end::Custom Javascript-->
     <!--end::Javascript-->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="~/js/order.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="~/js/account.js"></script>
+    <script>
+        
+    </script>
+
 </body>
 <!--end::Body-->
 

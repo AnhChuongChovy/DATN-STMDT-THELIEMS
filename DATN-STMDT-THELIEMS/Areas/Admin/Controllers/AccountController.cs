@@ -15,7 +15,7 @@ namespace DATN_STMDT_THELIEMS.Areas.Admin.Controllers
 		{
 			_context = context;
 		}
-		public IActionResult AccountIndex(string query)
+		public IActionResult AccountIndex(string query, int page = 1, int pageSize = 5)
 		{
             var users = _context.USERS.AsQueryable();
 
@@ -23,9 +23,16 @@ namespace DATN_STMDT_THELIEMS.Areas.Admin.Controllers
             {
                 users = users.Where(u => u.Full_name.Contains(query));
             }
+            int sumShops = users.Count();
 
-            ViewData["SearchQuery"] = query; // Pass the search query to the view
-            return View(users.ToList());
+            // Lấy dữ liệu của trang hiện tại
+            var pagedShops = users.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            ViewData["TotalPages"] = (int)Math.Ceiling(sumShops / (double)pageSize);
+            ViewData["CurrentPage"] = page;
+            ViewData["SearchQuery"] = query;
+            ViewData["ItemsPerPage"] = pageSize;
+            return View(pagedShops);
         }
 
 		[HttpGet("{id}")]
@@ -44,25 +51,47 @@ namespace DATN_STMDT_THELIEMS.Areas.Admin.Controllers
 			return Redirect("/Admin/Account/AccountIndex"); 
 		}
 
-		public IActionResult BrowseShop(string searchQuery, string statusFilter)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> UnLockAccount(int id)
+        {
+            var user = await _context.USERS.FindAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            // Change status to 1 (locked)
+            user.Status = 0;
+            await _context.SaveChangesAsync();
+
+            return Redirect("/Admin/Account/AccountIndex");
+        }
+
+        public IActionResult BrowseShop(string searchQuery, string statusFilter, int page = 1, int pageSize = 2)
         {
             var shops = _context.SHOPS.AsQueryable();
 
-            // Search by shop code
+            // Tìm theo tên
             if (!string.IsNullOrEmpty(searchQuery))
             {
                 shops = shops.Where(s => s.Name.Contains(searchQuery));
             }
 
-            // Filter by status (assuming statusFilter can be "1" or "0")
+            // lọc trạng thái (duyệt là "1" or ngược lại "0")
             if (byte.TryParse(statusFilter, out byte parsedStatus))
             {
                 shops = shops.Where(s => s.Status == parsedStatus);
             }
+            int sumShops = shops.Count();
 
+            // Lấy dữ liệu của trang hiện tại
+            var pagedShops = shops.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            ViewData["TotalPages"] = (int)Math.Ceiling(sumShops / (double)pageSize);
+            ViewData["CurrentPage"] = page;
             ViewData["SearchQuery"] = searchQuery;
             ViewData["StatusFilter"] = statusFilter;
-            return View(shops.ToList());
+            return View(pagedShops);
         }
 
         [HttpPost]
@@ -84,26 +113,32 @@ namespace DATN_STMDT_THELIEMS.Areas.Admin.Controllers
             return Redirect("/Admin/Account/BrowseShop");
         }
 
-        public IActionResult FilterShops(int? status)
+        [HttpGet("{id}")]
+        public IActionResult ShopDetails(int id)
         {
-            var shops = _context.SHOPS.AsQueryable();
+            var shop = _context.SHOPS
+                .FirstOrDefault(s => s.Id == id);
 
-            if (status.HasValue)
+            if (shop == null)
             {
-                shops = shops.Where(shop => shop.Status == status.Value);
+                return NotFound();
             }
 
-            var result = shops.ToList();
-            return View("BrowseShop", result); // Chỉ định view "BrowseShop"
+            return PartialView("DetailShop", shop);
         }
 
-        public IActionResult SearchShopsByName(string shopName)
+        [HttpGet("{id}")]
+        public IActionResult UserDetails(int id)
         {
-            var shops = _context.SHOPS
-                .Where(s => s.Name.Contains(shopName)) // Điều kiện tìm kiếm theo tên
-                .ToList();
+            var user = _context.USERS
+                .FirstOrDefault(s => s.Id == id);
 
-            return View("BrowseShop", shops);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return PartialView("DetailUser", user);
         }
     }
 }

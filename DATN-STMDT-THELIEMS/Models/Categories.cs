@@ -11,9 +11,10 @@
         public string? Title { get; set; } // nvarchar(50)
         public string? Description { get; set; } // Text
         public string? Keyword { get; set; } // nvarchar(30)
-        public DateTime Created_at { get; set; }
-        public DateTime Updated_at { get; set; }
+        public DateTime? Created_at { get; set; }
+        public DateTime? Updated_at { get; set; }
         public ICollection<Products>? Products { get; set; }
+		public ICollection<Attributes>? Attribute { get; set; }
 
-    }
+	}
 }

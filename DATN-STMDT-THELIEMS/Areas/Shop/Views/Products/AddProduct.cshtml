@@ -1,4 +1,5 @@
-﻿@model DATN_STMDT_THELIEMS.Models.Products
+﻿@using DATN_STMDT_THELIEMS.Models
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -71,7 +72,7 @@
                 </div>
                 <form id="thongTinCoBan" action="@Url.Action("AddProduct", "Products", new { area = "Shop" })" method="post" enctype="multipart/form-data">
                     <!-- Thông tin cơ bản -->
-                    <div class="bg-white mt-2">
+                    <div  class="bg-white mt-2">
                         <br>
                         <h5 class="mb-4 ms-3">1. Thông tin cơ bản</h5>
 
@@ -86,7 +87,7 @@
                                     <span>Chọn hình</span>
                                 </div>
                                 <!-- Input file ẩn -->
-                                <input type="file" id="productImage" name="Image" accept="image/*" style="display: none;">
+                                <input type="file" id="productImage" name="imageFile" accept="image/*" style="display: none;">
                             </div>
                         </div>
 
@@ -128,280 +129,252 @@
                         </div>
 
                     </div>
+
+                    <!-- Thông tin chi tiết -->
+                    <div id="thongTinChiTiet" class="bg-white mt-2">
+                        <br>
+                        <h5 class="mb-4 ms-3">2. Thông tin chi tiết</h5>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="mb-3 row ms-4">
+                                    <label for="brand" class="col-sm-3 col-form-label">Thương hiệu</label>
+                                    <div class="col-sm-7">
+                                        <select id="brand" class="form-select">
+                                            <option value="" selected>Vui lòng chọn</option>
+                                            @foreach (var brand in ViewBag.Brands)
+                                            {
+                                                <option value="@brand.Id">@brand.Name</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+                            @foreach (var attributes in ViewBag.Product_Attributes)
+                            {
+                                <div class="col-md-6">
+                                    <div class="mb-3 row ms-4">
+                                        <label for="avc" class="form-label col-sm-3"> @attributes.Attribute.Name </label>
+                                        <div class="col-sm-7">
+                                            <select id="attribute" class="form-select">
+                                                <option value="" selected>Vui lòng chọn</option>
+                                                <option value="@attributes.Id">@attributes.Name</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <!-- Thông tin bán hàng -->
+                    <div id="thongTinBanHang" class="container mt-2 bg-white">
+                        <br>
+                        <h5>3. Thông tin bán hàng</h5>
+
+                        <!-- Phân loại -->
+                        <div class="row p-3 mb-3">
+                            <div class="d-flex align-items-center mb-3">
+                                <!-- Bên trái: Phân loại -->
+                                <div class="me-3" style="width: 20%;">
+                                    <h6>Phân loại</h6>
+                                </div>
+
+                                <!-- Bên phải: Màu sắc và các tùy chọn -->
+                                <div style="width: 75%;">
+                                        <div class="row mb-3">
+                                        @foreach (var option in ViewBag.Variant_option)
+                                        {
+                                           <div class="col-md-2 mb-1">
+                                                <label for="color" class="me-3"> @option.Name</label>
+                                           </div>
+                                            <div class="col-md-4 mb-1">
+                                                <div class="d-flex align-items-center">
+                                                    @foreach (var value in option.Variant_values)
+                                                    {
+                                                        <input type="text" id="color1" value="@value.Name" class="form-control me-2" style="width: 150px;">
+                                                        <span class="delete-icon text-danger">🗑️</span>
+                                                    }
+                                                </div>
+                                            </div>
+                                        }
+                                            
+                                            
+
+                                            @* <div class="col-md-4 mb-1">
+                                                <div class="d-flex align-items-center">
+                                                    <input type="text" id="color2" value="Xanh" class="form-control me-2" style="width: 150px;">
+                                                    <span class="delete-icon text-danger">🗑️</span>
+                                                </div>
+                                            </div> *@
+                                        </div>
+                                    
+
+                                    <div class="row mb-3">
+                                        <div class="col-md-2 mb-1">
+                                            <label for="color" class="me-3">Kích thước</label>
+                                        </div>
+                                        <div class="col-md-4 mb-1">
+                                            <div class="d-flex align-items-center">
+                                                <input type="text" id="sizem" value="Size M" class="form-control me-2" style="width: 150px;">
+                                                <span class="delete-icon text-danger">🗑️</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4 mb-1">
+                                            <div class="d-flex align-items-center">
+                                                <input type="text" id="sizel" value="Size L" class="form-control me-2" style="width: 150px;">
+                                                <span class="delete-icon text-danger">🗑️</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-primary" style="width: 100%; border: 1px solid;">+ Thêm phân loại</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="me-4 col-md-2 ms-3">
+                                <h6>Danh sách phân loại</h6>
+                            </div>
+                            <div class="col-md-9">
+                                <table class="table table-bordered variant-list">
+                                    <thead>
+                                        <tr>
+                                            <th>Màu</th>
+                                            <th>Kích cỡ</th>
+                                            <th>Giá</th>
+                                            <th>Kho hàng</th>
+                                            <th>SKU phân loại</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td rowspan="2">Đỏ</td>
+                                            <td>Iphone 11</td>
+                                            <td><input type="text" class="form-control" placeholder="Giá"></td>
+                                            <td><input type="text" class="form-control" placeholder="Kho hàng"></td>
+                                            <td><input type="text" class="form-control" placeholder="SKU"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Iphone XS</td>
+                                            <td><input type="text" class="form-control" placeholder="Giá"></td>
+                                            <td><input type="text" class="form-control" placeholder="Kho hàng"></td>
+                                            <td><input type="text" class="form-control" placeholder="SKU"></td>
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="2">Xanh</td>
+                                            <td>Iphone 11</td>
+                                            <td><input type="text" class="form-control" placeholder="Giá"></td>
+                                            <td><input type="text" class="form-control" placeholder="Kho hàng"></td>
+                                            <td><input type="text" class="form-control" placeholder="SKU"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Iphone XS</td>
+                                            <td><input type="text" class="form-control" placeholder="Giá"></td>
+                                            <td><input type="text" class="form-control" placeholder="Kho hàng"></td>
+                                            <td><input type="text" class="form-control" placeholder="SKU"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- Danh sách phân loại -->
+
+
+                    </div>
+
+                    <!-- Vận chuyển -->
+                    <div id="vanChuyen" class="bg-white mt-2">
+                        <br>
+                        <h5 class="ms-4">4. Vận chuyển</h5>
+                        <!-- Thông tin vận chuyển sẽ được thêm tại đây -->
+                        <div class="d-flex align-items-center ms-5 mb-5">
+                            <div style="width: 35%;" class="mt-2">
+                                <label for="cannang" class="form-label me-3">Cân nặng sau khi đóng gói</label>
+                            </div>
+                            <div class="position-relative me-3 mt-2" style="width: 60%;">
+                                <input type="text" class="form-control pe-5" id="cannang" maxlength="120" placeholder="Nhập cân nặng sau khi đóng gói">
+                                <small class="text-muted position-absolute end-0 top-50 translate-middle-y me-3">gr</small>
+                            </div>
+                        </div>
+
+                        <div class="mb-5 ms-4 row">
+                            <div class="col-md-4">
+                                <label for="kichthuoc" class="form-label ms-2">Kích thước</label>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="d-flex align-items-center w-100 ms-3">
+                                    <input type="text" style="width: 25%;" class="form-control" placeholder="Dài"><span class="ms-2 me-2">X</span>
+                                    <input type="text" style="width: 25%;" class="form-control" placeholder="Rộng"><span class="ms-2 me-2">X</span>
+                                    <input type="text" style="width: 25%;" class="form-control" placeholder="Cao">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row ms-4">
+                            <div class="col-md-4">
+                                <label for="vanchuyen" class="form-label ms-2">Phí vận chuyển</label>
+                            </div>
+                            <div class="col-md-8">
+                                <table class="table table-bordered ms-3" style="width: 90%;">
+                                    <tr>
+                                        <td style="width: 25%;">Thông thường</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nhanh</td>
+                                        <td></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Thông tin khác -->
+                    <div id="thongTinKhac" class="bg-white mt-2 mb-3">
+                        <br>
+                        <div>
+                            <h5 class="ms-4">5. Thông tin khác</h5>
+                        </div>
+                        <!-- Thông tin khác sẽ được thêm tại đây -->
+                        <div class="d-flex align-items-center mb-4 ms-5">
+                            <div style="width: 25%;">
+                                <label for="" class="form-label">Trạng thái</label>
+                            </div>
+                            <div style="width: 70%;">
+                                <select class="form-select" name="Status">
+                                    <option value="1">Hiện</option>
+                                    <option value="0">Ẩn</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mb-4 ms-5">
+                            <div style="width: 25%;" class="mb-3">
+                                <label for="Sku" class="form-label me-3">Mã SKU sản phẩm</label>
+                            </div>
+                            <div class="position-relative me-3 mb-4" style="width: 70%;">
+                                <input type="text" name="Sku" class="form-control pe-5">
+                            </div>
+                        </div>
+                    </div>
+                    
                     <div class="form-group text-end">
                         <button type="button" class="btn btn-danger">Huỷ</button>
                         <button type="submit" class="btn btn-primary">Lưu thông tin</button>
                     </div>
                 </form>
-                <!-- Thông tin chi tiết -->
-                <div id="thongTinChiTiet" class="bg-white mt-2">
-                    <br>
-                    <h5 class="mb-4 ms-3">2. Thông tin chi tiết</h5>
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <div class="mb-3 row ms-4">
-                                <label for="brand" class="col-sm-3 col-form-label">Thương hiệu</label>
-                                <div class="col-sm-7">
-                                    <select id="brand" class="form-select">
-                                        <option selected>Vui lòng chọn</option>
-                                        <option>Thương hiệu 1</option>
-                                        <option>Thương hiệu 2</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3 row ms-4">
-                                <label for="warrantyPeriod" class="col-sm-3 col-form-label">Hạn bảo hành</label>
-                                <div class="col-sm-7">
-                                    <select id="warrantyPeriod" class="form-select">
-                                        <option selected>Vui lòng chọn</option>
-                                        <option>6 tháng</option>
-                                        <option>12 tháng</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3 row ms-4">
-                                <label for="avc" class="form-label col-sm-3">Chất liệu</label>
-                                <div class="col-sm-7">
-                                    <select id="avc" class="form-select">
-                                        <option selected>Vui lòng chọn</option>
-                                        <option>Nhựa</option>
-                                        <option>Kim loại</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="mb-3 row ms-4">
-                                <label for="warrantyType" class="form-label col-sm-3">Loại bảo hành</label>
-                                <div class="col-sm-7">
-                                    <select id="warrantyType" class="form-select">
-                                        <option selected>Vui lòng chọn</option>
-                                        <option>Bảo hành chính hãng</option>
-                                        <option>Bảo hành nhà sản xuất</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="mb-3 row ms-4">
-                                <label for="vcx" class="form-label col-sm-3">Loại bảo hành</label>
-                                <div class="col-sm-7">
-                                    <select id="vcx" class="form-select">
-                                        <option selected>Vui lòng chọn</option>
-                                        <option>1 tháng</option>
-                                        <option>2 thàng</option>
-                                        <option>3 tháng</option>
-                                        <option>Không bảo hành</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Thông tin bán hàng -->
-                <div id="thongTinBanHang" class="container mt-2 bg-white">
-                    <br>
-                    <h5>3. Thông tin bán hàng</h5>
-
-                    <!-- Phân loại -->
-                    <div class="row p-3 mb-3">
-                        <div class="d-flex align-items-center mb-3">
-                            <!-- Bên trái: Phân loại -->
-                            <div class="me-3" style="width: 20%;">
-                                <h6>Phân loại</h6>
-                            </div>
-
-                            <!-- Bên phải: Màu sắc và các tùy chọn -->
-                            <div style="width: 75%;">
-                                <div class="row mb-3">
-                                    <div class="col-md-2 mb-1">
-                                        <label for="color" class="me-3">Màu sắc</label>
-                                    </div>
-                                    <div class="col-md-4 mb-1">
-                                        <div class="d-flex align-items-center">
-                                            <input type="text" id="color1" value="Đỏ" class="form-control me-2" style="width: 150px;">
-                                            <span class="delete-icon text-danger">🗑️</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-4 mb-1">
-                                        <div class="d-flex align-items-center">
-                                            <input type="text" id="color2" value="Xanh" class="form-control me-2" style="width: 150px;">
-                                            <span class="delete-icon text-danger">🗑️</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row mb-3">
-                                    <div class="col-md-2 mb-1">
-                                        <label for="color" class="me-3">Kích thước</label>
-                                    </div>
-                                    <div class="col-md-4 mb-1">
-                                        <div class="d-flex align-items-center">
-                                            <input type="text" id="sizem" value="Size M" class="form-control me-2" style="width: 150px;">
-                                            <span class="delete-icon text-danger">🗑️</span>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-4 mb-1">
-                                        <div class="d-flex align-items-center">
-                                            <input type="text" id="sizel" value="Size L" class="form-control me-2" style="width: 150px;">
-                                            <span class="delete-icon text-danger">🗑️</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button class="btn btn-primary" style="width: 100%; border: 1px solid;">+ Thêm phân loại</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="me-4 col-md-2 ms-3">
-                            <h6>Danh sách phân loại</h6>
-                        </div>
-                        <div class="col-md-9">
-                            <table class="table table-bordered variant-list">
-                                <thead>
-                                    <tr>
-                                        <th>Màu</th>
-                                        <th>Kích cỡ</th>
-                                        <th>Giá</th>
-                                        <th>Kho hàng</th>
-                                        <th>SKU phân loại</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td rowspan="2">Đỏ</td>
-                                        <td>Iphone 11</td>
-                                        <td><input type="text" class="form-control" placeholder="Giá"></td>
-                                        <td><input type="text" class="form-control" placeholder="Kho hàng"></td>
-                                        <td><input type="text" class="form-control" placeholder="SKU"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Iphone XS</td>
-                                        <td><input type="text" class="form-control" placeholder="Giá"></td>
-                                        <td><input type="text" class="form-control" placeholder="Kho hàng"></td>
-                                        <td><input type="text" class="form-control" placeholder="SKU"></td>
-                                    </tr>
-                                    <tr>
-                                        <td rowspan="2">Xanh</td>
-                                        <td>Iphone 11</td>
-                                        <td><input type="text" class="form-control" placeholder="Giá"></td>
-                                        <td><input type="text" class="form-control" placeholder="Kho hàng"></td>
-                                        <td><input type="text" class="form-control" placeholder="SKU"></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Iphone XS</td>
-                                        <td><input type="text" class="form-control" placeholder="Giá"></td>
-                                        <td><input type="text" class="form-control" placeholder="Kho hàng"></td>
-                                        <td><input type="text" class="form-control" placeholder="SKU"></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    <!-- Danh sách phân loại -->
-
-
-                </div>
-
-                <!-- Vận chuyển -->
-                <div id="vanChuyen" class="bg-white mt-2">
-                    <br>
-                    <h5 class="ms-4">4. Vận chuyển</h5>
-                    <!-- Thông tin vận chuyển sẽ được thêm tại đây -->
-                    <div class="d-flex align-items-center ms-5 mb-5">
-                        <div style="width: 35%;" class="mt-2">
-                            <label for="cannang" class="form-label me-3">Cân nặng sau khi đóng gói</label>
-                        </div>
-                        <div class="position-relative me-3 mt-2" style="width: 60%;">
-                            <input type="text" class="form-control pe-5" id="cannang" maxlength="120" placeholder="Nhập cân nặng sau khi đóng gói">
-                            <small class="text-muted position-absolute end-0 top-50 translate-middle-y me-3">gr</small>
-                        </div>
-                    </div>
-
-                    <div class="mb-5 ms-4 row">
-                        <div class="col-md-4">
-                            <label for="kichthuoc" class="form-label ms-2">Kích thước</label>
-                        </div>
-                        <div class="col-md-8">
-                            <div class="d-flex align-items-center w-100 ms-3">
-                                <input type="text" style="width: 25%;" class="form-control" placeholder="Dài"><span class="ms-2 me-2">X</span>
-                                <input type="text" style="width: 25%;" class="form-control" placeholder="Rộng"><span class="ms-2 me-2">X</span>
-                                <input type="text" style="width: 25%;" class="form-control" placeholder="Cao">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row ms-4">
-                        <div class="col-md-4">
-                            <label for="vanchuyen" class="form-label ms-2">Phí vận chuyển</label>
-                        </div>
-                        <div class="col-md-8">
-                            <table class="table table-bordered ms-3" style="width: 90%;">
-                                <tr>
-                                    <td style="width: 25%;">Thông thường</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>Nhanh</td>
-                                    <td></td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Thông tin khác -->
-                <div id="thongTinKhac" class="bg-white mt-2 mb-3">
-                    <br>
-                    <div>
-                        <h5 class="ms-4">5. Thông tin khác</h5>
-                    </div>
-                    <!-- Thông tin khác sẽ được thêm tại đây -->
-                    <div class="d-flex align-items-center mb-4 ms-5">
-                        <div style="width: 25%;">
-                            <label for="" class="form-label">Tình trạng</label>
-                        </div>
-                        <div style="width: 70%;">
-                            <select class="form-select" id="">
-                                <option selected>Mới</option>
-                                <option value="1">Đã sử dụng</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center mb-4 ms-5">
-                        <div style="width: 25%;" class="mb-3">
-                            <label for="skuProduct" class="form-label me-3">Mã SKU sản phẩm</label>
-                        </div>
-                        <div class="position-relative me-3 mb-4" style="width: 70%;">
-                            <input type="text" class="form-control pe-5" id="skuProduct">
-                        </div>
-                    </div>
-                </div>
-
             </div>
-
-
         </div>
     </div>
-        <script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script>
- 
+    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.0/classic/ckeditor.js"></script>
+
     <script>
         ClassicEditor
-           .create(document.querySelector('#description'))
-           .catch(error => {
-              console.error(error);
-           });
+            .create(document.querySelector('#description'))
+            .catch(error => {
+                console.error(error);
+            });
 
         document.getElementById("imagePreview").addEventListener("click", function () {
             document.getElementById("productImage").click();

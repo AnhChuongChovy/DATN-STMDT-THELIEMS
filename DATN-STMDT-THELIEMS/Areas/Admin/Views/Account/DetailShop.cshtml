@@ -1,0 +1,24 @@
+﻿@model DATN_STMDT_THELIEMS.Models.Shops
+
+<div class="modal-header">
+    <h5 class="modal-title">Chi tiết cửa hàng</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+    <p><strong>ID:</strong> @Model.Id</p>
+    @if (!string.IsNullOrEmpty(Model.Image))
+    {
+        <img src="~/@Model.Image" alt="Shop Image" class="img-fluid" width="100px" height="100px">
+    }
+    <p><strong>Tên:</strong> @Model.Name</p>
+    <p><strong>Điện thoại:</strong> @Model.Phone</p>
+    <p><strong>Email:</strong> @Model.Email</p>
+    <p><strong>Địa chỉ:</strong> @Model.Address</p>
+    <p><strong>Trạng thái:</strong> @(Model.Status == 1 ? "Đã duyệt" : "Chưa duyệt")</p>
+    <p><strong>Ngày tạo:</strong> @Model.Created_at?.ToString("dd/MM/yyyy")</p>
+    <p><strong>Ngày cập nhật:</strong> @Model.Updated_at?.ToString("dd/MM/yyyy")</p>
+    <p><strong>Mô tả:</strong> @Model.Description</p>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+</div>

@@ -1,0 +1,24 @@
+﻿@model DATN_STMDT_THELIEMS.Models.Users
+
+<div class="modal-header">
+    <h5 class="modal-title">Chi tiết người dùng</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+    <p><strong>ID:</strong> @Model.Id</p>
+    @if (!string.IsNullOrEmpty(Model.Image))
+    {
+        <img src="@Model.Image" alt="User Image" class="img-fluid" width="100px" height="100px">
+    }
+    <p><strong>Họ tên:</strong> @Model.Full_name</p>
+    <p><strong>Email:</strong> @Model.Email</p>
+    <p><strong>Điện thoại:</strong> @Model.Phone</p>
+    <p><strong>Giới tính:</strong> @Model.Gender</p>
+    <p><strong>Ngày sinh:</strong> @Model.Birthday</p>
+    <p><strong>Trạng thái:</strong> @(Model.Status == 1 ? "Đang hoạt động" : "Đã khoá")</p>
+    <p><strong>Ngày tạo:</strong> @Model.Created_at?.ToString("dd/MM/yyyy")</p>
+    <p><strong>Ngày cập nhật:</strong> @Model.Updated_at?.ToString("dd/MM/yyyy")</p>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+</div>

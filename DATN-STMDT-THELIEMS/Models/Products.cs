@@ -7,13 +7,13 @@ namespace DATN_STMDT_THELIEMS.Models
 	{
 		public int Id { get; set; }
         public int? Category_id { get; set; }
-        public Categories Categories { get; set; }
+        public Categories? Categories { get; set; }
         public int? Supplier_id { get; set; }
-        public Supplier Supplier { get; set; }
+        public Supplier? Supplier { get; set; }
         public int? Shop_id { get; set; }
-        public Shops Shops { get; set; }
+        public Shops? Shops { get; set; }
         public int? Brand_id { get; set; }
-        public Brands Brands { get; set; }
+        public Brands? Brands { get; set; }
         public string? Product_link { get; set; }
         [Required(ErrorMessage = "SKU sản phẩm không được để trống.")]
         [MaxLength(120, ErrorMessage = "SKU sản phẩm không được vượt quá 20 ký tự.")]
@@ -31,8 +31,10 @@ namespace DATN_STMDT_THELIEMS.Models
         public byte? Status { get; set; }
         public DateTime? Created_at { get; set; }
         public DateTime? Updated_at { get; set; }
-        public ICollection<Product_variants> Product_Variants { get; set; }
-        public ICollection<Product_parts> Product_Parts { get; set; }
+        public ICollection<Product_variants>? Product_Variants { get; set; }
+        public ICollection<Product_parts>? Product_Parts { get; set; }
+		public ICollection<Product_attribute>? product_Attributes { get; set; }
+
 		public int TotalQuantity => Product_Variants?.Sum(v => v.Quantity) ?? 0;
 
 	}

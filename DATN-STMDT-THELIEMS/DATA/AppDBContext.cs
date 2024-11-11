@@ -32,6 +32,9 @@ namespace DATN_STMDT_THELIEMS.DATA
         public DbSet<Variant_values> VARIANT_VALUES { get; set; }
         public DbSet<Voucher> VOUCHERS { get; set; }
 
+		public DbSet<Attributes> ATTRIBUTE { get; set; }
+		public DbSet<Product_attribute> PRODUCT_ATTRIBUTE { get; set; }
+
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
             modelBuilder.Entity<Role_Permission>()
@@ -183,6 +186,21 @@ namespace DATN_STMDT_THELIEMS.DATA
 				.HasOne(p => p.Variant_Options)
 				.WithMany(b => b.Variant_values)
 				.HasForeignKey(p => p.Variant_option_id);
+
+			modelBuilder.Entity<Attributes>()
+				.HasOne(p => p.Category)
+				.WithMany(a => a.Attribute)
+				.HasForeignKey(p => p.Category_id);
+
+			modelBuilder.Entity<Product_attribute>()
+				.HasOne(p => p.Attribute)
+				.WithMany(a => a.product_Attributes)
+				.HasForeignKey(p => p.Attribute_id);
+
+			modelBuilder.Entity<Product_attribute>()
+				.HasOne(p => p.Products)
+				.WithMany(a => a.product_Attributes)
+				.HasForeignKey(p => p.Product_id);
 		}
 
 	}

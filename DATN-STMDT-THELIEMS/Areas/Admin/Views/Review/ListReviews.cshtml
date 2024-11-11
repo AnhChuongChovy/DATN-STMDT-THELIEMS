@@ -1,4 +1,5 @@
-﻿@model DATN_STMDT_THELIEMS.Models.Products // Use your actual namespace and model
+﻿@using DATN_STMDT_THELIEMS.Models
+
 <!DOCTYPE html>
 <html lang="en">
 <!--begin::Head-->
@@ -23,8 +24,8 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
 	<!--end::Fonts-->
 	<!--begin::Vendor Stylesheets(used for this page only)-->
-	<link href="~/shop/shop/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
-	<link href="~/shop/shop/assets/plugins/custom/vis-timeline/vis-timeline.bundle.css" rel="stylesheet" type="text/css" />
+	<link href="~/shop/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
+	<link href="~/shop/assets/plugins/custom/vis-timeline/vis-timeline.bundle.css" rel="stylesheet" type="text/css" />
 	<!--end::Vendor Stylesheets-->
 	<!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
 	<link href="~/shop/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
@@ -1386,109 +1387,48 @@
 				<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
 					<!--begin::Container-->
 					<div class="container-xxl" id="kt_content_container">
-						<div class="product-detail">
-							<div class="container">
-								<form action="@Url.Action("DetailProduct", "Products", new { area = "Shop", id = Model.Id })" method="post" enctype="multipart/form-data">
-									<div class="row">
-										<div class="col-md-7">
-											<img id="productImage" src="~/@Model.Image" alt="@Model.Name" width="300px" height="300px" class="img-fluid" style="cursor: pointer;" onclick="document.getElementById('ImageInput').click();" />
-											<!-- Input file ẩn khi người dùng nhấp vào ảnh -->
-											<input type="file" id="ImageInput" name="imageFile" class="form-control" style="display: none;" accept="image/*" onchange="previewImage(event)" />
-											<div class="product-variants mt-5">
-												<h5>Phân loại:</h5>
-												<table class="table table-bordered">
-													<thead>
-														<tr>
-															<th>Hình ảnh</th>
-															<th>Tên phân loại</th>
-															<th>Số lượng</th>
-															<th>Giá</th>
-															<th>SKU</th>
-														</tr>
-													</thead>
-													<tbody>
-														@foreach (var variant in Model.Product_Variants)
-														{
-															<tr>
-																<td><img src="~/@variant.Image" width="80px" height="80px" class="img-fluid"></td>
-																<td>
-																	@foreach (var option in variant.Product_Variant_Options)
-																	{
-																		<div style="font-size: 12px;">
-																			<strong>@option.variant_values.Variant_Options.Name:</strong> @option.variant_values.Name
-																		</div>
-																	}
-																</td>
-																<td>@variant.Quantity</td>
-																<td>@variant.Price.ToString("N0")</td>
-																<td>@variant.Sku</td>
-															</tr>
-														}
-													</tbody>
-												</table>
-											</div>
-										</div>
-										<div class="col-md-5">
-											<h3>Thông tin sản phẩm</h3>
-											<div class="form-group">
-												<label for="Name">Tên sản phẩm:</label>
-												<input type="text" id="Name" name="Name" class="form-control" value="@Model.Name" />
-											</div>
-											<div class="form-group">
-												<label for="Category">Danh mục:</label>
-												<select id="Category" name="Category_id" class="form-control">
-													@foreach (var category in ViewBag.Categories)
-													{
-														<option value="@category.Id" @(category.Id == Model.Category_id ? "selected" : "")>@category.Name</option>
-													}
-												</select>
-											</div>
-											<div class="form-group">
-												<label for="Price">Giá:</label>
-												<input type="text" id="Price" name="Price" class="form-control" value="@Model.Price.ToString("N0")" />
-											</div>
-											<div class="form-group">
-												<label for="Sku">SKU:</label>
-												<input type="text" id="Sku" name="Sku" class="form-control" value="@Model.Sku" />
-											</div>
-											<div class="form-group">
-												<label for="ViewCount">Lượt xem:</label>
-												<input type="text" id="ViewCount" name="View_count" class="form-control" value="@Model.View_count" readonly />
-											</div>
-											<div class="form-group">
-												<label for="SoldCount">Số lượng bán:</label>
-												<input type="text" id="SoldCount" name="Sold_count" class="form-control" value="@Model.Sold_count" readonly />
-											</div>
-											<div class="form-group">
-												<label for="Status">Trạng thái bán hàng:</label>
-												<select id="Status" name="Status" class="form-control">
-													<option value="1" @(Model.Status == 1 ? "selected" : "")>Đang bán</option>
-													<option value="0" @(Model.Status == 0 ? "selected" : "")>Ẩn</option>
-												</select>
-											</div>
-											
-											
-												@foreach(var chitiet in Model.product_Attributes)
-												{
-													<div class="form-group">
-													<label for="@chitiet.Attribute.Id">@chitiet.Attribute.Name</label>
-														<input type="text" id="@chitiet.Id" value="@chitiet.Name" class="form-control" name="@chitiet.Name" />
-													</div>
-													 
-												}
-											<div class="form-group">
-												<label for="Description">Mô tả:</label>
-												<textarea id="Description" name="Description" class="form-control" style="height:200px">@Model.Description</textarea>
-											</div>
-											<div class="mt-2">
-												<button type="submit" class="btn btn-primary">Lưu thông tin</button>
-												<a class="btn btn-secondary" href="@Url.Action("IndexShop", "Products", new { area = "Shop" })">Quay về</a>
-											</div>
-										</div>
-									</div>
-								</form>
-							</div>
+						<div class="mt-4">
+							<table class="table table-bordered bg-white">
+    <thead>
+        <tr>
+            <th scope="col">User</th>
+			<th scope="col">Sản phẩm</th>
+            <th scope="col">Rating</th>
+            <th scope="col">Likes</th>
+            <th scope="col">Comment</th>
+            <th scope="col">Review Date</th>
+        </tr>
+    </thead>
+    <tbody>
+
+            @foreach (var review in @Model)
+            {
+                    <tr>
+                        <td>@review.User.Full_name</td>
+                        <td>@review.Order_details.Product_variants.Products.Name</td>
+                        
+                        <td>
+    @for (int i = 0; i < review.Rating; i++)
+    {
+				<span style="color:gold !important">&#9733;</span> <!-- Hiển thị sao đầy cho mỗi lượt thích -->
+    }
+    @for (int i = review.Rating; i < 5; i++)
+    {
+													<span style="color:lightgray !important">&#9734;</span> <!-- Hiển thị sao trống nếu Like_count < 5 -->
+    }
+</td>
+<td>@review.Like_count</td>
+                        <td>@review.Comment</td>
+                        <td>@review.Created_at.ToShortDateString()</td>
+                    </tr>
+            }
+
+    </tbody>
+</table>
 						</div>
+
+						
+
 					</div>
 
 					<!--end::Container-->
@@ -8467,12 +8407,12 @@
 	<!--begin::Javascript-->
 	<script>var hostUrl = "assets/";</script>
 	<!--begin::Global Javascript Bundle(mandatory for all pages)-->
-	<script src="assets/plugins/global/plugins.bundle.js"></script>
-	<script src="assets/js/scripts.bundle.js"></script>
+	<script src="~/shop/assets/plugins/global/plugins.bundle.js"></script>
+	<script src="~/shop/assets/js/scripts.bundle.js"></script>
 	<!--end::Global Javascript Bundle-->
 	<!--begin::Vendors Javascript(used for this page only)-->
-	<script src="assets/plugins/custom/datatables/datatables.bundle.js"></script>
-	<script src="assets/plugins/custom/vis-timeline/vis-timeline.bundle.js"></script>
+	<script src="~/shop/assets/plugins/custom/datatables/datatables.bundle.js"></script>
+	<script src="~/shop/assets/plugins/custom/vis-timeline/vis-timeline.bundle.js"></script>
 	<script src="https://cdn.amcharts.com/lib/5/index.js"></script>
 	<script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
 	<script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
@@ -8496,24 +8436,9 @@
 	<script src="~/shop/assets/js/custom/utilities/modals/create-project/main.js"></script>
 	<script src="~/shop/assets/js/custom/utilities/modals/users-search.js"></script>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="~/js/shopproduct.js"></script>
 	<!--end::Custom Javascript-->
 	<!--end::Javascript-->
-	<script>
-				function previewImage(event) {
-			const file = event.target.files[0];
-			const reader = new FileReader();
-
-			reader.onload = function (e) {
-				// Cập nhật hình ảnh khi người dùng chọn ảnh mới
-				document.getElementById('productImage').src = e.target.result;
-			}
-
-			// Đọc file ảnh
-			reader.readAsDataURL(file);
-		}
-	</script>
 </body>
 <!--end::Body-->
-
 </html>
-
