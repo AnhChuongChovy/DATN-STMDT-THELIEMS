@@ -10,13 +10,13 @@ namespace DATN_STMDT_THELIEMS.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IHomeService _homeService;
+        private readonly IProductService _productService;
 
-        public HomeController(ILogger<HomeController> logger, IHomeService homeService)
+        public HomeController(ILogger<HomeController> logger, IHomeService homeService, IProductService productService)
         {
             _logger = logger;
             _homeService = homeService;
-             
+            _productService = productService;
         }
 
         [HttpGet]
@@ -26,7 +26,35 @@ namespace DATN_STMDT_THELIEMS.Controllers
             var products = await _homeService.GetAllProducts();
             return View(products);
         }
-        public IActionResult ShopView()
+
+        public  IActionResult ShopView()
+        {
+            return View();
+        }
+
+        public IActionResult Register()
+        {
+            // Call the service to get the list of products
+            var products = await _homeService.GetAllProducts();
+            return View(products);
+        }
+
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        public IActionResult ShopCart()
+        {
+            return View();
+        }
+
+        public IActionResult UserInfo()
         {
             return View();
         }
@@ -35,13 +63,51 @@ namespace DATN_STMDT_THELIEMS.Controllers
         {
             return View();
         }
-        public IActionResult CategoryHomeView()
+
+        public async Task<IActionResult> Pay(int productId, int quantity, int price, string image, string color, string size)
         {
-            return View();
+            var product = await _productService.GetProductsByIdAsync(productId);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            var order = new Checkout
+            {
+                Product = product,
+                Quantity = quantity,
+                Price = price, 
+                Image = image, 
+                TotalPrice = price,
+                Color = color,
+                Size = size
+            };
+
+            return View(order);
         }
-        public IActionResult ProductDetails()
+
+        public async Task<IActionResult> ProductDetails(int id)
         {
-            return View();
+            var products = await _productService.GetProductsByIdAsync(id);
+
+            if (products == null)
+            {
+                return NotFound();
+            }
+
+            // L?y s?n ph?m t??ng t?
+            var similarProducts = await _productService.GetSimilarProductsAsync(id, products.Category_id.GetValueOrDefault());
+            ViewBag.SimilarProducts = similarProducts;
+
+            // L?y s?n ph?m ?ang gi?m giá
+            var discountedProducts = await _productService.GetDiscountedProductsAsync();
+            ViewBag.DiscountedProducts = discountedProducts;
+
+            // L?y s?n ph?m bán ch?y
+            var bestSellingProducts = await _productService.GetBestSellingProductsAsync();
+            ViewBag.BestSellingProducts = bestSellingProducts;
+
+            return View(products);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

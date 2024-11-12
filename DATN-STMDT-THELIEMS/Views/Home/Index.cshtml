@@ -165,11 +165,13 @@
             <div class="rounded" style="background: linear-gradient(#E9ECFE, #FFFFFF)">
                 <div class="row justify-content-center fw-bold">
                     <!-- First Category -->
-                    <div class="col-6 col-sm-4 col-md-2 pt-3">
-                        <div class="category-item">
-                            <img src="https://salt.tikicdn.com/ts/upload/2f/52/8e/00ab5fbea9d35fcc3cadbc28d7c6b14e.png" alt="Top Deal Icon" class="category-icon">
-                            <p class="category-name">TOP DEAL</p>
-                        </div>
+                    <div class="col pt-4">
+                        <div id="category-item">
+                            <a asp-action="CategoryHomeView" asp-controller="Home">
+                            <img src="https://salt.tikicdn.com/ts/upload/2f/52/8e/00ab5fbea9d35fcc3cadbc28d7c6b14e.png" alt="Top Deal Icon" id="category-icon">
+                            <p id="category-name">TOP DEAL</p>
+                            </a>
+                        </div>  
                     </div>
 
                     <!-- Second Category -->
@@ -266,6 +268,105 @@
                     @foreach (var obj in Model.Where(p => p.Status == 1).Take(5)) // Status: ẩn = 0,  hiện = 1
                     {
                         <div class="col">
+
+                          @*   <a href="@Url.Action("ProductDetails", "Home")" class="text-decoration-none"> *@
+
+                            <div class="card h-100" id="card_product">
+                                <!-- Discount Badge -->
+                                @if (obj.Percent_Decrease == null || obj.Percent_Decrease == 0)
+                                {
+                                  @*  Ẩn badge khi không có  *@
+                                }
+                                else
+                                {
+                                    <span class="badge text-bg-danger fs-6 position-absolute top-0 start-0 p-1 ms-1 mt-1">
+                                        -@obj.Percent_Decrease%
+                                    </span>
+                                }
+                                
+                                <img src="@(!string.IsNullOrEmpty(obj.Image) ? obj.Image : "path/to/default-image.jpg")" class="card-img-top mt-3" alt="Product">
+                                <div class="card-body d-flex flex-column justify-content-between pb-0">
+                                    <!-- Product Name -->
+                                    <p class="card-title fw-semibold overflow-visible">@obj.Name</p>
+                                    <!-- Rating and Price Section -->
+                                    <div class="mt-auto">
+                                        <p class="mb-1">5.0 <span class="text-warning">&#9733;&#9733;&#9733;&#9733;&#9733;</span> (@obj.Sold_count.GetValueOrDefault())</p>
+                                        <p class="price text-danger fs-5">@obj.Price.GetValueOrDefault().ToString("N0")₫ <span class="text-muted text-decoration-line-through fs-6">199.000₫</span></p>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                         @*    </a> *@
+                        </div>
+                    }
+                </div>
+            </div>
+
+
+            <!--Featured Brand, thương hiệu nổi bật -->
+            <div class="my-4 p-3 bg-light rounded-3">
+                <!-- Flash Sale Header -->
+                <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4">
+                    <div class="d-flex align-items-start align-items-md-center">
+                        <h2 class="fw-bold me-md-4">Thương Hiệu Nổi Bật</h2>
+                    </div>
+                    <!-- View All Link -->
+                    <a href="#" class="text-primary fw-bold mt-2 mt-md-0">Xem tất cả</a>
+                </div>
+
+
+                <div class="row">
+                    <div class="col">
+                        <div class="card h-100" id="Card_Featured_Brand">
+                            <img src="https://salt.tikicdn.com/ts/tikimsp/ac/1c/16/26049ff3c9dc472899e576b870470a52.png" class="card-img-top mt-3" alt="Featured_Brand">
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="card h-100" id="Card_Featured_Brand">
+                            <img src="https://salt.tikicdn.com/ts/tikimsp/ac/1c/16/26049ff3c9dc472899e576b870470a52.png" class="card-img-top mt-3" alt="Featured_Brand">
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="card h-100" id="Card_Featured_Brand">
+                            <img src="https://salt.tikicdn.com/ts/tikimsp/ac/1c/16/26049ff3c9dc472899e576b870470a52.png" class="card-img-top mt-3" alt="Featured_Brand">
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="card h-100" id="Card_Featured_Brand">
+                            <img src="https://salt.tikicdn.com/ts/tikimsp/ac/1c/16/26049ff3c9dc472899e576b870470a52.png" class="card-img-top mt-3" alt="Featured_Brand">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card h-100" id="Card_Featured_Brand">
+                            <img src="https://salt.tikicdn.com/ts/tikimsp/ac/1c/16/26049ff3c9dc472899e576b870470a52.png" class="card-img-top mt-3" alt="Featured_Brand">
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+            <!--Top search, top tìm kiếm-->
+            <div class="my-4 p-3 bg-light rounded-3">
+
+                <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4">
+                    <div class="d-flex align-items-start align-items-md-center">
+                        <h2 class="fw-bold me-md-4">Tìm kiếm hàng đầu</h2>
+                    </div>
+                    <a href="#" class="text-primary fw-bold mt-2 mt-md-0">Xem tất cả</a>
+                </div>
+
+                <!-- Product Cards Row -->
+                <div class="row">
+                    @foreach (var obj in Model.Where(p => p.Status == 1).Take(5)) // Status: ẩn = 0,  hiện = 1
+                    {
+                        <div class="col">
                             <div class="card h-100" id="card_product">
                                 <!-- Discount Badge -->
                                 <span class="badge text-bg-danger fs-6 position-absolute top-0 start-0 p-1 ms-1 mt-1">
@@ -276,9 +377,470 @@
                                     <!-- Product Name -->
                                     <p class="card-title fw-semibold overflow-visible">@obj.Name</p>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+                                    <!-- Rating and Price Section -->
+                                    <div class="mt-auto">
+                                        <p class="mb-1">5.0 <span class="text-warning">&#9733;&#9733;&#9733;&#9733;&#9733;</span> (@obj.Sold_count.GetValueOrDefault())</p>
+                                        <p class="price text-danger fs-5">@obj.Price.GetValueOrDefault().ToString("N0")₫ <span class="text-muted text-decoration-line-through fs-6">199.000₫</span></p>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+    <div class="container my-5">
+        <h2>Khám Phá Thêm</h2>
+        <!-- Menu Categories -->
+        <div class="category-menu d-flex justify-content-around mb-4">
+            <div class="category-item" onclick="showCategory('danh-cho-ban', this)">
+                <a href="javascript:void(0);">
+                    <img src="/images/icondanhchoban.webp" alt="Dành cho bạn">
+                    <p class="fs-5">Dành cho bạn</p>
+                </a>
+            </div>
+            <div class="category-item" onclick="showCategory('ban-chay', this)">
+                <a href="javascript:void(0);">
+                    <img src="/images/iconbanchay.webp" alt="Top Deal Bán Chạy">
+                    <p class="fs-5">Top Deal Bán Chạy</p>
+                </a>
+            </div>
+            <div class="category-item" onclick="showCategory('hot-trend', this)">
+                <a href="javascript:void(0);">
+                    <img src="/images/icontrend.png" alt="Sản Phẩm Hot Trend">
+                    <p class="fs-5">Sản Phẩm Hot Trend</p>
+                </a>
+            </div>
+            <div class="category-item" onclick="showCategory('giam-gia', this)">
+                <a href="javascript:void(0);">
+                    <img src="/images/iconsale.png" alt="Sản Phẩm Giảm Giá">
+                    <p class="fs-5">Sản Phẩm Giảm Giá</p>
+                </a>
+            </div>
+        </div>
+
+        <!-- Phần dành cho bạn -->
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-3 product-category" id="danh-cho-ban">
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/sptt1.webp" class="card-img-top" alt="Product 1">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/sptt2.webp" class="card-img-top" alt="Product 2">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/sptt3.webp" class="card-img-top" alt="Product 3">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/sptt4.webp" class="card-img-top" alt="Product 4">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/sptt5.webp" class="card-img-top" alt="Product 5">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/sptt6.webp" class="card-img-top" alt="Product 6">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/sptt7.webp" class="card-img-top" alt="Product 7">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/sptt8.webp" class="card-img-top" alt="Product 8">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/sptt9.webp" class="card-img-top" alt="Product 9">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/sptt10.webp" class="card-img-top" alt="Product 10">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phần top deal bán chạy-->
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-3 product-category d-none" id="ban-chay">
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/topdeal1.webp" class="card-img-top" alt="Product 1">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/topdeal2.webp" class="card-img-top" alt="Product 2">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/topdeal3.webp" class="card-img-top" alt="Product 3">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/topdeal4.webp" class="card-img-top" alt="Product 4">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/topdeal5.webp" class="card-img-top" alt="Product 5">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/topdeal6.webp" class="card-img-top" alt="Product 6">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/topdeal7.webp" class="card-img-top" alt="Product 7">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/topdeal8.webp" class="card-img-top" alt="Product 8">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/topdeal1.webp" class="card-img-top" alt="Product 9">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/topdeal2.webp" class="card-img-top" alt="Product 10">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phần sản phẩm hot trend -->
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-3 product-category d-none" id="hot-trend">
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/hottrend1.webp" class="card-img-top" alt="Product 1">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/hottrend2.webp" class="card-img-top" alt="Product 2">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/hottrend3.webp" class="card-img-top" alt="Product 3">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/hottrend4.webp" class="card-img-top" alt="Product 4">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/hottrend5.webp" class="card-img-top" alt="Product 5">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/hottrend6.webp" class="card-img-top" alt="Product 6">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/hottrend7.webp" class="card-img-top" alt="Product 7">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/hottrend8.webp" class="card-img-top" alt="Product 8">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/hottrend1.webp" class="card-img-top" alt="Product 9">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/hottrend2.webp" class="card-img-top" alt="Product 10">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Phần sản phẩm giảm giá -->
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-3 product-category d-none" id="giam-gia">
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/sale1.webp" class="card-img-top" alt="Product 1">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/sale2.webp" class="card-img-top" alt="Product 2">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/sale3.webp" class="card-img-top" alt="Product 3">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/sale4.webp" class="card-img-top" alt="Product 4">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/sptt5.webp" class="card-img-top" alt="Product 5">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/sale6.webp" class="card-img-top" alt="Product 6">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/sale7.webp" class="card-img-top" alt="Product 7">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/sale8.webp" class="card-img-top" alt="Product 8">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/sale1.webp" class="card-img-top" alt="Product 9">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="/images/sale2.webp" class="card-img-top" alt="Product 10">
+                    <div class="card-body text-center">
+                        <p class="similar-product-name">Áo Sơ Mi Nam</p>
+                        <p class="similar-product-price">129.000₫</p>
+                        <p class="original-price">199.000₫</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <style>
 

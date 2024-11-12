@@ -1,5 +1,5 @@
 ﻿using DATN_STMDT_THELIEMS.DATA;
-using DATN_STMDT_THELIEMS.Service;
+
 using DATN_STMDT_THELIEMS.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,6 +9,11 @@ using Microsoft.EntityFrameworkCore;
  
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Add Service
+builder.Services.AddScoped<IHomeService, HomeService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

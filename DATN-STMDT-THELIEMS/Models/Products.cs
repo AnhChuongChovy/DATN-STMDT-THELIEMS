@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DATN_STMDT_THELIEMS.Models
 {
-	public class Products
-	{
-		public int Id { get; set; }
+    public class Products
+    {
+        public int Id { get; set; }
         public int? Category_id { get; set; }
         public Categories? Categories { get; set; }
         public int? Supplier_id { get; set; }
@@ -31,11 +31,19 @@ namespace DATN_STMDT_THELIEMS.Models
         public byte? Status { get; set; }
         public DateTime? Created_at { get; set; }
         public DateTime? Updated_at { get; set; }
-        public ICollection<Product_variants>? Product_Variants { get; set; }
-        public ICollection<Product_parts>? Product_Parts { get; set; }
-		public ICollection<Product_attribute>? product_Attributes { get; set; }
-
-		public int TotalQuantity => Product_Variants?.Sum(v => v.Quantity) ?? 0;
-
+        public ICollection<Product_variants> Product_Variants { get; set; }
+        public ICollection<Product_parts> Product_Parts { get; set; }
+		
+        public decimal? DiscountedPrice
+        {
+            get
+            {
+                if (Price.HasValue && Percent_Decrease.HasValue)
+                {
+                    return Price.Value * (1 - Percent_Decrease.Value / 100m);
+                }
+                return null;
+            }
+        }   
 	}
 }
