@@ -1,11 +1,14 @@
 using DATN_STMDT_THELIEMS.DATA;
+
 using DATN_STMDT_THELIEMS.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add Service
+builder.Services.AddScoped<IHomeService, HomeService>();
 builder.Services.AddScoped<IProductService, ProductService>();
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

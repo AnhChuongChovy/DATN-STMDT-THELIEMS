@@ -8,7 +8,7 @@ namespace DATN_STMDT_THELIEMS.Services
     {
         private readonly AppDBContext _context;
 
-        public ProductService (AppDBContext context)
+        public ProductService(AppDBContext context)
         {
             _context = context;
         }
@@ -25,7 +25,38 @@ namespace DATN_STMDT_THELIEMS.Services
                         .ThenInclude(i => i.Variant_Options)
                 .Include(p => p.Product_Parts)
                     .ThenInclude(pp => pp.Product_Part_Images)
+                .Include(p => p.product_Attributes)
+                    .ThenInclude(a => a.Attributes)
+                    .ThenInclude(a => a.Category)
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
+
+        public async Task<List<Products>> GetSimilarProductsAsync(int productId, int categoryId, int limit = 20)
+        {
+            return await _context.PRODUCTS
+                .Where(p => p.Id != productId && p.Category_id == categoryId)
+                .OrderBy(p => Guid.NewGuid())
+                .Take(limit)
+                .ToListAsync();
+        }
+
+        public async Task<List<Products>> GetDiscountedProductsAsync(int limit = 20)
+        {
+            return await _context.PRODUCTS
+                .Where(p => p.Percent_Decrease.HasValue && p.Percent_Decrease > 0)
+                .OrderByDescending(p => p.Percent_Decrease)
+                .Take(limit)
+                .ToListAsync();
+        }
+
+        public async Task<List<Products>> GetBestSellingProductsAsync(int limit = 20)
+        {
+            return await _context.PRODUCTS
+                .Where(p => p.Sold_count.HasValue)
+                .OrderByDescending(p => p.Sold_count)
+                .Take(limit)
+                .ToListAsync();
+        }
+
     }
 }

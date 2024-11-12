@@ -1,6 +1,9 @@
-﻿@{
+﻿@model DATN_STMDT_THELIEMS.Models.Checkout
+
+@{
     Layout = null;
 }
+<html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trang Thanh Toán</title>
@@ -324,7 +327,6 @@
 </head>
 
 <body>
-
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
             <!-- Brand Logo with Image -->
@@ -355,59 +357,22 @@
             <!-- Shipping Method -->
             <div class="col-md-7">
                 <div class="card mb-3">
-                    <div class="card-header  fs-5">Chọn Phương Thức Giao Hàng</div>
+                    <div class="card-header  fs-5">Thông Tin Đơn Hàng</div>
                     <div class="card-body">
-                        <!-- Phương thức giao hàng -->
-                        <div class="d-flex align-items-center justify-content-between p-2 border rounded mb-3 shipping-method fs-5" style="width: 300px; height: 60px;">
-                                <input type="radio" name="shippingMethod" id="shippingMethod1" checked>
-                                <label for="shippingMethod1">Giao Tiết Kiệm</label>
-                                <span class="badge bg-danger text-white">-30K</span>
-                            </div>
-                        <div class="d-flex align-items-center justify-content-between p-2 border rounded mb-3 shipping-method fs-5" style="width: 300px; height: 60px;">
-                                <input type="radio" name="shippingMethod" id="shippingMethod2">
-                                <label for="shippingMethod2">Giao Siêu Tốc</label>
-                                <span class="badge bg-danger text-white">30K</span>
-                            </div>
-
-                        <div class="mb-3">
-                            <div class="d-flex align-items-center mt-1 me-3">
-                                <span class="me-2">Giao Tiết Kiệm</span>
-                                <span class="text-muted text-decoration-line-through me-2">32.500 ₫</span>
-                                <span class="text-danger">8.500 ₫</span>
-                            </div>
-                        </div>
-
-                        <!-- Thông tin người giao hàng -->
-                        <div class="d-flex align-items-center mb-2 border-bottom py-2">
-                            <img src="/images/iconship.png" alt="GHTK" width="50" height="30" class="me-2">
-                            <span>Được giao từ: GiaoHangTietKiem</span>
-                        </div>
-
                         <!-- Danh sách sản phẩm -->
                         <div class="d-flex align-items-center border-bottom py-2">
-                            <img src="/images/sale1.webp" alt="product1" class="img-thumbnail" style="width: 80px; height: 100px;">
+                            <img src="@Model.Product.Image" alt="product1" class="img-thumbnail" style="width: 120px; height: 120px;">
                             <div class="ms-3 d-flex flex-column w-100">
-                                <p class="fw-bold mb-1">Cà phê hạt Arabica Cầu Đất nguyên chất - 1kg</p>
-                                <p class="mb-1">Số lượng: 1</p>
+                                <p class="fw-bold mb-1">@Model.Product.Name</p>
+                                <p class="mb-1">Số lượng: @Model.Quantity</p>
                                 <div class="d-flex align-items-center">
-                                    <p class="text-muted text-decoration-line-through me-2 mb-0">32.500 ₫</p>
-                                    <p class="fw-bold text-danger mb-0">8.500 ₫</p>
+                                    Tổng tiền:
+                                    <p class="fw-bold text-danger mb-0 ms-1">@Model.TotalPrice.ToString("N0")₫</p>
                                 </div>
+                                <p class="mb-1">Màu sắc: @Model.Color</p>
+                                <p class="mb-1">Kích thước: @Model.Size</p>
                             </div>
                         </div>
-
-                        <div class="d-flex align-items-center border-bottom py-2">
-                            <img src="/images/sale2.webp" alt="product2" class="img-thumbnail" style="width: 80px; height: 100px;">
-                            <div class="ms-3 d-flex flex-column w-100">
-                                <p class="fw-bold mb-1">Nhà Giả Kim (Tái Bản 2020)</p>
-                                <p class="mb-1">Số lượng: 1</p>
-                                <div class="d-flex align-items-center">
-                                    <p class="text-muted text-decoration-line-through me-2 mb-0">179.000 ₫</p>
-                                    <p class="fw-bold text-danger mb-0">113.000 ₫</p>
-                                </div>
-                            </div>
-                        </div>
-
 
                         <!-- Mã khuyến mãi -->
                         <div class="d-flex align-items-center mt-3">
@@ -417,6 +382,29 @@
                     </div>
                 </div>
 
+                <!--Phương thức giao hàng-->
+                <div class="card mb-3">
+                    <div class="card-header  fs-5">Chọn Phương Thức Giao Hàng</div>
+                    <div class="card-body">
+                        <!-- Phương thức giao hàng -->
+                        <div class="d-flex align-items-center justify-content-between p-2 border rounded mb-3 shipping-method fs-5" style="width: 300px; height: 60px;">
+                            <input type="radio" name="shippingMethod" id="shippingMethod1" checked>
+                            <label for="shippingMethod1">Giao Tiết Kiệm</label>
+                            <span class="badge bg-danger text-white">-30K</span>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between p-2 border rounded mb-3 shipping-method fs-5" style="width: 300px; height: 60px;">
+                            <input type="radio" name="shippingMethod" id="shippingMethod2">
+                            <label for="shippingMethod2">Giao Siêu Tốc</label>
+                            <span class="badge bg-danger text-white">30K</span>
+                        </div>
+
+                        <!-- Thông tin người giao hàng -->
+                        <div class="d-flex align-items-center mb-2 border-bottom py-2">
+                            <img src="/images/iconship.png" alt="GHTK" width="50" height="35" class="me-2">
+                            <span>Được giao từ: GiaoHangTietKiem</span>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Payment Method -->
                 <div class="payment-card">
@@ -509,7 +497,7 @@
                     <div class="card-header fs-5">Đơn Hàng (2 sản phẩm) <span class="text-link float-end change-link" style="text-decoration: underline;">Thay đổi</span></div>
                     <div class="card-body">
                         <div class="summary-item">
-                            <span>Tạm tính</span>
+                            <span>Tổng tiền hàng</span>
                             <span>352.000 ₫</span>
                         </div>
                         <div class="summary-item">
@@ -530,8 +518,8 @@
                         </div>
                         <hr>
                         <div class="summary-item">
-                            <strong class="fs-4">Tổng Tiền</strong>
-                            <strong class="fs-4">113.000 ₫</strong>
+                            <strong class="fs-5">Tổng Tiền Thanh Toán</strong>
+                            <strong class="fs-5">113.000 ₫</strong>
                         </div>
                         <p class="text-muted">(Đã bao gồm VAT nếu có)</p>
                         <button class="btn btn-danger btn-buy me-2">Thanh Toán (2)</button>

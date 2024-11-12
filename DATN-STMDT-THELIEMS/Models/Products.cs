@@ -1,9 +1,9 @@
 ﻿
 namespace DATN_STMDT_THELIEMS.Models
 {
-	public class Products
-	{
-		public int Id { get; set; }
+    public class Products
+    {
+        public int Id { get; set; }
         public int? Category_id { get; set; }
         public Categories Categories { get; set; }
         public int? Supplier_id { get; set; }
@@ -15,8 +15,8 @@ namespace DATN_STMDT_THELIEMS.Models
         public string? Product_link { get; set; }
         public string? Sku { get; set; }
         public string? Name { get; set; }
-		public string? Image { get; set; }
-		public int? Price { get; set; }
+        public string? Image { get; set; }
+        public int? Price { get; set; }
         public int? Percent_Decrease { get; set; }
         public string? Description { get; set; }
         public int? View_count { get; set; }
@@ -28,7 +28,8 @@ namespace DATN_STMDT_THELIEMS.Models
         public DateTime? Updated_at { get; set; }
         public ICollection<Product_variants> Product_Variants { get; set; }
         public ICollection<Product_parts> Product_Parts { get; set; }
-		
+        public ICollection<Product_attribute> product_Attributes { get; set; }
+
         public decimal? DiscountedPrice
         {
             get
@@ -39,6 +40,6 @@ namespace DATN_STMDT_THELIEMS.Models
                 }
                 return null;
             }
-        }   
-	}
+        }
+    }
 }

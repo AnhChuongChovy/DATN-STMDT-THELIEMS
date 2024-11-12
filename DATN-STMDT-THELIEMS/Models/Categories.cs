@@ -14,6 +14,7 @@
         public DateTime Created_at { get; set; }
         public DateTime Updated_at { get; set; }
         public ICollection<Products> Products { get; set; }
+        public ICollection<Attributes> Attribute { get; set; }
 
     }
 }
